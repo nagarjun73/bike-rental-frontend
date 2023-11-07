@@ -1,9 +1,19 @@
 const initialLocation = {
-  locations: []
+  locationList: [],
+  locationErrors: {}
 }
 
 const locationReducer = (state = initialLocation, action) => {
   switch (action.type) {
+    case "UPDATE_LOCATION": {
+      console.log(action.payload)
+      return { ...state, locationList: [...action.payload] }
+    }
+
+    case "SET_LOCATION_ERRORS": {
+      return { ...state, locationErrors: { ...state.locationErrors, fetchError: action.payload } }
+    }
+
     default: {
       return { ...state }
     }

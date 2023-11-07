@@ -3,11 +3,23 @@ import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { Box, FormControl, InputLabel, Select, MenuItem, OutlinedInput, Button, Stack } from '@mui/material/'
+import { useSelector, useDispatch } from 'react-redux'
+import { startGetLocation } from '../actions/locationAction'
 
 export default function Home(props) {
   const [location, setLocation] = useState('')
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
+
+  const locations = useSelector((state) => {
+    return state.location.locationList
+  })
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(startGetLocation())
+  }, [])
 
   const handleSearch = (e) => {
     e.preventDefault()
@@ -30,12 +42,12 @@ export default function Home(props) {
               onChange={(e) => setLocation(e.target.value)}
               input={<OutlinedInput label="Name" />}
             >
-              {['city1', 'city2', 'city3'].map((name) => (
+              {locations.map((ele) => (
                 <MenuItem
-                  key={name}
-                  value={name}
+                  key={ele._id}
+                  value={ele.name}
                 >
-                  {name}
+                  {ele.name}
                 </MenuItem>
               ))}
             </Select>

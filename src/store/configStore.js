@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 
 const configStore = () => {
   const store = createStore(combineReducers({
-    locations: locationReducer
+    location: locationReducer
   }), applyMiddleware(thunk))
   return store
 }
