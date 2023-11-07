@@ -1,54 +1,70 @@
-
+import { useState, useEffect } from 'react'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { Box, FormControl, InputLabel, Select, MenuItem, OutlinedInput, Button } from '@mui/material/'
+import { Box, FormControl, InputLabel, Select, MenuItem, OutlinedInput, Button, Stack } from '@mui/material/'
 
 export default function Home(props) {
+  const [location, setLocation] = useState('')
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    console.log(location, startDate, endDate)
+  }
+
   return (
-    <div>
-      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: 'center', height: '80vh', alignItems: 'center', }}>
+    <div style={{
+      backgroundImage: `url("https://bikerentals6.s3.ap-south-1.amazonaws.com/frontend/undraw_traveling_yhxq.svg")`, backgroundPosition: 'bottom',
+      backgroundRepeat: 'no-repeat',
+    }}>
 
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-name-label">City</InputLabel>
-          <Select
-            sx={{ backgroundColor: 'white' }}
-            // labelId="demo-multiple-name-label"
-            // id="demo-multiple-name"
-            // multiple
-            // value={personName}
-            // onChange={handleChange}
-            input={<OutlinedInput label="Name" />}
-          // MenuProps={MenuProps}
-          >
-            {['city1', 'city2', 'city3'].map((name) => (
-              <MenuItem
-                key={name}
-                value={name}
-              // style={getStyles(name, personName, theme)}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+      <form onSubmit={handleSearch} >
+        <Stack direction="row" spacing={2} alignItems='center' justifyContent='center' sx={{ height: '80vh' }}>
+          <FormControl sx={{ width: 300 }}>
+            <InputLabel id="demo-multiple-name-label">City</InputLabel>
+            <Select
+              sx={{ backgroundColor: 'white' }}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              input={<OutlinedInput label="Name" />}
+            >
+              {['city1', 'city2', 'city3'].map((name) => (
+                <MenuItem
+                  key={name}
+                  value={name}
+                >
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-        <Box>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DemoContainer components={['DateTimePicker']}>
-              <DateTimePicker label="Pick trip start date" sx={{ backgroundColor: 'white' }} />
+              <DateTimePicker
+                value={startDate}
+                onChange={(value) => setStartDate(value)}
+                label="Pick trip start date"
+                sx={{ backgroundColor: 'white' }}
+                disablePast />
             </DemoContainer>
           </LocalizationProvider>
-        </Box>
-        <Box>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DemoContainer components={['DateTimePicker']}>
-              <DateTimePicker label="Pick trip end date" sx={{ backgroundColor: 'white' }} />
+              <DateTimePicker
+                value={endDate}
+                onChange={(value) => setEndDate(value)}
+                label="Pick trip end date"
+                sx={{ backgroundColor: 'white' }}
+                disablePast
+              />
             </DemoContainer>
           </LocalizationProvider>
-        </Box>
-        <Button variant="contained">Search</Button>
-      </Box>
-    </div>
+          <Button type="submit" variant="contained" >Search</Button>
+        </Stack>
+      </form>
+    </div >
   )
 }
