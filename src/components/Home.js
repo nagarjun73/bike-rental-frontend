@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react'
+import { formatISO } from 'date-fns'
+import { useNavigate } from 'react-router-dom'
+
+//Materialui
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { Box, FormControl, InputLabel, Select, MenuItem, OutlinedInput, Button, Stack } from '@mui/material/'
+import { FormControl, InputLabel, Select, MenuItem, OutlinedInput, Button, Stack } from '@mui/material/'
+
+//redux
 import { useSelector, useDispatch } from 'react-redux'
 import { startGetLocation } from '../actions/locationAction'
+import { startSubmitQuery } from '../actions/vehicleAction'
 
 export default function Home(props) {
   const [location, setLocation] = useState('')
@@ -15,6 +22,8 @@ export default function Home(props) {
     return state.location.locationList
   })
 
+  const navigate = useNavigate()
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -23,7 +32,15 @@ export default function Home(props) {
 
   const handleSearch = (e) => {
     e.preventDefault()
-    console.log(location, startDate, endDate)
+
+    const formData = {
+      tripStartDate: formatISO(startDate),
+      tripEndDate: formatISO(endDate),
+      location: location
+    }
+    // localStorage.setItem()
+    dispatch(startSubmitQuery(formData))
+    navigate('/SearchedResultContainer')
   }
 
   return (
@@ -45,7 +62,7 @@ export default function Home(props) {
               {locations.map((ele) => (
                 <MenuItem
                   key={ele._id}
-                  value={ele.name}
+                  value={ele._id}
                 >
                   {ele.name}
                 </MenuItem>
@@ -63,6 +80,7 @@ export default function Home(props) {
                 disablePast />
             </DemoContainer>
           </LocalizationProvider>
+
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DemoContainer components={['DateTimePicker']}>
               <DateTimePicker

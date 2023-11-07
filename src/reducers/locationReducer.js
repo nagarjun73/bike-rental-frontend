@@ -6,7 +6,6 @@ const initialLocation = {
 const locationReducer = (state = initialLocation, action) => {
   switch (action.type) {
     case "UPDATE_LOCATION": {
-      console.log(action.payload)
       return { ...state, locationList: [...action.payload] }
     }
 
