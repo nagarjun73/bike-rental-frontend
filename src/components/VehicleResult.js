@@ -7,24 +7,26 @@ export default function VehicleResult() {
     return state.vehicle.searchedVehicles
   })
   return (
-    <Box sx={{ maxWidth: "75vw" }} >
+    <Box sx={{ maxWidth: "80vw" }} >
       {searchedVehicles.length ?
-        <Grid container spacing={4}>
+        <Grid container spacing={1}>
           {searchedVehicles.map((ele) => {
-            return <Grid key={ele._id} item xs={3}>
-              <Card>
-                <CardContent>
+            return <Grid key={ele._id} item xs={6} sm={3}>
+              <Box p={2} >
+                <Card >
                   <CardMedia>
-                    <img src={ele.vehicleImage[0].url} alt={ele.model} style={{ height: '10vh', width: "20vw" }} />
+                    <img src={ele.vehicleImage[0].url} alt={ele.model} style={{ height: '20vh', width: "20vw" }} />
                   </CardMedia>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {ele.model}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small">Book</Button>
-                </CardActions>
-              </Card>
+                  <CardContent>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {ele.model}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small">Book</Button>
+                  </CardActions>
+                </Card>
+              </Box>
             </Grid>
           })
           }
@@ -34,6 +36,6 @@ export default function VehicleResult() {
           <CircularProgress />
         </Box>
       }
-    </Box>
+    </Box >
   )
 }

@@ -38,7 +38,7 @@ export default function Home(props) {
       tripEndDate: formatISO(endDate),
       location: location
     }
-    // localStorage.setItem()
+    localStorage.setItem("query", JSON.stringify(formData))
     dispatch(startSubmitQuery(formData))
     navigate('/SearchedResultContainer')
   }
