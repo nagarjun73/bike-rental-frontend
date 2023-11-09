@@ -1,9 +1,9 @@
-import VehicleResult from './VehicleResult'
+import VehiclesContainer from './VehiclesContainer'
 import { useEffect } from 'react'
 import { startSubmitQuery } from '../actions/vehicleAction'
 import { useDispatch } from 'react-redux'
 
-export default function SearchedResultContainer() {
+export default function QueryResult() {
   const dispatch = useDispatch()
   useEffect(() => {
     const formData = JSON.parse(localStorage.getItem('query'))
@@ -13,7 +13,7 @@ export default function SearchedResultContainer() {
   return (
     <div>
       <h1>Searched Result Container</h1>
-      <VehicleResult />
+      <VehiclesContainer />
     </div>
   )
 }

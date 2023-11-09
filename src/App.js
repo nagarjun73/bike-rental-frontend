@@ -7,7 +7,7 @@ import Navbar from './components/Navbar'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
-import SearchedResultContainer from './components/SearchedResultContainer'
+import QueryResult from './components/QueryResult'
 
 export default function App() {
   return (
@@ -19,7 +19,7 @@ export default function App() {
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path="/SearchedResultContainer" element={<SearchedResultContainer />} />
+        <Route path="/QueryResult" element={<QueryResult />} />
       </Routes>
     </BrowserRouter >
   )

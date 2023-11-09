@@ -40,13 +40,14 @@ export default function Home(props) {
     }
     localStorage.setItem("query", JSON.stringify(formData))
     dispatch(startSubmitQuery(formData))
-    navigate('/SearchedResultContainer')
+    navigate('/QueryResult')
   }
 
   return (
     <div style={{
       backgroundImage: `url("https://bikerentals6.s3.ap-south-1.amazonaws.com/frontend/undraw_traveling_yhxq.svg")`, backgroundPosition: 'bottom',
       backgroundRepeat: 'no-repeat',
+      backgroundColor: "#fff8e1"
     }}>
 
       <form onSubmit={handleSearch} >
