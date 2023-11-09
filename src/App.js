@@ -4,10 +4,11 @@ import About from './components/About'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
 import Navbar from './components/Navbar'
+import BookingDetails from './components/BookingPage/BookingDetails'
+import QueryResult from './components/ResultsPage/QueryResult'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
-import QueryResult from './components/QueryResult'
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path="/QueryResult" element={<QueryResult />} />
+        <Route path="/BookingDetails" element={<BookingDetails />} />
       </Routes>
     </BrowserRouter >
   )

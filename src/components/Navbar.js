@@ -7,7 +7,7 @@ export default function Navbar(props) {
   const navs = { home: '/', about: "/about", login: "/login", signup: '/signup' }
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#ffffff ' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#ffffff', height: "10vh" }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-around' }}>
         <Box>
           <Typography variant='h4' sx={{ color: '#363062', justifyContent: 'start' }}>BikeRentals</Typography>

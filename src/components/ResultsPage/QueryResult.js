@@ -1,6 +1,6 @@
 import VehiclesContainer from './VehiclesContainer'
 import { useEffect } from 'react'
-import { startSubmitQuery } from '../actions/vehicleAction'
+import { startSubmitQuery } from '../../actions/vehicleAction'
 import { useDispatch } from 'react-redux'
 
 export default function QueryResult() {
