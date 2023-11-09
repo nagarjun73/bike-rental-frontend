@@ -36,10 +36,10 @@ export default function Login(props) {
   const errors = {}
 
   const runValidations = () => {
-    if (emailNum === '') {
-      errors.emailNum = "Field should not empty"
+    if (emailNum.trim().length === 0) {
+      errors.emailNum = "Field should not be empty"
     }
-    if (password === '') {
+    if (password.trim().length === 0) {
       errors.password = "Field should not be empty"
     }
   }
@@ -49,16 +49,18 @@ export default function Login(props) {
     try {
       e.preventDefault()
 
-      //Manual Validation for practice
+      //Manual Validation
       //running validator funtion to check validaton
       runValidations()
 
       //check if error is empty
       if (Object.keys(errors).length === 0) {
+        setError({})
         const formData = {
           emailOrMobile: emailNum,
           password
         }
+
         console.log(formData)
         //api call for login
         const result = await axios.post('/api/users/login', formData)
@@ -74,12 +76,11 @@ export default function Login(props) {
           //else go to booking page
           navigate('/Home')
         }
-
       } else {
         setError(errors)
       }
     } catch (e) {
-      console.log(e.message)
+      console.log(e.response.data)
     }
   }
 
@@ -94,7 +95,7 @@ export default function Login(props) {
         <form style={{ width: "30vw" }} onSubmit={loginHandle}>
           <Stack spacing={2} >
             <TextField
-              label="Email/Number"
+              label="Email / Number"
               variant="outlined"
               value={emailNum}
               onChange={(e) => setEmailNum(e.target.value)}
