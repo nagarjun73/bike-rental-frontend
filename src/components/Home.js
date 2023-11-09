@@ -23,7 +23,6 @@ export default function Home(props) {
   })
 
   const navigate = useNavigate()
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -45,13 +44,18 @@ export default function Home(props) {
 
   return (
     <div style={{
-      backgroundImage: `url("https://bikerentals6.s3.ap-south-1.amazonaws.com/frontend/undraw_traveling_yhxq.svg")`, backgroundPosition: 'bottom',
+      backgroundImage: `url("https://bikerentals6.s3.ap-south-1.amazonaws.com/frontend/undraw_traveling_yhxq.svg")`,
+      backgroundPosition: 'bottom',
       backgroundRepeat: 'no-repeat',
-      backgroundColor: "#fff8e1"
     }}>
 
       <form onSubmit={handleSearch} >
-        <Stack direction="row" spacing={2} alignItems='center' justifyContent='center' sx={{ height: '80vh' }}>
+        <Stack
+          direction="row"
+          spacing={2}
+          alignItems='center'
+          justifyContent='center'
+          sx={{ height: '90vh' }}>
           <FormControl sx={{ width: 300 }}>
             <InputLabel id="demo-multiple-name-label">City</InputLabel>
             <Select
