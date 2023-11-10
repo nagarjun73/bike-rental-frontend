@@ -3,7 +3,9 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from '../../config/axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import validator from 'validator'
+
 
 //Styled CSS
 const BgImg = styled.div`
@@ -30,18 +32,30 @@ export default function Login(props) {
   const [password, setPassword] = useState('')
   const [clientError, setClientError] = useState({})
   const [serverError, setServerError] = useState({})
-  console.log(serverError)
 
   const errors = {}
 
   const navigate = useNavigate()
+  const location = useLocation()
+  //url history
+  const lastUrl = location ? location.state : ''
 
   const runValidations = () => {
     if (emailNum.trim().length === 0) {
       errors.emailNum = "Field should not be empty"
+    } else if (emailNum.includes('@')) {
+      if (!validator.isEmail(emailNum)) {
+        errors.emailNum = "Invalid Email"
+      }
+    } else {
+      if (!validator.isLength(emailNum, { min: 10, max: 10 })) {
+        errors.emailNum = "Invalid Email or phone number"
+      }
     }
     if (password.trim().length === 0) {
       errors.password = "Field should not be empty"
+    } else if (!validator.isStrongPassword(password)) {
+      errors.password = "Invalid Password"
     }
   }
 
@@ -56,6 +70,7 @@ export default function Login(props) {
       //check if error is empty
       if (Object.keys(errors).length === 0) {
         setClientError({})
+        setServerError({})
         const formData = {
           emailOrMobile: emailNum,
           password
@@ -65,15 +80,14 @@ export default function Login(props) {
         const result = await axios.post('/api/users/login', formData)
 
         //saving user token to local storage
-        localStorage.setItem('token', result.token)
+        localStorage.setItem('token', result.data.token)
 
         //if user came from booking page his query is saved in local storage
-        const tokenPresent = localStorage.getItem('token')
-        if (tokenPresent) {
+        if (lastUrl) {
           navigate('/BookingDetails')
         } else {
           //else go to booking page
-          navigate('/Home')
+          navigate('/')
         }
       } else {
         setClientError(errors)
@@ -91,8 +105,14 @@ export default function Login(props) {
         <Typography variant='h4' paddingBottom="30px">
           Login to your Account
         </Typography>
+        {/*server error handler*/}
         <form style={{ width: "30vw" }} onSubmit={loginHandle}>
           <Stack spacing={2} >
+            {serverError.errors &&
+              <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px' }}>
+                <AlertTitle>Error</AlertTitle>
+                {serverError.errors}
+              </Alert>}
             <TextField
               label="Email / Number"
               variant="outlined"
@@ -117,12 +137,6 @@ export default function Login(props) {
             </Linked>
 
             <Button type="submit" variant="contained">Login</Button>
-            {/*server error handler*/}
-            {serverError.errors &&
-              <Alert severity="error" style={{ position: 'sticky' }}>
-                <AlertTitle>Error</AlertTitle>
-                {serverError.errors}
-              </Alert>}
           </Stack>
         </form>
       </Box >

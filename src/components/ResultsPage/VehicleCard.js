@@ -16,7 +16,7 @@ const VehicleCard = (props) => {
       navigate('/BookingDetails')
     } else {
       //token not present so navigating to Login page
-      navigate('/Login')
+      navigate('/Login', { state: "/QueryResult" })
     }
   }
 
