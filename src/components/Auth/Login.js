@@ -1,4 +1,4 @@
-import { Typography, Button, Stack, FormHelperText, Box, TextField } from '@mui/material'
+import { Typography, Button, Stack, FormHelperText, Box, TextField, AlertTitle, Alert } from '@mui/material'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
@@ -28,12 +28,13 @@ const BoxSX = {
 export default function Login(props) {
   const [emailNum, setEmailNum] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState({})
-  console.log(error)
-
-  const navigate = useNavigate()
+  const [clientError, setClientError] = useState({})
+  const [serverError, setServerError] = useState({})
+  console.log(serverError)
 
   const errors = {}
+
+  const navigate = useNavigate()
 
   const runValidations = () => {
     if (emailNum.trim().length === 0) {
@@ -43,7 +44,6 @@ export default function Login(props) {
       errors.password = "Field should not be empty"
     }
   }
-
 
   const loginHandle = async (e) => {
     try {
@@ -55,13 +55,12 @@ export default function Login(props) {
 
       //check if error is empty
       if (Object.keys(errors).length === 0) {
-        setError({})
+        setClientError({})
         const formData = {
           emailOrMobile: emailNum,
           password
         }
 
-        console.log(formData)
         //api call for login
         const result = await axios.post('/api/users/login', formData)
 
@@ -77,16 +76,16 @@ export default function Login(props) {
           navigate('/Home')
         }
       } else {
-        setError(errors)
+        setClientError(errors)
       }
     } catch (e) {
-      console.log(e.response.data)
+      setServerError(e.response.data)
     }
   }
 
 
   return (
-    <BgImg>
+    <BgImg >
       <Box
         sx={BoxSX}>
         <Typography variant='h4' paddingBottom="30px">
@@ -100,7 +99,7 @@ export default function Login(props) {
               value={emailNum}
               onChange={(e) => setEmailNum(e.target.value)}
               sx={{ backgroundColor: "white" }} />
-            {error.emailNum && <FormHelperText error>{error.emailNum}</FormHelperText>}
+            {clientError.emailNum && <FormHelperText error>{clientError.emailNum}</FormHelperText>}
 
             <TextField
               label="Password"
@@ -109,7 +108,7 @@ export default function Login(props) {
               onChange={(e) => setPassword(e.target.value)}
               type='password'
               sx={{ backgroundColor: "white" }} />
-            {error.password && <FormHelperText error>{error.password}</FormHelperText>}
+            {clientError.password && <FormHelperText error>{clientError.password}</FormHelperText>}
 
             <Linked to="/signup">
               <Typography variant='h6' color="blue">
@@ -118,9 +117,14 @@ export default function Login(props) {
             </Linked>
 
             <Button type="submit" variant="contained">Login</Button>
+            {/*server error handler*/}
+            {serverError.errors &&
+              <Alert severity="error" style={{ position: 'sticky' }}>
+                <AlertTitle>Error</AlertTitle>
+                {serverError.errors}
+              </Alert>}
           </Stack>
         </form>
-
       </Box >
     </BgImg >
   )

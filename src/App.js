@@ -26,6 +26,8 @@ const reducer = (state, action) => {
 export default function App() {
   const initialState = {}
   const [user, userDispatch] = useReducer(reducer, initialState)
+  console.log(user)
+
   return (
     <UserContext.Provider value={{ user, userDispatch }}>
       <BrowserRouter>
