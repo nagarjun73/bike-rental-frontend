@@ -1,31 +1,10 @@
 import { Typography, Button, Stack, FormHelperText, Box, TextField, AlertTitle, Alert } from '@mui/material'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from '../../config/axios'
 import { useNavigate, useLocation } from 'react-router-dom'
 import validator from 'validator'
+import { BgImg, Linked, BoxSX } from './CSS-Styled'
 
-
-//Styled CSS
-const BgImg = styled.div`
-  background-image: url("https://bikerentals6.s3.ap-south-1.amazonaws.com/frontend/Login-image.svg");
-  background-position: 90% 50%;
-  background-repeat: no-repeat;
-`;
-
-const Linked = styled(Link)`
-  text-decoration: none;
-`;
-
-const BoxSX = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  height: '90vh',
-  alignItems: 'start',
-  paddingLeft: "15vw"
-}
 
 export default function Login(props) {
   const [emailNum, setEmailNum] = useState('')
@@ -117,6 +96,7 @@ export default function Login(props) {
               label="Email / Number"
               variant="outlined"
               value={emailNum}
+              type='text'
               onChange={(e) => setEmailNum(e.target.value)}
               sx={{ backgroundColor: "white" }} />
             {clientError.emailNum && <FormHelperText error>{clientError.emailNum}</FormHelperText>}
@@ -132,7 +112,7 @@ export default function Login(props) {
 
             <Linked to="/signup">
               <Typography variant='h6' color="blue">
-                Dont have account? create one
+                Dont have an account? Click here
               </Typography>
             </Linked>
 

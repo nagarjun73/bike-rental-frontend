@@ -45,7 +45,7 @@ export default function Home(props) {
   return (
     <div style={{
       backgroundImage: `url("https://bikerentals6.s3.ap-south-1.amazonaws.com/frontend/undraw_traveling_yhxq.svg")`,
-      backgroundPosition: 'bottom',
+      backgroundPosition: ' 50% 80%',
       backgroundRepeat: 'no-repeat',
     }}>
 
