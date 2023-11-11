@@ -55,6 +55,8 @@ export default function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path="/QueryResult" element={<QueryResult />} />
           <Route path="/BookingDetails" element={<BookingDetails />} />
+          <Route path="/verifyDocUser" element={<Profile />} />
+          <Route path="/verifyDocHost" element={<Profile />} />
         </Routes>
       </BrowserRouter >
     </UserContext.Provider>

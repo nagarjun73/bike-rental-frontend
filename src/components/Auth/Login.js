@@ -51,6 +51,7 @@ export default function Login(props) {
 
       //check if error is empty
       if (Object.keys(errors).length === 0) {
+        //Clearing errors
         setClientError({})
         setServerError({})
         const formData = {
@@ -61,33 +62,60 @@ export default function Login(props) {
         //api call for login
         const result = await axios.post('/api/users/login', formData)
 
+        //clear form
         setEmailNum('')
         setPassword('')
 
         //saving user token to local storage
         localStorage.setItem('token', result.data.token)
 
+        //getting user account information
         const response = await axios.get('/api/users/account', {
           headers: {
             Authorization: localStorage.getItem('token')
           }
         })
+        //User
+        const user = response.data
 
-        userDispatch({ type: "LOGIN_USER", payload: response.data })
+        //Checking if profile present
+        const profile = await axios.get("/api/users/profile", {
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        })
+        console.log(profile)
+        if (profile.isVerified) {
+          //if profile verified letting user to login
+          userDispatch({ type: "LOGIN_USER", payload: user })
 
-
-        //if user came from booking page his query is saved in local storage
-        if (lastUrl) {
-          navigate(lastUrl)
+          //After dispatching
+          //if user came from booking page redirect to booking
+          if (lastUrl) {
+            navigate(lastUrl)
+          } else {
+            //else go to Home
+            navigate('/')
+          }
         } else {
-          //else go to booking page
-          navigate('/')
+          //if not navigate to add documenent page
+          //Check wheath user is User or Host
+          if (user.role === "user") {
+            //redirecting to user doc add page with url
+            console.log('nav to userdoc')
+            navigate('/verifyDocUser', { state: lastUrl })
+          } else if (user.role === "host") {
+            //redirecting to host doc add page with url
+            navigate('/verifyDocHost', { state: lastUrl })
+          }
         }
+
       } else {
         setClientError(errors)
       }
     } catch (e) {
-      setServerError(e.response.data)
+      console.log(e)
+      // setServerError(e.response.data)
     }
   }
 
