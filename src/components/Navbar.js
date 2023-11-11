@@ -8,6 +8,8 @@ import { useContext } from 'react'
 export default function Navbar(props) {
   const { userState, userDispatch } = useContext(UserContext)
 
+  const token = localStorage.getItem("token")
+
   const handlelogout = () => {
     localStorage.removeItem('token')
     userDispatch({ type: "LOGOUT_USER" })

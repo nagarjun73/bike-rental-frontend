@@ -23,6 +23,7 @@ export default function App() {
     user: {}
   }
   const [userState, userDispatch] = useReducer(userReducer, initialState)
+  console.log(userState)
   const [serverError, setServerError] = useState({})
 
   useEffect(() => {

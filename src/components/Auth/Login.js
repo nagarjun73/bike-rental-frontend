@@ -13,7 +13,7 @@ export default function Login(props) {
   const [clientError, setClientError] = useState({})
   const [serverError, setServerError] = useState({})
 
-  const { userDispatch } = useContext(UserContext)
+  const { userState, userDispatch } = useContext(UserContext)
 
   const errors = {}
 
@@ -77,6 +77,7 @@ export default function Login(props) {
         })
         //User
         const user = response.data
+        console.log(user)
 
         //Checking if profile present
         const profile = await axios.get("/api/users/profile", {
@@ -84,11 +85,10 @@ export default function Login(props) {
             Authorization: localStorage.getItem('token')
           }
         })
-        console.log(profile)
-        if (profile.isVerified) {
+        console.log(profile.data.isVerified)
+        if (profile.data.isVerified) {
           //if profile verified letting user to login
           userDispatch({ type: "LOGIN_USER", payload: user })
-
           //After dispatching
           //if user came from booking page redirect to booking
           if (lastUrl) {
@@ -104,9 +104,11 @@ export default function Login(props) {
             //redirecting to user doc add page with url
             console.log('nav to userdoc')
             navigate('/verifyDocUser', { state: lastUrl })
+            userDispatch({ type: "LOGIN_USER", payload: user })
           } else if (user.role === "host") {
             //redirecting to host doc add page with url
             navigate('/verifyDocHost', { state: lastUrl })
+            userDispatch({ type: "LOGIN_USER", payload: user })
           }
         }
 
@@ -114,8 +116,7 @@ export default function Login(props) {
         setClientError(errors)
       }
     } catch (e) {
-      console.log(e)
-      // setServerError(e.response.data)
+      setServerError(e.response.data)
     }
   }
 
