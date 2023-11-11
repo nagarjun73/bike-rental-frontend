@@ -11,6 +11,7 @@ import * as Yup from 'yup'
 
 export default function Signup(props) {
   const [serverError, setServerError] = useState({})
+  console.log(serverError)
   const navigate = useNavigate()
 
   //Validation using Yup
@@ -81,13 +82,13 @@ export default function Signup(props) {
           Signup to your Account
         </Typography>
         {/*server error handler*/}
+        {serverError.errors &&
+          <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px', width: "40vw" }}>
+            <AlertTitle>Error</AlertTitle>
+            {serverError.errors}
+          </Alert>}
         <Box style={{ width: "80vw" }} component="form" onSubmit={formik.handleSubmit} noValidate >
           <Stack sx={{ flexDirection: "row" }} gap='5vw' sm={{ flexDirection: "column" }} >
-            {serverError.errors &&
-              <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px' }}>
-                <AlertTitle>Error</AlertTitle>
-                {serverError.errors}
-              </Alert>}
             <Stack spacing={2} width="20vw" >
               <TextField
                 label="Full Name"

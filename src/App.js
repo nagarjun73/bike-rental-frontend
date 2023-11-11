@@ -5,6 +5,7 @@ import Home from './components/Home'
 import About from './components/About'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
+import Profile from './components/Profile/Profile'
 import Navbar from './components/Navbar'
 import BookingDetails from './components/BookingPage/BookingDetails'
 import QueryResult from './components/ResultsPage/QueryResult'
@@ -51,6 +52,7 @@ export default function App() {
           <Route path='/about' element={<About />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path="/QueryResult" element={<QueryResult />} />
           <Route path="/BookingDetails" element={<BookingDetails />} />
         </Routes>

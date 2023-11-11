@@ -1,17 +1,21 @@
 import React from 'react'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box, Grid } from '@mui/material'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { UserContext } from '../../App'
+import { useContext } from 'react'
+import _ from 'lodash'
 
 const VehicleCard = (props) => {
   const { vehicle } = props
+  const { userState } = useContext(UserContext)
   const navigate = useNavigate()
   const location = useLocation()
 
   const bookingHandleFunction = () => {
-    //Checking token 
-    const token = localStorage.getItem('token')
-    if (token) {//token present
-      //make booking and show deatils
+    //Checking user 
+    const user = _.isEmpty(userState.user)
+    if (!user) {//user present
+      //checking user doc verified
 
       //navigate to booking details page for payment
       navigate('/BookingDetails')
