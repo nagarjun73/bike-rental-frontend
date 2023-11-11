@@ -1,9 +1,10 @@
 import { Typography, Button, Stack, FormHelperText, Box, TextField, AlertTitle, Alert } from '@mui/material'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from '../../config/axios'
 import { useNavigate, useLocation } from 'react-router-dom'
 import validator from 'validator'
 import { BgImg, Linked, BoxSX } from './CSS-Styled'
+import { UserContext } from '../../App'
 
 
 export default function Login(props) {
@@ -11,6 +12,8 @@ export default function Login(props) {
   const [password, setPassword] = useState('')
   const [clientError, setClientError] = useState({})
   const [serverError, setServerError] = useState({})
+
+  const { userDispatch } = useContext(UserContext)
 
   const errors = {}
 
@@ -58,12 +61,24 @@ export default function Login(props) {
         //api call for login
         const result = await axios.post('/api/users/login', formData)
 
+        setEmailNum('')
+        setPassword('')
+
         //saving user token to local storage
         localStorage.setItem('token', result.data.token)
 
+        const response = await axios.get('/api/users/account', {
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        })
+
+        userDispatch({ type: "LOGIN_USER", payload: response.data })
+
+
         //if user came from booking page his query is saved in local storage
         if (lastUrl) {
-          navigate('/BookingDetails')
+          navigate(lastUrl)
         } else {
           //else go to booking page
           navigate('/')

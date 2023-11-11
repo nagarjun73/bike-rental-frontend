@@ -56,10 +56,12 @@ export default function Signup(props) {
       const data = {
         name: formData.name,
         email: formData.email,
-        phoneNumber: formData.phoneNumber,
+        mobileNumber: formData.mobileNumber,
         role: formData.role,
         password: formData.password
       }
+
+      console.log(data)
       try {
         const response = await axios.post('/api/users/register', data)
         console.log(response)

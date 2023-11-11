@@ -1,5 +1,5 @@
-import { useReducer, createContext } from 'react'
-
+import { useReducer, createContext, useEffect, useState } from 'react'
+import axios from './config/axios'
 //Importing Components
 import Home from './components/Home'
 import About from './components/About'
@@ -12,24 +12,37 @@ import QueryResult from './components/ResultsPage/QueryResult'
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
 
-export const UserContext = createContext()
+import userReducer from './components/Contex&Reducer/userReducer'
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    default: {
-      return { ...state }
-    }
-  }
-}
+export const UserContext = createContext()
 
 
 export default function App() {
-  const initialState = {}
-  const [user, userDispatch] = useReducer(reducer, initialState)
-  console.log(user)
+  const initialState = {
+    user: {}
+  }
+  const [userState, userDispatch] = useReducer(userReducer, initialState)
+  const [serverError, setServerError] = useState({})
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      (async () => {
+        try {
+          const user = await axios.get('/api/users/account', {
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          })
+          userDispatch({ type: "LOGIN_USER", payload: user.data })
+        } catch (e) {
+          setServerError(e.response.data)
+        }
+      })()
+    }
+  }, [])
 
   return (
-    <UserContext.Provider value={{ user, userDispatch }}>
+    <UserContext.Provider value={{ userState, userDispatch }}>
       <BrowserRouter>
         <Navbar />
 

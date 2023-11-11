@@ -1,10 +1,11 @@
 import React from 'react'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box, Grid } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const VehicleCard = (props) => {
   const { vehicle } = props
   const navigate = useNavigate()
+  const location = useLocation()
 
   const bookingHandleFunction = () => {
     //Checking token 
@@ -16,7 +17,7 @@ const VehicleCard = (props) => {
       navigate('/BookingDetails')
     } else {
       //token not present so navigating to Login page
-      navigate('/Login', { state: "/QueryResult" })
+      navigate('/Login', { state: location.pathname })
     }
   }
 
