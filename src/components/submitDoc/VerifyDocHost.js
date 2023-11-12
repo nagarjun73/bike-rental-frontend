@@ -5,21 +5,15 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import axios from '../../config/axios';
 import _ from 'lodash'
 
-function VerifyDocUser() {
+function VerifyDocHost() {
   const [drivingLicence, setDrivingLicence] = useState([])
   const [documentId, setDocumentId] = useState([])
-  const [clientError, setClientError] = useState({})
   const [serverError, setServerError] = useState({})
-  const errors = {}
+
   const navigate = useNavigate()
 
-  const runValidations = () => {
-    if (drivingLicence.length === 0) {
-      errors.drivingLicence = "Upload your driving Licence"
-    }
-    if (documentId.length === 0) {
-      errors.documentId = "upload your ID"
-    }
+  const runValidation = () => {
+    // if (_.isEmpty(drivingLicence))
   }
 
   //for mui input
@@ -28,29 +22,22 @@ function VerifyDocUser() {
   //function handles uploading files
   const uploadDocumentsHandle = async (e) => {
     e.preventDefault()
+    runValidation()
     try {
-      runValidations()
-      if (Object.keys(errors).length === 0) {
-        setClientError({})
-        setServerError({})
-        const formData = new FormData()
-        //Loopong over files and appending one by one
-        Object.entries(drivingLicence).map(ele => formData.append('drivingLicence', ele[1]))
-        Object.entries(documentId).map(ele => formData.append('documentId', ele[1]))
+      const formData = new FormData()
+      //Loopong over files and appending one by one
+      Object.entries(drivingLicence).map(ele => formData.append('drivingLicence', ele[1]))
+      Object.entries(documentId).map(ele => formData.append('documentId', ele[1]))
 
-        const response = await axios.post('/api/users/add-doc', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: localStorage.getItem('token')
-          }
-        })
-        //redirecting success message
-        navigate('/DisplayMessage', { state: response.data.msg })
-      } else {
-        setClientError(errors)
-      }
+      const response = await axios.post('/api/users/add-doc', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: localStorage.getItem('token')
+        }
+      })
+      console.log(response);
+      navigate('/DisplayMessage', { state: response.data.msg })
     } catch (err) {
-      console.log(err)
       setServerError(err)
     }
   }
@@ -67,8 +54,25 @@ function VerifyDocUser() {
         <Stack spacing={2} >
           {_.size(serverError) ? (<Alert severity="error" style={{ position: 'sticky', marginBottom: '20px' }}>
             <AlertTitle>Error</AlertTitle>
-            {serverError.response.data.msg}
+            {serverError.msg}
           </Alert>) : ''}
+          <TextField
+            label="city"
+            variant="outlined"
+            // value={emailNum}
+            type='text'
+            // onChange={(e) => setEmailNum(e.target.value)}
+            sx={{ backgroundColor: "white" }} />
+          {/* {clientError.emailNum && <FormHelperText error>{clientError.emailNum}</FormHelperText>} */}
+
+          <TextField
+            label="address"
+            variant="outlined"
+            // value={password}
+            // onChange={(e) => setPassword(e.target.value)}
+            type='text'
+            sx={{ backgroundColor: "white" }} />
+          {/* {clientError.password && <FormHelperText   error>{clientError.password}</FormHelperText>} */}
 
           <Button
             component="label"
@@ -80,7 +84,6 @@ function VerifyDocUser() {
             <VisuallyHiddenInput type="file" multiple />
           </Button>
           <FormHelperText style={{ color: "#03AC13" }} >{_.size(drivingLicence) ? "Driving Licence uploaded" : ""}</FormHelperText>
-          {clientError.drivingLicence && <FormHelperText error>{clientError.drivingLicence}</FormHelperText>}
 
           <Button
             component="label"
@@ -92,7 +95,6 @@ function VerifyDocUser() {
             <VisuallyHiddenInput type="file" multiple />
           </Button>
           <FormHelperText style={{ color: "#03AC13" }} >{_.size(documentId) ? "ID uploaded" : ""}</FormHelperText>
-          {clientError.documentId && <FormHelperText error>{clientError.documentId}</FormHelperText>}
 
           <Button type="submit" variant="contained">Submit</Button>
         </Stack>
@@ -101,4 +103,4 @@ function VerifyDocUser() {
   )
 }
 
-export default VerifyDocUser
+export default VerifyDocHost

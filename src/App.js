@@ -10,6 +10,7 @@ import Navbar from './components/Navbar'
 import BookingDetails from './components/BookingPage/BookingDetails'
 import QueryResult from './components/ResultsPage/QueryResult'
 import VerifyDocUser from './components/submitDoc/VerifyDocUser'
+import VerifyDocHost from './components/submitDoc/VerifyDocHost'
 import DisplayMessage from './components/DisplayMessage'
 
 //importing router components
@@ -59,7 +60,7 @@ export default function App() {
           <Route path="/QueryResult" element={<QueryResult />} />
           <Route path="/BookingDetails" element={<BookingDetails />} />
           <Route path="/verifyDocUser" element={<VerifyDocUser />} />
-          <Route path="/verifyDocHost" element={<Profile />} />
+          <Route path="/verifyDocHost" element={<VerifyDocHost />} />
           <Route path="/DisplayMessage" element={<DisplayMessage />} />
 
         </Routes>
