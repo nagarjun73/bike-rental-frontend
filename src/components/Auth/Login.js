@@ -85,8 +85,8 @@ export default function Login(props) {
             Authorization: localStorage.getItem('token')
           }
         })
-        console.log(profile.data.isVerified)
-        if (profile.data.isVerified) {
+        const resProfile = profile.data
+        if (resProfile?.isVerified) {
           //if profile verified letting user to login
           userDispatch({ type: "LOGIN_USER", payload: user })
           //After dispatching
@@ -98,25 +98,32 @@ export default function Login(props) {
             navigate('/')
           }
         } else {
-          //if not navigate to add documenent page
-          //Check wheath user is User or Host
-          if (user.role === "user") {
-            //redirecting to user doc add page with url
-            console.log('nav to userdoc')
-            navigate('/verifyDocUser', { state: lastUrl })
-            userDispatch({ type: "LOGIN_USER", payload: user })
-          } else if (user.role === "host") {
-            //redirecting to host doc add page with url
-            navigate('/verifyDocHost', { state: lastUrl })
+          //check wheather profile has document  submitted
+          if (!resProfile.drivingLicence.length && !resProfile.documentId) {
+            //if not navigate to add documenent page
+            //Check wheath user is User or Host
+            if (user.role === "user") {
+              //redirecting to user doc add page with url
+              console.log('nav to userdoc')
+              navigate('/verifyDocUser', { state: lastUrl })
+              userDispatch({ type: "LOGIN_USER", payload: user })
+            } else if (user.role === "host") {
+              //redirecting to host doc add page with url
+              navigate('/verifyDocHost', { state: lastUrl })
+              userDispatch({ type: "LOGIN_USER", payload: user })
+            }
+          } else {
+            navigate('/DisplayMessage', { state: "Thank you for submitting your documents! We have received them successfully. Please be patient as we verify your documents. We appreciate your cooperation and will notify you once the verification process is complete" })
             userDispatch({ type: "LOGIN_USER", payload: user })
           }
-        }
 
+        }
       } else {
         setClientError(errors)
       }
-    } catch (e) {
-      setServerError(e.response.data)
+    } catch (err) {
+      console.log(err)
+      // setServerError(err.response.data)
     }
   }
 

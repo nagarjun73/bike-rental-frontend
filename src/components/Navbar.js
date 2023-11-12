@@ -1,6 +1,7 @@
 //importing Material UI
 import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material'
 import _ from 'lodash'
+import { jwtDecode } from 'jwt-decode'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../App'
 import { useContext } from 'react'
@@ -15,7 +16,7 @@ export default function Navbar(props) {
 
   const roleBasedNav = () => {
     const token = localStorage.getItem("token")
-    const role = userState.user.role
+    const { role } = jwtDecode(token)
 
     if (role === "user") {
       return (

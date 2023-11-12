@@ -9,6 +9,8 @@ import Profile from './components/Profile/Profile'
 import Navbar from './components/Navbar'
 import BookingDetails from './components/BookingPage/BookingDetails'
 import QueryResult from './components/ResultsPage/QueryResult'
+import VerifyDocUser from './components/submitDoc/VerifyDocUser'
+import DisplayMessage from './components/DisplayMessage'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
@@ -56,8 +58,10 @@ export default function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path="/QueryResult" element={<QueryResult />} />
           <Route path="/BookingDetails" element={<BookingDetails />} />
-          <Route path="/verifyDocUser" element={<Profile />} />
+          <Route path="/verifyDocUser" element={<VerifyDocUser />} />
           <Route path="/verifyDocHost" element={<Profile />} />
+          <Route path="/DisplayMessage" element={<DisplayMessage />} />
+
         </Routes>
       </BrowserRouter >
     </UserContext.Provider>
