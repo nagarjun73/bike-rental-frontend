@@ -5,13 +5,18 @@ import axios from '../../config/axios'
 import { FormControl, FormLabel, FormControlLabel, Radio, RadioGroup } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-//importing formik and yup
+
+//importing formik and yup and yup password
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import YupPassword from 'yup-password'
+YupPassword(Yup) // extend yup
 
 export default function Signup(props) {
   const [serverError, setServerError] = useState({})
   console.log(serverError)
+  //Server error conversion
+
   const navigate = useNavigate()
 
   //Validation using Yup
@@ -25,7 +30,8 @@ export default function Signup(props) {
       .email('Please enter valid Email '),
     mobileNumber: Yup
       .number()
-      .required('Mobile Number is required'),
+      .required('Mobile Number is required')
+      .min(10, "Mobile number should be 10 characters"),
     role: Yup
       .string()
       .required('Role is required')
@@ -40,6 +46,10 @@ export default function Signup(props) {
       .required('Confirm password is required')
       //taking refernce and value inside array is valid in that field
       .oneOf([Yup.ref('password'), null], 'Password must match')
+      .minLowercase(1, 'password must contain at least 1 lower case letter')
+      .minUppercase(1, 'password must contain at least 1 upper case letter')
+      .minNumbers(1, 'password must contain at least 1 number')
+      .minSymbols(1, 'password must contain at least 1 special character')
   })
 
   const formik = useFormik({
@@ -83,10 +93,15 @@ export default function Signup(props) {
         </Typography>
         {/*server error handler*/}
         {serverError.errors &&
-          <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px', width: "40vw" }}>
-            <AlertTitle>Error</AlertTitle>
-            {serverError.errors}
-          </Alert>}
+          serverError.errors.map((ele, i) => {
+            return (
+              <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px', width: "40vw" }}>
+                <AlertTitle>Server Error</AlertTitle>
+                {ele.msg}
+              </Alert>
+            )
+          })
+        }
         <Box style={{ width: "80vw" }} component="form" onSubmit={formik.handleSubmit} noValidate >
           <Stack sx={{ flexDirection: "row" }} gap='5vw' sm={{ flexDirection: "column" }} >
             <Stack spacing={2} width="20vw" >

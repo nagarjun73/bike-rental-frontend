@@ -11,8 +11,7 @@ export default function QueryResult() {
   }, [])
 
   return (
-    <div>
-      <h1>Searched Result Container</h1>
+    <div style={{ backgroundColor: "#fafafa" }}>
       <VehiclesContainer />
     </div>
   )

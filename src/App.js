@@ -16,6 +16,9 @@ import DisplayMessage from './components/DisplayMessage'
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
 
+import { useDispatch } from "react-redux"
+import { startGetLocation } from "./actions/locationAction"
+
 import userReducer from './components/Contex&Reducer/userReducer'
 
 export const UserContext = createContext()
@@ -28,6 +31,8 @@ export default function App() {
   const [userState, userDispatch] = useReducer(userReducer, initialState)
   console.log(userState)
   const [serverError, setServerError] = useState({})
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -44,6 +49,8 @@ export default function App() {
         }
       })()
     }
+
+    dispatch(startGetLocation())
   }, [])
 
   return (

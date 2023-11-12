@@ -104,7 +104,6 @@ export default function Login(props) {
             //Check wheath user is User or Host
             if (user.role === "user") {
               //redirecting to user doc add page with url
-              console.log('nav to userdoc')
               navigate('/verifyDocUser', { state: lastUrl })
               userDispatch({ type: "LOGIN_USER", payload: user })
             } else if (user.role === "host") {
@@ -113,7 +112,8 @@ export default function Login(props) {
               userDispatch({ type: "LOGIN_USER", payload: user })
             }
           } else {
-            navigate('/DisplayMessage', { state: "Thank you for submitting your documents! We have received them successfully. Please be patient as we verify your documents. We appreciate your cooperation and will notify you once the verification process is complete" })
+            //alrady submitted docs not verified
+            navigate('/DisplayMessage', { state: "Thank you for submitting your documents! We have received them successfully. Please be patient as we verify your documents." })
             userDispatch({ type: "LOGIN_USER", payload: user })
           }
         }
@@ -121,8 +121,7 @@ export default function Login(props) {
         setClientError(errors)
       }
     } catch (err) {
-      console.log(err)
-      // setServerError(err.response.data)
+      setServerError(err.response.data)
     }
   }
 

@@ -8,7 +8,8 @@ function BookingDetails() {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      height: "90vh"
+      height: "90vh",
+      backgroundColor: "#fafafa"
     }}>
       <Card sx={{ width: '50vw' }} >
         <CardContent sx={{

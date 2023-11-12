@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { UserContext } from '../../App'
 import { useContext } from 'react'
 import _ from 'lodash'
+import axios from '../../config/axios'
 
 const VehicleCard = (props) => {
   const { vehicle } = props
@@ -11,17 +12,45 @@ const VehicleCard = (props) => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const bookingHandleFunction = () => {
-    //Checking user 
-    const user = _.isEmpty(userState.user)
-    if (!user) {//user present
-      //checking user doc verified
+  const checkUserProfileVerified = async () => {
+    //TODO should save profile to state to check verification or api call and check
+    try {
+      const profile = await axios.get("/api/users/profile", {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      })
+      if (profile?.data.isVerified) {
+        return true
+      } else {
+        if (profile.data.drivingLicence?.length === 0 && profile.data.drivngLicence?.length === 0) {
+          navigate('/verifyDocUser')
+        } else {
+          navigate('/DisplayMessage', { state: "Your documents are under the verification process. You will be able to book after document verification. Please be patient." })
+        }
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
-      //navigate to booking details page for payment
-      navigate('/BookingDetails')
-    } else {
-      //token not present so navigating to Login page
-      navigate('/Login', { state: location.pathname })
+  const bookingHandleFunction = async () => {
+    try {
+      //Checking user 
+      const user = _.isEmpty(userState.user)
+      if (!user) {//user present
+        //checking user doc verified
+        const verifiedProfile = await checkUserProfileVerified(userState.user)
+        if (verifiedProfile) {
+          //navigate to booking details page for payment
+          navigate('/BookingDetails')
+        }
+      } else {
+        //token not present so navigating to Login page
+        navigate('/Login', { state: location.pathname })
+      }
+    } catch (e) {
+      console.log(e)
     }
   }
 
