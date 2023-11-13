@@ -88,7 +88,15 @@ export default function Login(props) {
         const resProfile = profile.data
         if (resProfile?.isVerified) {
           //if profile verified letting user to login
-          userDispatch({ type: "LOGIN_USER", payload: user })
+          const header = {
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }
+          const user = axios.get('/api/users/account', header)
+          const profile = axios.get('/api/users/profile', header)
+          const response = await Promise.all([user, profile])
+          userDispatch({ type: "LOGIN_USER", payload: response })
           //After dispatching
           //if user came from booking page redirect to booking
           if (lastUrl) {

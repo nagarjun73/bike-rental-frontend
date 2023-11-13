@@ -20,13 +20,14 @@ import { useDispatch } from "react-redux"
 import { startGetLocation } from "./actions/locationAction"
 
 import userReducer from './components/Contex&Reducer/userReducer'
-
+import { startSubmitQuery } from './actions/vehicleAction'
 export const UserContext = createContext()
 
 
 export default function App() {
   const initialState = {
-    user: {}
+    user: {},
+    profile: {}
   }
   const [userState, userDispatch] = useReducer(userReducer, initialState)
   console.log(userState)
@@ -38,12 +39,15 @@ export default function App() {
     if (localStorage.getItem('token')) {
       (async () => {
         try {
-          const user = await axios.get('/api/users/account', {
+          const header = {
             headers: {
               Authorization: localStorage.getItem('token')
             }
-          })
-          userDispatch({ type: "LOGIN_USER", payload: user.data })
+          }
+          const user = axios.get('/api/users/account', header)
+          const profile = axios.get('/api/users/profile', header)
+          const response = await Promise.all([user, profile])
+          userDispatch({ type: "LOGIN_USER", payload: response })
         } catch (e) {
           setServerError(e.response.data)
         }

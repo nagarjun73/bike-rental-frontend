@@ -10,7 +10,7 @@ const updateSearchedVehicles = (data) => {
 export const startSubmitQuery = (formdata) => {
   return async (dispatch) => {
     const result = await axios.post('/api/vehicles/query', formdata)
-    console.log(result);
+    console.log(result, "hiii");
     dispatch(updateSearchedVehicles(result.data))
   }
 }
