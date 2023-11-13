@@ -7,7 +7,7 @@ const addBooking = (data) => {
   }
 }
 
-export const startBookTrip = (data) => {
+export const startBookTrip = (data, navigate) => {
   return async (dispatch) => {
     try {
       const bookingRes = await axios.post('/api/trips/book', data, {
@@ -19,6 +19,7 @@ export const startBookTrip = (data) => {
       //saving to local storage
       localStorage.setItem('bookingId', bookingRes.data._id)
       dispatch(addBooking(bookingRes.data._id))
+      navigate(`/BookingDetails/${bookingRes.data._id}`)
     } catch (e) {
       console.log(e);
     }
@@ -35,17 +36,15 @@ const addBkgDetails = (tripDetail) => {
 export const startGetBkgInfo = (id) => {
   return async (dispatch) => {
     try {
-      console.log(id, "ID inside action bookin accessed")
-      //TODO API to get booking details
       const tripDetail = await axios.get(`/api/trips/${id}`, {
         headers: {
           Authorization: localStorage.getItem('token')
         }
       })
-      console.log(tripDetail, "action data api")
       dispatch(addBkgDetails(tripDetail))
     } catch (e) {
       console.log(e);
     }
   }
 }
+

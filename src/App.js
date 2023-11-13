@@ -12,6 +12,7 @@ import QueryResult from './components/ResultsPage/QueryResult'
 import VerifyDocUser from './components/submitDoc/VerifyDocUser'
 import VerifyDocHost from './components/submitDoc/VerifyDocHost'
 import DisplayMessage from './components/DisplayMessage'
+import PaymentSuccess from './components/Payment/PaymentSuccess'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
@@ -21,6 +22,7 @@ import { startGetLocation } from "./actions/locationAction"
 
 import userReducer from './components/Contex&Reducer/userReducer'
 import { startSubmitQuery } from './actions/vehicleAction'
+import PaymentCancel from './components/Payment/PaymentCancel'
 export const UserContext = createContext()
 
 
@@ -69,11 +71,12 @@ export default function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/profile' element={<Profile />} />
           <Route path="/QueryResult" element={<QueryResult />} />
-          <Route path="/BookingDetails" element={<BookingDetails />} />
+          <Route path="/BookingDetails/:id" element={<BookingDetails />} />
           <Route path="/verifyDocUser" element={<VerifyDocUser />} />
           <Route path="/verifyDocHost" element={<VerifyDocHost />} />
           <Route path="/DisplayMessage" element={<DisplayMessage />} />
-
+          <Route path="/success" element={<PaymentSuccess />} />
+          <Route path="/cancel" element={<PaymentCancel />} />
         </Routes>
       </BrowserRouter >
     </UserContext.Provider>
