@@ -1,37 +1,19 @@
 import { Typography, Button, Stack, FormHelperText, Box, TextField, AlertTitle, Alert } from '@mui/material'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from '../../config/axios'
 import { useNavigate, useLocation } from 'react-router-dom'
 import validator from 'validator'
+import { BgImg, Linked, BoxSX } from './CSS-Styled'
+import { UserContext } from '../../App'
 
-
-//Styled CSS
-const BgImg = styled.div`
-  background-image: url("https://bikerentals6.s3.ap-south-1.amazonaws.com/frontend/Login-image.svg");
-  background-position: 90% 50%;
-  background-repeat: no-repeat;
-`;
-
-const Linked = styled(Link)`
-  text-decoration: none;
-`;
-
-const BoxSX = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  height: '90vh',
-  alignItems: 'start',
-  paddingLeft: "15vw"
-}
 
 export default function Login(props) {
   const [emailNum, setEmailNum] = useState('')
   const [password, setPassword] = useState('')
   const [clientError, setClientError] = useState({})
   const [serverError, setServerError] = useState({})
+
+  const { userState, userDispatch } = useContext(UserContext)
 
   const errors = {}
 
@@ -69,6 +51,7 @@ export default function Login(props) {
 
       //check if error is empty
       if (Object.keys(errors).length === 0) {
+        //Clearing errors
         setClientError({})
         setServerError({})
         const formData = {
@@ -79,21 +62,74 @@ export default function Login(props) {
         //api call for login
         const result = await axios.post('/api/users/login', formData)
 
+        //clear form
+        setEmailNum('')
+        setPassword('')
+
         //saving user token to local storage
         localStorage.setItem('token', result.data.token)
 
-        //if user came from booking page his query is saved in local storage
-        if (lastUrl) {
-          navigate('/BookingDetails')
+        //getting user account information
+        const response = await axios.get('/api/users/account', {
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        })
+        //User
+        const user = response.data
+        console.log(user)
+
+        //Checking if profile present
+        const profile = await axios.get("/api/users/profile", {
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        })
+        const resProfile = profile.data
+        if (resProfile?.isVerified) {
+          //if profile verified letting user to login
+          const header = {
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }
+          const user = axios.get('/api/users/account', header)
+          const profile = axios.get('/api/users/profile', header)
+          const response = await Promise.all([user, profile])
+          userDispatch({ type: "LOGIN_USER", payload: response })
+          //After dispatching
+          //if user came from booking page redirect to booking
+          if (lastUrl) {
+            navigate(lastUrl)
+          } else {
+            //else go to Home
+            navigate('/')
+          }
         } else {
-          //else go to booking page
-          navigate('/')
+          //check wheather profile has document  submitted
+          if (!resProfile?.drivingLicence.length && !resProfile?.documentId.length) {
+            //if not navigate to add documenent page
+            //Check wheath user is User or Host
+            if (user.role === "user") {
+              //redirecting to user doc add page with url
+              navigate('/verifyDocUser', { state: lastUrl })
+              userDispatch({ type: "LOGIN_USER", payload: user })
+            } else if (user.role === "host") {
+              //redirecting to host doc add page with url
+              navigate('/verifyDocHost', { state: lastUrl })
+              userDispatch({ type: "LOGIN_USER", payload: user })
+            }
+          } else {
+            //alrady submitted docs not verified
+            navigate('/DisplayMessage', { state: "Thank you for submitting your documents! We have received them successfully. Please be patient as we verify your documents." })
+            userDispatch({ type: "LOGIN_USER", payload: user })
+          }
         }
       } else {
         setClientError(errors)
       }
-    } catch (e) {
-      setServerError(e.response.data)
+    } catch (err) {
+      setServerError(err.response.data)
     }
   }
 
@@ -117,6 +153,7 @@ export default function Login(props) {
               label="Email / Number"
               variant="outlined"
               value={emailNum}
+              type='text'
               onChange={(e) => setEmailNum(e.target.value)}
               sx={{ backgroundColor: "white" }} />
             {clientError.emailNum && <FormHelperText error>{clientError.emailNum}</FormHelperText>}
@@ -132,7 +169,7 @@ export default function Login(props) {
 
             <Linked to="/signup">
               <Typography variant='h6' color="blue">
-                Dont have account? create one
+                Dont have an account? Click here
               </Typography>
             </Linked>
 

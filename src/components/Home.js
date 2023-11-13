@@ -25,10 +25,6 @@ export default function Home(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(startGetLocation())
-  }, [])
-
   const handleSearch = (e) => {
     e.preventDefault()
 
@@ -45,8 +41,9 @@ export default function Home(props) {
   return (
     <div style={{
       backgroundImage: `url("https://bikerentals6.s3.ap-south-1.amazonaws.com/frontend/undraw_traveling_yhxq.svg")`,
-      backgroundPosition: 'bottom',
+      backgroundPosition: ' 50% 80%',
       backgroundRepeat: 'no-repeat',
+      backgroundColor: "#fafafa"
     }}>
 
       <form onSubmit={handleSearch} >

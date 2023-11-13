@@ -1,22 +1,82 @@
 import React from 'react'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box, Grid } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { UserContext } from '../../App'
+import { useContext } from 'react'
+import { useDispatch } from 'react-redux'
+import _ from 'lodash'
+import axios from '../../config/axios'
+import { startBookTrip } from '../../actions/bookingsAction'
 
 const VehicleCard = (props) => {
   const { vehicle } = props
+  const { userState } = useContext(UserContext)
   const navigate = useNavigate()
+  const location = useLocation()
+  const dispatch = useDispatch()
 
-  const bookingHandleFunction = () => {
-    //Checking token 
-    const token = localStorage.getItem('token')
-    if (token) {//token present
-      //make booking and show deatils
+  //fuction handles profile verification return true if verified
+  const checkUserProfileVerified = async () => {
+    //TODO should save profile to state to check verification or api call and check
+    try {
+      //api reqest to check profile details
+      const profile = await axios.get("/api/users/profile", {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      })
+      //if profile verified return true
+      if (profile?.data.isVerified) {
+        return true
+      } else {
+        //if not verified check if docs sbmitted or not
+        if (profile.data.drivingLicence?.length === 0 && profile.data.drivngLicence?.length === 0) {
+          //if not redirect to doc verify page
+          navigate('/verifyDocUser')
+        } else {
+          //if submitted redirect to message page to wait for verification
+          navigate('/DisplayMessage', { state: "Your documents are under the verification process. You will be able to book after document verification. Please be patient." })
+        }
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
-      //navigate to booking details page for payment
-      navigate('/BookingDetails')
-    } else {
-      //token not present so navigating to Login page
-      navigate('/Login', { state: "/QueryResult" })
+  const bookingHandleFunction = async (id) => {
+    console.log(id)
+    try {
+      //Checking user 
+      const user = _.isEmpty(userState.user)
+      if (!user) {//user present
+        //checking user doc verified
+        const verifiedProfile = await checkUserProfileVerified(userState.user)
+        if (verifiedProfile) {
+          //get vehicle by Id
+          const query = JSON.parse(localStorage.getItem('query'))
+          console.log(typeof query)
+
+          const bookData = {
+            vehicleId: vehicle._id,
+            hostId: vehicle.hostId,
+            tripStartDate: query.tripStartDate,
+            tripEndDate: query.tripEndDate
+          }
+          //calling dispatch to do api call and book a trip [redux]
+          console.log(bookData)
+          dispatch(startBookTrip(bookData))
+
+
+          //TODO should i send obj or not
+          //navigate to booking details page for payment
+          navigate('/BookingDetails')
+        }
+      } else {
+        //token not present so navigating to Login page
+        navigate('/Login', { state: location.pathname })
+      }
+    } catch (e) {
+      console.log(e)
     }
   }
 
@@ -44,7 +104,7 @@ const VehicleCard = (props) => {
               <Button
                 size="small"
                 variant='contained'
-                onClick={bookingHandleFunction}
+                onClick={() => bookingHandleFunction(vehicle._id)}
               >Book</Button>
             </CardActions>
           </Box>
