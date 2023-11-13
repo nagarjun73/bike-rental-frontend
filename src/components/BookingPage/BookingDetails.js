@@ -3,32 +3,42 @@ import { Card, CardActions, CardContent, Button, Typography, Box, CircularProgre
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { startGetBkgInfo } from '../../actions/bookingsAction'
+import { useParams, useNavigate } from 'react-router'
+import { startPayment } from '../../actions/paymentAction'
 
 function BookingDetails(props) {
-  const BookingId = useSelector((state) => {
-    return state.booking.bookingId
-  })
+  const params = useParams()
+  const bookingId = params.id
 
   const bookingDtls = useSelector((state) => {
     return state.booking.bookingDetails
   })
 
-  console.log(BookingId)
+  console.log(bookingDtls, "dtalmamfkan");
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     //check if booking details empty
-    if (!BookingId) {
+    if (!bookingId) {
       //get booking id from local storage
       const bkgId = localStorage.getItem('bookingId')
       dispatch(startGetBkgInfo(bkgId))
     } else {
       //getting booking details by sending id 
-      dispatch(startGetBkgInfo(BookingId))
+      dispatch(startGetBkgInfo(bookingId))
     }
 
   }, [])
+
+  const makePaymentHandle = () => {
+    const payData = {
+      tripId: bookingId,
+      amount: bookingDtls.trip.amount,
+    }
+    dispatch(startPayment(payData))
+  }
 
 
   return (
@@ -81,6 +91,7 @@ function BookingDetails(props) {
             <Button
               size="small"
               variant='contained'
+              onClick={makePaymentHandle}
             >Make Payment</Button>
           </CardActions>
         </Card>

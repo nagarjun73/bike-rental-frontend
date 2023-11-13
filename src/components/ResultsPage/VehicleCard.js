@@ -64,12 +64,7 @@ const VehicleCard = (props) => {
           }
           //calling dispatch to do api call and book a trip [redux]
           console.log(bookData)
-          dispatch(startBookTrip(bookData))
-
-
-          //TODO should i send obj or not
-          //navigate to booking details page for payment
-          navigate('/BookingDetails')
+          dispatch(startBookTrip(bookData, navigate))
         }
       } else {
         //token not present so navigating to Login page
