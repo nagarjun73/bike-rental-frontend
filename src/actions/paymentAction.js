@@ -1,23 +1,27 @@
 import axios from "../config/axios"
+import { addBkgDetails } from '../actions/bookingsAction'
 
 export const startPayment = (payData, navigate) => {
   return async (dispatch) => {
     try {
-      const payment = await axios.post('/api/payments', payData, {
+      const response = await axios.post('/api/payments', payData, {
         headers: {
           Authorization: localStorage.getItem('token')
         }
       })
+      //storing to local storage
+      localStorage.setItem('stripId', response.data.id)
 
-      localStorage.setItem('stripId', payment.data.id)
-      window.location = payment.data.url
+      //redirect to payment URL
+      window.location = response.data.url
     } catch (e) {
       console.log(e);
     }
   }
 }
 
-export const startUpdatePayment = (stripId) => {
+
+export const startUpdatePayment = (stripId, updatesResponse) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(`/api/payments/update/${stripId}`, {
@@ -26,7 +30,7 @@ export const startUpdatePayment = (stripId) => {
         }
       })
       localStorage.removeItem('stripId')
-      console.log(response);
+      updatesResponse(response.data);
     } catch (e) {
       console.log(e);
     }

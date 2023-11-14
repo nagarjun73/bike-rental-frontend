@@ -13,6 +13,7 @@ import VerifyDocUser from './components/submitDoc/VerifyDocUser'
 import VerifyDocHost from './components/submitDoc/VerifyDocHost'
 import DisplayMessage from './components/DisplayMessage'
 import PaymentSuccess from './components/Payment/PaymentSuccess'
+import Dashboard from './components/Dashboard/Dashboard'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
@@ -65,7 +66,7 @@ export default function App() {
         <Navbar />
 
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={userState.user.role === 'host' || userState.user.role === 'admin' ? <Dashboard /> : <Home />} />
           <Route path='/about' element={<About />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />

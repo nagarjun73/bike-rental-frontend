@@ -22,6 +22,9 @@ export default function Navbar(props) {
       return (
         <>
           <Button sx={{ color: '#fff' }}>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>home</Link>
+          </Button>
+          <Button sx={{ color: '#fff' }}>
             <Link style={{ textDecoration: "none", color: '#363062' }} to='/about'>my trips</Link>
           </Button>
           <Button sx={{ color: '#fff' }}>
@@ -35,7 +38,7 @@ export default function Navbar(props) {
     } else if (role === "host") {
       return (<>
         <Button sx={{ color: '#fff' }}>
-          <Link style={{ textDecoration: "none", color: '#363062' }} to='/about'>dashboard</Link>
+          <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>dashboard</Link>
         </Button>
         <Button sx={{ color: '#fff' }}>
           <Link style={{ textDecoration: "none", color: '#363062' }} to='/profile'>profile</Link>
@@ -47,7 +50,7 @@ export default function Navbar(props) {
     } else if (role === 'admin') {
       return (<>
         <Button sx={{ color: '#fff' }}>
-          <Link style={{ textDecoration: "none", color: '#363062' }} to='/about'>dashboard</Link>
+          <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>dashboard</Link>
         </Button>
         <Button sx={{ color: '#fff' }}>
           <Link style={{ textDecoration: "none", color: '#363062' }} to='/profile'>profile</Link>
@@ -65,12 +68,13 @@ export default function Navbar(props) {
         <Box>
           <Typography variant='h4' sx={{ color: '#363062', justifyContent: 'start' }}>BikeRentals</Typography>
         </Box>
+
         <Box sx={{ justifyContent: 'center' }}>
-          <Button sx={{ color: '#fff' }}>
-            <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>home</Link>
-          </Button>
           {_.isEmpty(userState.user) ?
             <>
+              <Button sx={{ color: '#fff' }}>
+                <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>home</Link>
+              </Button>
               <Button sx={{ color: '#fff' }}>
                 <Link style={{ textDecoration: "none", color: '#363062' }} to='/login'>login</Link>
               </Button>

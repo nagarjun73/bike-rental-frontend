@@ -52,9 +52,10 @@ export default function Home(props) {
           spacing={2}
           alignItems='center'
           justifyContent='center'
-          sx={{ height: '90vh' }}>
-          <FormControl sx={{ width: 300 }}>
-            <InputLabel id="demo-multiple-name-label">City</InputLabel>
+          sx={{ height: '90vh' }}
+        >
+          <FormControl sx={{ width: 300, paddingTop: "1vh", margin: "0px" }}>
+            <InputLabel sx={{ paddingTop: "1vh" }}>City</InputLabel>
             <Select
               sx={{ backgroundColor: 'white' }}
               value={location}
