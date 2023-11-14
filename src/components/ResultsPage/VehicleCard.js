@@ -44,7 +44,6 @@ const VehicleCard = (props) => {
   }
 
   const bookingHandleFunction = async (id) => {
-    console.log(id)
     try {
       //Checking user 
       const user = _.isEmpty(userState.user)
@@ -63,7 +62,6 @@ const VehicleCard = (props) => {
             tripEndDate: query.tripEndDate
           }
           //calling dispatch to do api call and book a trip [redux]
-          console.log(bookData)
           dispatch(startBookTrip(bookData, navigate))
         }
       } else {
