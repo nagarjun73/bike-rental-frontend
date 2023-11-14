@@ -19,7 +19,7 @@ export const startBookTrip = (data, navigate) => {
       //saving to local storage
       localStorage.setItem('bookingId', bookingRes.data._id)
       dispatch(addBooking(bookingRes.data._id))
-      navigate(`/BookingDetails/${bookingRes.data._id}`)
+      navigate(`/bookingdetails/${bookingRes.data._id}`)
     } catch (e) {
       console.log(e);
     }

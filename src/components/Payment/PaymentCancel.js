@@ -43,23 +43,6 @@ export default function PaymentCancel() {
             <Typography gutterBottom variant="h4" component="div" >
               Payment Failed
             </Typography>
-            {/* <Box> */}
-            {/* <Typography gutterBottom variant="h6" component="div">
-                  Trip Starts At : {new Date(bkgDetails.tripStartDate).toLocaleString()}
-                </Typography>
-                <Typography gutterBottom variant="h6" component="div">
-                  Trip Ends At : {new Date(bkgDetails.tripEndDate).toLocaleString()}
-                </Typography>
-                <Typography gutterBottom variant="h6" component="div">
-                  PaymentId : {bkgDetails.paymentId}
-                </Typography>
-                <Typography gutterBottom variant="h6" component="div">
-                  Amount Paid : {bkgDetails.amount}
-                </Typography>
-                <Typography gutterBottom variant="h6" component="div">
-                  Status : {bkgDetails.tripStatus}
-                </Typography>
-              </Box> */}
           </CardContent>
           <CardActions sx={{
             display: 'flex',

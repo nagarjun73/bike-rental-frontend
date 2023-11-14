@@ -2,7 +2,6 @@ import { useReducer, createContext, useEffect, useState } from 'react'
 import axios from './config/axios'
 //Importing Components
 import Home from './components/Home'
-import About from './components/About'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
 import Profile from './components/Profile/Profile'
@@ -14,6 +13,7 @@ import VerifyDocHost from './components/submitDoc/VerifyDocHost'
 import DisplayMessage from './components/DisplayMessage'
 import PaymentSuccess from './components/Payment/PaymentSuccess'
 import Dashboard from './components/Dashboard/Dashboard'
+import MyTripsContainer from './components/MyTrips/MyTripsContainer'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
@@ -21,8 +21,7 @@ import { BrowserRouter, Routes, Route, } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { startGetLocation } from "./actions/locationAction"
 
-import userReducer from './components/Contex&Reducer/userReducer'
-import { startSubmitQuery } from './actions/vehicleAction'
+import userReducer from './components/Context&Reducer/userReducer'
 import PaymentCancel from './components/Payment/PaymentCancel'
 export const UserContext = createContext()
 
@@ -30,7 +29,8 @@ export const UserContext = createContext()
 export default function App() {
   const initialState = {
     user: {},
-    profile: {}
+    profile: {},
+    myBookings: []
   }
   const [userState, userDispatch] = useReducer(userReducer, initialState)
   console.log(userState)
@@ -49,7 +49,8 @@ export default function App() {
           }
           const user = axios.get('/api/users/account', header)
           const profile = axios.get('/api/users/profile', header)
-          const response = await Promise.all([user, profile])
+          const myBookings = axios.get('/api/trips/list', header)
+          const response = await Promise.all([user, profile, myBookings])
           userDispatch({ type: "LOGIN_USER", payload: response })
         } catch (e) {
           setServerError(e.response.data)
@@ -67,15 +68,15 @@ export default function App() {
 
         <Routes>
           <Route path='/' element={userState.user.role === 'host' || userState.user.role === 'admin' ? <Dashboard /> : <Home />} />
-          <Route path='/about' element={<About />} />
+          <Route path='/mytrips' element={<MyTripsContainer />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path="/QueryResult" element={<QueryResult />} />
-          <Route path="/BookingDetails/:id" element={<BookingDetails />} />
+          <Route path="/queryresult" element={<QueryResult />} />
+          <Route path="/bookingdetails/:id" element={<BookingDetails />} />
           <Route path="/verifyDocUser" element={<VerifyDocUser />} />
           <Route path="/verifyDocHost" element={<VerifyDocHost />} />
-          <Route path="/DisplayMessage" element={<DisplayMessage />} />
+          <Route path="/displaymessage" element={<DisplayMessage />} />
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/cancel" element={<PaymentCancel />} />
         </Routes>

@@ -35,7 +35,7 @@ export default function Home(props) {
     }
     localStorage.setItem("query", JSON.stringify(formData))
     dispatch(startSubmitQuery(formData))
-    navigate('/QueryResult')
+    navigate('/queryresult')
   }
 
   return (

@@ -121,7 +121,7 @@ export default function Login(props) {
             }
           } else {
             //alrady submitted docs not verified
-            navigate('/DisplayMessage', { state: "Thank you for submitting your documents! We have received them successfully. Please be patient as we verify your documents." })
+            navigate('/displaymessage', { state: "Thank you for submitting your documents! We have received them successfully. Please be patient as we verify your documents." })
             userDispatch({ type: "LOGIN_USER", payload: user })
           }
         }

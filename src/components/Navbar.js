@@ -22,10 +22,10 @@ export default function Navbar(props) {
       return (
         <>
           <Button sx={{ color: '#fff' }}>
-            <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>home</Link>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>Book</Link>
           </Button>
           <Button sx={{ color: '#fff' }}>
-            <Link style={{ textDecoration: "none", color: '#363062' }} to='/about'>my trips</Link>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/mytrips'>my trips</Link>
           </Button>
           <Button sx={{ color: '#fff' }}>
             <Link style={{ textDecoration: "none", color: '#363062' }} to='/profile'>profile</Link>
@@ -73,7 +73,7 @@ export default function Navbar(props) {
           {_.isEmpty(userState.user) ?
             <>
               <Button sx={{ color: '#fff' }}>
-                <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>home</Link>
+                <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>Book</Link>
               </Button>
               <Button sx={{ color: '#fff' }}>
                 <Link style={{ textDecoration: "none", color: '#363062' }} to='/login'>login</Link>

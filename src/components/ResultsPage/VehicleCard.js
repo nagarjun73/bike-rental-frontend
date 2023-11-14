@@ -35,7 +35,7 @@ const VehicleCard = (props) => {
           navigate('/verifyDocUser')
         } else {
           //if submitted redirect to message page to wait for verification
-          navigate('/DisplayMessage', { state: "Your documents are under the verification process. You will be able to book after document verification. Please be patient." })
+          navigate('/displaymessage', { state: "Your documents are under the verification process. You will be able to book after document verification. Please be patient." })
         }
       }
     } catch (e) {

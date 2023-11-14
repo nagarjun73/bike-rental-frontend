@@ -64,7 +64,7 @@ function VerifyDocHost() {
       })
       // TODO:FIX THIS 
       console.log(response);
-      navigate('/DisplayMessage', { state: response.data.msg })
+      navigate('/displaymessage', { state: response.data.msg })
     } catch (err) {
       console.log(err)
       setServerError(err)

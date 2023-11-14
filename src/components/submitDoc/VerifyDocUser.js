@@ -45,7 +45,7 @@ function VerifyDocUser() {
           }
         })
         //redirecting success message
-        navigate('/DisplayMessage', { state: response.data.msg })
+        navigate('/displaymessage', { state: response.data.msg })
       } else {
         setClientError(errors)
       }
