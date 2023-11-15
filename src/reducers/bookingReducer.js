@@ -1,6 +1,7 @@
 const intialBookingState = {
   bookingId: '',
-  bookingDetails: {}
+  bookingDetails: {},
+  isLoading: false
 }
 
 const bookingReducer = (state = intialBookingState, action) => {

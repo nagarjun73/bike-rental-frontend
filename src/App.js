@@ -23,6 +23,7 @@ import { startGetLocation } from "./actions/locationAction"
 
 import userReducer from './components/Context&Reducer/userReducer'
 import PaymentCancel from './components/Payment/PaymentCancel'
+import TripDetail from './components/MyTrips/TripDetail'
 export const UserContext = createContext()
 
 
@@ -79,6 +80,8 @@ export default function App() {
           <Route path="/displaymessage" element={<DisplayMessage />} />
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/cancel" element={<PaymentCancel />} />
+          <Route path="/tripdetail/:id" element={<TripDetail />} />
+
         </Routes>
       </BrowserRouter >
     </UserContext.Provider>

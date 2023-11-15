@@ -48,3 +48,17 @@ export const startGetBkgInfo = (id) => {
   }
 }
 
+export const setLoadingTrue = () => {
+  return {
+    type: "SET_LOADING_TRUE",
+    payload: true
+  }
+}
+
+export const setLoadingFalse = () => {
+  return {
+    type: "SET_LOADING_FALSE",
+    payload: false
+  }
+}
+
