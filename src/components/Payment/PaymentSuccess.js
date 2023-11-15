@@ -4,13 +4,17 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { startUpdatePayment } from '../../actions/paymentAction'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../App'
+import { useContext } from 'react'
 
 export default function PaymentSuccess() {
   const [bkgDetails, setBkgDetails] = useState({})
+  const { userDispatch } = useContext(UserContext)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const updatesResponse = (data) => {
+    userDispatch({ type: "UPDATE_TRIP", payload: data })
     setBkgDetails(data)
   }
 

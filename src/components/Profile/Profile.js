@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function Profile() {
+
+  useEffect(() => {
+
+  }, [])
+
   return (
     <h1>Profile</h1>
   )

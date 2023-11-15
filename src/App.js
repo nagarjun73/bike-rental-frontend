@@ -31,7 +31,6 @@ export default function App() {
   const initialState = {
     user: {},
     profile: {},
-    myBookings: []
   }
   const [userState, userDispatch] = useReducer(userReducer, initialState)
   console.log(userState)
@@ -50,8 +49,7 @@ export default function App() {
           }
           const user = axios.get('/api/users/account', header)
           const profile = axios.get('/api/users/profile', header)
-          const myBookings = axios.get('/api/trips/list', header)
-          const response = await Promise.all([user, profile, myBookings])
+          const response = await Promise.all([user, profile])
           userDispatch({ type: "LOGIN_USER", payload: response })
         } catch (e) {
           setServerError(e.response.data)

@@ -1,17 +1,13 @@
 import { Typography, Card, CardContent, Grid, Stack, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
-import { setLoadingTrue } from '../../actions/bookingsAction';
 
 export default function MyTripsListItem(props) {
   const { trip } = props
 
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const detailsHandleFunction = (id) => {
     navigate(`/tripdetail/${id}`)
-    dispatch(setLoadingTrue())
   }
 
   return (
