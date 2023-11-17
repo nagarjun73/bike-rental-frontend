@@ -12,18 +12,22 @@ import VerifyDocUser from './components/submitDoc/VerifyDocUser'
 import VerifyDocHost from './components/submitDoc/VerifyDocHost'
 import DisplayMessage from './components/DisplayMessage'
 import PaymentSuccess from './components/Payment/PaymentSuccess'
-import Dashboard from './components/Dashboard/Dashboard'
 import MyTripsContainer from './components/MyTrips/MyTripsContainer'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
 
 import { useDispatch } from "react-redux"
+import { jwtDecode } from 'jwt-decode'
 import { startGetLocation } from "./actions/locationAction"
+import { startGetHostVehicles } from "./actions/vehicleAction"
+import { startGetVehicleType } from "./actions/vehicleTypeAction"
 
-import userReducer from './components/Context&Reducer/userReducer'
+import userReducer from './Context&Reducer/userReducer'
 import PaymentCancel from './components/Payment/PaymentCancel'
 import TripDetail from './components/MyTrips/TripDetail'
+import VehiclesContainer from './components/HostVehicles/VehiclesContainer'
+import AddVehicle from './components/HostVehicles/AddVehicle'
 export const UserContext = createContext()
 
 
@@ -39,7 +43,8 @@ export default function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
+    const token = localStorage.getItem('token')
+    if (token) {
       (async () => {
         try {
           const header = {
@@ -51,6 +56,11 @@ export default function App() {
           const profile = axios.get('/api/users/profile', header)
           const response = await Promise.all([user, profile])
           userDispatch({ type: "LOGIN_USER", payload: response })
+
+          if (jwtDecode(token).role == "host") {
+            dispatch(startGetHostVehicles())
+            dispatch(startGetVehicleType())
+          }
         } catch (e) {
           setServerError(e.response.data)
         }
@@ -66,7 +76,7 @@ export default function App() {
         <Navbar />
 
         <Routes>
-          <Route path='/' element={userState.user.role === 'host' || userState.user.role === 'admin' ? <Dashboard /> : <Home />} />
+          <Route path='/' element={<Home />} />
           <Route path='/mytrips' element={<MyTripsContainer />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
@@ -79,7 +89,8 @@ export default function App() {
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/cancel" element={<PaymentCancel />} />
           <Route path="/tripdetail/:id" element={<TripDetail />} />
-
+          <Route path='/addvehicle' element={<AddVehicle />} />
+          <Route path='/vehicles' element={<VehiclesContainer />} />
         </Routes>
       </BrowserRouter >
     </UserContext.Provider>

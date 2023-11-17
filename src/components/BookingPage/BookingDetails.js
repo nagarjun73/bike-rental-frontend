@@ -73,7 +73,7 @@ function BookingDetails(props) {
                 Vehicle Number : {bookingDtls.trip.vehicleId.registrationNumber}
               </Typography>
               <Typography gutterBottom variant="h6" component="div">
-                Pickup Location : {bookingDtls.details.address}
+                Pickup Location : {Object.entries(bookingDtls.details.address).map((ele) => ele[1]).join(" ")}
               </Typography>
               <Typography gutterBottom variant="h6" component="div">
                 Host : {bookingDtls.details.userId.name}

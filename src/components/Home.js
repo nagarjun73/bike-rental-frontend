@@ -10,13 +10,24 @@ import { FormControl, InputLabel, Select, MenuItem, OutlinedInput, Button, Stack
 
 //redux
 import { useSelector, useDispatch } from 'react-redux'
-import { startGetLocation } from '../actions/locationAction'
-import { startSubmitQuery } from '../actions/vehicleAction'
+import { startSubmitQuery, startGetHostVehicles } from '../actions/vehicleAction'
+import { startGetVehicleType } from "../actions/vehicleTypeAction"
+import { startGetLocation } from "../actions/locationAction"
+
+//Import useContext
+import { UserContext } from '../App';
+import { useContext } from 'react';
+
+import { jwtDecode } from 'jwt-decode'
+import axios from '../config/axios';
 
 export default function Home(props) {
   const [location, setLocation] = useState('')
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
+  const [serverError, setServerError] = useState({})
+
+  const { userDispatch } = useContext(UserContext)
 
   const locations = useSelector((state) => {
     return state.location.locationList
@@ -24,6 +35,35 @@ export default function Home(props) {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      (async () => {
+        try {
+          const header = {
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }
+          const user = axios.get('/api/users/account', header)
+          const profile = axios.get('/api/users/profile', header)
+          const response = await Promise.all([user, profile])
+          userDispatch({ type: "LOGIN_USER", payload: response })
+
+          if (jwtDecode(token).role == "host") {
+            dispatch(startGetHostVehicles())
+            dispatch(startGetVehicleType())
+          }
+        } catch (e) {
+          setServerError(e.response.data)
+        }
+      })()
+    }
+
+    dispatch(startGetLocation())
+  }, [])
+
 
   const handleSearch = (e) => {
     e.preventDefault()
