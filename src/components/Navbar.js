@@ -44,6 +44,7 @@ export default function Navbar(props) {
   const roleBasedNav = () => {
     const token = localStorage.getItem("token")
     const { role } = jwtDecode(token)
+    console.log(role);
 
     if (role === "user") {
       return (
@@ -91,7 +92,7 @@ export default function Navbar(props) {
 
           {/* Profile button */}
           <Button sx={{ color: '#fff' }}>
-            <Link style={{ textDecoration: "none", color: '#363062' }} to='/profile'>   profile</Link>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/profile'>profile</Link>
           </Button>
 
           {/* logout button */}
@@ -102,7 +103,7 @@ export default function Navbar(props) {
     } else if (role === 'admin') {
       return (<>
         <Button sx={{ color: '#fff' }}>
-          <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>dashboard</Link>
+          <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>Home</Link>
         </Button>
         <Button sx={{ color: '#fff' }}>
           <Link style={{ textDecoration: "none", color: '#363062' }} to='/profile'>profile</Link>

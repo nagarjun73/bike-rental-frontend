@@ -3,8 +3,11 @@ import { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import _ from 'lodash'
 
+import toast, { Toaster } from 'react-hot-toast';
+
 //import React redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { addVehicle } from '../../actions/vehicleAction'
 
 //Import material ui Components
 import { Box, TextField, Stack, styled, Button, Typography, FormControl, InputLabel, Select, OutlinedInput, MenuItem } from '@mui/material'
@@ -26,6 +29,7 @@ import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import axios from '../../config/axios'
+import { Navigate } from 'react-router-dom';
 
 
 // Register the plugins
@@ -40,22 +44,21 @@ export default function AddVehicle() {
 
   const [filesError, setFilesError] = useState({})
 
-  const filesErrors = {}
-  console.log(filesErrors);
+  const dispatch = useDispatch()
 
-  console.log(vehicleImg, rc, insurance, emission);
+  const filesErrors = {}
 
   const runFilesValidation = () => {
     if (vehicleImg.length === 0) {
       filesErrors["vehicleImg"] = "Please upload vehicle images"
     }
-    if (_.isEmpty(rc) === false) {
+    if (_.isEmpty(rc)) {
       filesErrors["rc"] = "Please upload vehicle RC"
     }
-    if (_.isEmpty(insurance) === false) {
+    if (_.isEmpty(insurance)) {
       filesErrors["insurance"] = "Please upload vehicle insurance certificate"
     }
-    if (_.isEmpty(insurance) === false) {
+    if (_.isEmpty(insurance)) {
       filesErrors["emission"] = "Please upload vehicle emission certificate"
     }
   }
@@ -84,37 +87,34 @@ export default function AddVehicle() {
     validationSchema: addVehicleValidationSchema,
     validateOnChange: false,
     onSubmit: async (formData, { resetForm }) => {
-      // runFilesValidation()
+      runFilesValidation()
       if (_.isEmpty(filesErrors)) {
-        console.log("--------------no val");
         try {
           const form = new FormData()
           form.append("type", formData.type)
           form.append("model", formData.model)
-          form.append("vehicleCategory", formData.vehicleCategory)
+          form.append("vehicleType", formData.vehicleCategory)
+          form.append("distanceTravelled", formData.distanceTravelled)
           form.append("registrationNumber", formData.registrationNumber)
           vehicleImg.forEach((ele) => form.append("vehicleImage", ele.file))
-          console.log("----1------");
 
           //Loopong over files and appending one by one
           Object.entries(rc).forEach(ele => form.append('registrationCertificate', ele[1]))
           Object.entries(insurance).forEach(ele => form.append('insuranceCerificate', ele[1]))
           Object.entries(emission).forEach(ele => form.append('emissionCertificate', ele[1]))
-          console.log("----2------");
           const response = await axios.post('/api/host/add-vehicle', form, {
             headers: {
               'Content-Type': 'multipart/form-data',
               Authorization: localStorage.getItem('token')
             }
           })
-          console.log(response);
+          dispatch(addVehicle(response.data.response));
           resetForm()
-
+          Navigate('/vehicles')
         } catch (e) {
           console.log(e);
         }
       } else {
-        console.log("-----------Error");
         setFilesError(filesErrors)
       }
       // console.log(formData, files);

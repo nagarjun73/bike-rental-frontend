@@ -9,7 +9,7 @@ export default function VehiclesContainer() {
 
   return (
     <Box>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         {vehicles.map((ele) => {
           return (<VehicleItem key={ele._id} vehicle={ele} />)
         })}

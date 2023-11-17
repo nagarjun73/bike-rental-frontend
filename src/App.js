@@ -28,6 +28,7 @@ import PaymentCancel from './components/Payment/PaymentCancel'
 import TripDetail from './components/MyTrips/TripDetail'
 import VehiclesContainer from './components/HostVehicles/VehiclesContainer'
 import AddVehicle from './components/HostVehicles/AddVehicle'
+import VehicleDetail from './components/HostVehicles/VehicleDetails/VehicleDetail'
 export const UserContext = createContext()
 
 
@@ -55,6 +56,7 @@ export default function App() {
           const user = axios.get('/api/users/account', header)
           const profile = axios.get('/api/users/profile', header)
           const response = await Promise.all([user, profile])
+          console.log(response);
           userDispatch({ type: "LOGIN_USER", payload: response })
 
           if (jwtDecode(token).role == "host") {
@@ -91,6 +93,9 @@ export default function App() {
           <Route path="/tripdetail/:id" element={<TripDetail />} />
           <Route path='/addvehicle' element={<AddVehicle />} />
           <Route path='/vehicles' element={<VehiclesContainer />} />
+          <Route path='/vehicledetail/:id' element={<VehicleDetail />} />
+
+
         </Routes>
       </BrowserRouter >
     </UserContext.Provider>
