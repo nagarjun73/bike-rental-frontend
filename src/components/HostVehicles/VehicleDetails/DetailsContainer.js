@@ -6,10 +6,13 @@ export default function DetailsContainer(props) {
   const { vehicle } = props
 
   return (
-    <Card sx={{ minWidth: "45vw", boxShadow: "0px 0px 2px black" }} >
+    <Card sx={{
+      minWidth: "30vw",
+      boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+      borderRadius: "15px"
+    }} >
       <CardContent >
         <Stack>
-          <Typography variant='h3'>Details</Typography>
           <Carousel>
             {vehicle.vehicleImage.map((ele) => {
               return (<CardMedia
@@ -28,13 +31,11 @@ export default function DetailsContainer(props) {
             )}
           </Carousel>
           <Stack flexDirection="column">
-            <Typography variant='p'>{vehicle.model}</Typography>
+            <Typography variant='h5'>{vehicle.model}</Typography>
             <Typography variant='p'>{vehicle.registrationNumber}</Typography>
             <Typography variant='p'>{vehicle.distanceTravelled} Kms</Typography>
-            <Typography variant='p'> {vehicle.availability ? "Available" : "Booked"}</Typography>
-            <Typography variant='p'>Approve status : {vehicle.vehicleApproveStatus ? "Approved" : "not Approved"}</Typography>
-            <Typography variant='p'>Details</Typography>
-            <Typography variant='p'>Details</Typography>
+            <Typography variant='p'> {vehicle.availability ? "Available" : "locked"}</Typography>
+            <Typography variant='p'>Approve status : {vehicle.vehicleApproveStatus ? "Approved" : "waiting for approval"}</Typography>
           </Stack>
         </Stack>
       </CardContent>

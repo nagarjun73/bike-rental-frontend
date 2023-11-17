@@ -36,32 +36,16 @@ export default function Home(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  //Extra api calls after login
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
-      (async () => {
-        try {
-          const header = {
-            headers: {
-              Authorization: localStorage.getItem('token')
-            }
-          }
-          const user = axios.get('/api/users/account', header)
-          const profile = axios.get('/api/users/profile', header)
-          const response = await Promise.all([user, profile])
-          userDispatch({ type: "LOGIN_USER", payload: response })
-
-          if (jwtDecode(token).role == "host") {
-            dispatch(startGetHostVehicles())
-            dispatch(startGetVehicleType())
-          }
-        } catch (e) {
-          setServerError(e.response.data)
-        }
-      })()
+      if (jwtDecode(token).role == "host") {
+        dispatch(startGetHostVehicles())
+        dispatch(startGetVehicleType())
+      }
+      dispatch(startGetLocation())
     }
-
-    dispatch(startGetLocation())
   }, [])
 
 

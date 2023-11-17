@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addVehicle } from '../../actions/vehicleAction'
 
 //Import material ui Components
-import { Box, TextField, Stack, styled, Button, Typography, FormControl, InputLabel, Select, OutlinedInput, MenuItem } from '@mui/material'
+import { Box, TextField, Stack, styled, Button, Typography, FormControl, InputLabel, Select, OutlinedInput, MenuItem, FormHelperText } from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 //Importing Formik and yup
@@ -29,7 +29,7 @@ import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import axios from '../../config/axios'
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 // Register the plugins
@@ -44,22 +44,25 @@ export default function AddVehicle() {
 
   const [filesError, setFilesError] = useState({})
 
+  console.log(filesError, "Files Error");
+
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const filesErrors = {}
 
   const runFilesValidation = () => {
     if (vehicleImg.length === 0) {
-      filesErrors["vehicleImg"] = "Please upload vehicle images"
+      filesError["vehicleImg"] = "Please upload vehicle images"
     }
     if (_.isEmpty(rc)) {
-      filesErrors["rc"] = "Please upload vehicle RC"
+      filesError["rc"] = "Please upload vehicle RC"
     }
     if (_.isEmpty(insurance)) {
-      filesErrors["insurance"] = "Please upload vehicle insurance certificate"
+      filesError["insurance"] = "Please upload vehicle insurance certificate"
     }
     if (_.isEmpty(insurance)) {
-      filesErrors["emission"] = "Please upload vehicle emission certificate"
+      filesError["emission"] = "Please upload vehicle emission certificate"
     }
   }
 
@@ -76,6 +79,7 @@ export default function AddVehicle() {
     registrationNumber: Yup.string().required(),
   })
 
+  //Formik initial states
   const formik = useFormik({
     initialValues: {
       type: "",
@@ -110,14 +114,14 @@ export default function AddVehicle() {
           })
           dispatch(addVehicle(response.data.response));
           resetForm()
-          Navigate('/vehicles')
+          toast.success('Successfully Added!')
+          navigate('/vehicles')
         } catch (e) {
           console.log(e);
         }
       } else {
         setFilesError(filesErrors)
       }
-      // console.log(formData, files);
     }
   })
 
@@ -129,7 +133,8 @@ export default function AddVehicle() {
       style={{
         backgroundPosition: ' 50% 80%',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: "#fafafa"
+        backgroundColor: "#fafafa",
+        marginBottom: "5vh"
       }}
     >
       <Typography variant="h1"
@@ -139,7 +144,7 @@ export default function AddVehicle() {
       >
         Add Vehicle
       </Typography>
-      <Box style={{ width: "100vw" }}
+      <Box style={{ width: "90vw" }}
         component="form"
         width="60vw"
         display="flex"
@@ -208,7 +213,9 @@ export default function AddVehicle() {
                 sx={{ backgroundColor: 'white' }}
                 name="vehicleCategory"
                 value={formik.values.vehicleCategory}
+                error={formik.errors.vehicleCategory && true}
                 onChange={formik.handleChange}
+                helperText={formik.errors.vehicleCategory}
                 input={<OutlinedInput label="Name" />}
               >
                 {vehicleTypes.map((ele) => (
@@ -226,13 +233,15 @@ export default function AddVehicle() {
             <Button
               component="label"
               variant="outlined"
+              margin="0px"
               startIcon={<CloudUploadIcon />}
               onChange={(e) => setRc(e.target.files)}
             >
               Upload RC
               <VisuallyHiddenInput type="file" multiple name="registrationCertificate" />
             </Button>
-            {/* <FormHelperText style={{ color: "#03AC13" }} >{_.size(drivingLicence) ? "Driving Licence uploaded" : ""}</FormHelperText> */}
+            {rc.length ? <FormHelperText style={{ color: "#03AC13", margin: "0px" }} > registration certificate uploaded</FormHelperText> : <FormHelperText style={{ color: "red", margin: "0px" }} >{filesError.rc}</FormHelperText>}
+
 
             {/* Insurance Certificate */}
             <Button
@@ -240,11 +249,12 @@ export default function AddVehicle() {
               variant="outlined"
               startIcon={<CloudUploadIcon />}
               onChange={(e) => setInsurance(e.target.files)}
+              sx={{ marginTop: "0px" }}
             >
               Upload Insurance
               <VisuallyHiddenInput type="file" name="insuranceCertificate" multiple />
             </Button>
-            {/* <FormHelperText style={{ color: "#03AC13" }} >{_.size(drivingLicence) ? "Driving Licence uploaded" : ""}</FormHelperText> */}
+            {insurance.length ? <FormHelperText style={{ color: "#03AC13", margin: "0px" }} >insurance certificate uploaded</FormHelperText> : <FormHelperText style={{ color: "red", margin: "0px" }} >{filesError.insurance}</FormHelperText>}
 
 
             {/* Emission Certificate */}
@@ -257,7 +267,7 @@ export default function AddVehicle() {
               Upload Emission
               <VisuallyHiddenInput name="emissionCertificate" type="file" multiple />
             </Button>
-            {/* <FormHelperText style={{ color: "#03AC13" }} >{_.size(drivingLicence) ? "Driving Licence uploaded" : ""}</FormHelperText> */}
+            {emission.length ? <FormHelperText style={{ color: "#03AC13", margin: "0px" }} >emission certificate uploaded</FormHelperText> : <FormHelperText style={{ color: "red", margin: "0px" }} >{filesError.emission}</FormHelperText>}
           </Stack>
         </Stack>
         {/* Vehicle Images */}
@@ -268,7 +278,7 @@ export default function AddVehicle() {
             display='flex'
             justifyContent='center'
             paddingY="3vh"
-            variant='h4' >upload vehicle images</Typography>
+            variant='h4'>upload vehicle images</Typography>
           <FilePond
             files={vehicleImg}
             onupdatefiles={setVehicleImg}
@@ -276,8 +286,9 @@ export default function AddVehicle() {
             maxFiles={3}
             labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
           />
+          {vehicleImg.length !== 0 ? <FormHelperText style={{ color: "#03AC13", margin: "0px" }} >vehicle images uploaded</FormHelperText> : <FormHelperText style={{ color: "red", margin: "0px" }} >{filesError.vehicleImg}</FormHelperText>}
         </Box>
-        <Button type='submit'>
+        <Button type='submit' variant="contained" sx={{ width: "20vw", margin: "auto" }}>
           Add Vehicle
         </Button>
       </Box>

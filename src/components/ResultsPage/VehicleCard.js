@@ -1,5 +1,7 @@
 import React from 'react'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box, Grid, Stack } from '@mui/material'
+import Carousel from 'react-material-ui-carousel'
+
 import { useNavigate, useLocation } from 'react-router-dom'
 import { UserContext } from '../../App'
 import { useContext } from 'react'
@@ -76,10 +78,24 @@ const VehicleCard = (props) => {
   return (
     <Grid key={vehicle._id} item xs={6} sm={3}>
       <Box p={2} >
-        <Card sx={{ height: "40vh" }} >
-          <CardMedia>
-            <img src={vehicle.vehicleImage[0].url} alt={vehicle.model} style={{ height: '100%', width: "100%" }} />
-          </CardMedia>
+        <Card>
+          <Carousel>
+            {vehicle.vehicleImage.map((ele) => {
+              return (<CardMedia
+                component="img"
+                alt={vehicle.model}
+                height="200"
+                key={ele._id}
+                image={ele.url}
+                sx={{
+                  objectFit: "contain",
+                  backgroundColor: "#000000",
+                  borderRadius: "10px"
+                }}
+              />)
+            }
+            )}
+          </Carousel>
           <CardContent>
             <Stack>
               <Typography gutterBottom variant="p" component="div">

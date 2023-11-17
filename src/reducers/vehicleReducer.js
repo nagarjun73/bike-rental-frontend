@@ -15,7 +15,7 @@ const vehicleReducer = (state = initialVehicleState, action) => {
     }
 
     case "ADD_VEHICLE": {
-      return { ...state, hostVehicles: [...state.hostVehicles, action.payload] }
+      return { ...state, hostVehicles: [action.payload, ...state.hostVehicles] }
     }
 
     default: {

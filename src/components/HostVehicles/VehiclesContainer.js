@@ -8,7 +8,7 @@ export default function VehiclesContainer() {
   })
 
   return (
-    <Box>
+    <Box padding="3vh" sx={{ backgroundColor: "#fafafa", height: "90vh" }}>
       <Grid container spacing={1}>
         {vehicles.map((ele) => {
           return (<VehicleItem key={ele._id} vehicle={ele} />)

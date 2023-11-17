@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 //importing @mui
-import { Box, Stack } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,11 +18,18 @@ export default function VehicleDetail() {
 
   return (
     <Box>
-      {vehicle &&
-        < Stack flexDirection="row" justifyContent="space-evenly" paddingTop="5vh">
+      <Typography variant='h2' paddingLeft="4vw" paddingTop="2vh">Vehicle Details</Typography>
+      {
+        vehicle &&
+        < Stack
+          flexDirection="row"
+          justifyContent="space-evenly"
+          paddingTop="5vh"
+        >
           <DetailsContainer vehicle={vehicle} />
-          <TripHistoryContainer />
-        </Stack>}
+          <TripHistoryContainer vehicle={vehicle.trips} />
+        </Stack>
+      }
     </Box >
   )
 }
