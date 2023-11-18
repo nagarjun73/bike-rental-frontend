@@ -15,6 +15,15 @@ export default function TripMap() {
     setPosition([latitude, longitude])
   })
 
+  console.log(navigator.geolocation.watchPosition((position) => {
+    const { latitude, longitude } = position.coords
+    setPosition([latitude, longitude])
+  },
+    (error) => {
+      console.error(error);
+    }
+  ));
+
 
   //creating custom icon
   function icon(iconSize) {
