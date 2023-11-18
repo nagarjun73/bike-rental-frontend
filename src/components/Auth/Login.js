@@ -77,7 +77,6 @@ export default function Login(props) {
         })
         //User
         const user = response.data
-        console.log(user)
 
         //Checking if profile present
         const profile = await axios.get("/api/users/profile", {
@@ -118,6 +117,8 @@ export default function Login(props) {
               //redirecting to host doc add page with url
               navigate('/verifyDocHost', { state: lastUrl })
               userDispatch({ type: "LOGIN_USER", payload: user })
+            } else if (user.role === "admin") {
+              userDispatch({ type: "LOGIN_USER", payload: user })
             }
           } else {
             //alrady submitted docs not verified
@@ -129,7 +130,8 @@ export default function Login(props) {
         setClientError(errors)
       }
     } catch (err) {
-      setServerError(err.response.data)
+      console.log(err);
+      // setServerError(err.response.data)
     }
   }
 

@@ -14,7 +14,7 @@ const MyTripsPage = () => {
       My Trips
     </Typography>
     <Grid container spacing={2}>
-      {trips?.map((trip) => (
+      {trips?.reverse().map((trip) => (
         <MyTripsListItem key={trip._id} trip={trip} />
       ))}
     </Grid>

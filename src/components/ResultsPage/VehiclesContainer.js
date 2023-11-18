@@ -8,7 +8,7 @@ export default function VehiclesContainer() {
     return state.vehicle.searchedVehicles
   })
   return (
-    <Box sx={{ maxWidth: "80vw" }} >
+    <Box >
       {searchedVehicles.length ?
         <Grid container spacing={1}>
           {searchedVehicles.map((ele) => {

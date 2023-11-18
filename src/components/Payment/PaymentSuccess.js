@@ -27,7 +27,7 @@ export default function PaymentSuccess() {
 
   //Homepage button handle
   const homepageButtonHandle = () => {
-    navigate('/')
+    navigate('/mytrips')
   }
 
   return (

@@ -77,7 +77,7 @@ export default function Signup(props) {
         const response = await axios.post('/api/users/register', data)
         console.log(response)
         resetForm()
-        navigate('/login')
+        navigate('/displaymessage', { state: "Thankyou for Registering. Verification link has been sent to your Email Please verify and Login." })
       } catch (e) {
         setServerError(e.response.data)
       }

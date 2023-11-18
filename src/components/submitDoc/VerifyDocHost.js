@@ -47,14 +47,15 @@ function VerifyDocHost() {
     runValidation()
     try {
       const formData = new FormData()
-      Object.entries(address).forEach(([key, value]) => formData.append(key, value))
-      formData.append("address", address)
+      formData.append('street', address.street);
+      formData.append('area', address.area);
+      formData.append('state', address.state);
+      formData.append('pincode', address.pincode);
+
       formData.append('city', location)
       //Loopong over files and appending one by one
       Object.entries(drivingLicence).forEach(ele => formData.append('drivingLicence', ele[1]))
       Object.entries(documentId).forEach(ele => formData.append('documentId', ele[1]))
-
-      // !how to send nested object from front end to backend and validation
 
       const response = await axios.post('/api/host/add-doc', formData, {
         headers: {
@@ -62,8 +63,6 @@ function VerifyDocHost() {
           Authorization: localStorage.getItem('token')
         }
       })
-      // TODO:FIX THIS 
-      console.log(response);
       navigate('/displaymessage', { state: response.data.msg })
     } catch (err) {
       console.log(err)

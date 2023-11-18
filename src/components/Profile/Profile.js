@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react'
+import { UserContext } from '../../App'
+
 
 function Profile() {
-
-  useEffect(() => {
-
-  }, [])
+  const { userState } = useContext(UserContext)
+  console.log(userState.profile);
 
   return (
     <h1>Profile</h1>
