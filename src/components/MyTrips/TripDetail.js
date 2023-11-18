@@ -27,13 +27,13 @@ export default function TripDetail() {
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      height: "90vh"
+      height: "90vh",
     }}>
       <Typography variant="h3">
         Trip Details
       </Typography>
       {Object.keys(tripDetails).length !== 0 && <Stack spacing={2}>
-        <Card sx={{ width: "50vw" }}>
+        <Card sx={{ width: { md: "50vw", xs: "90vw" } }}>
           <CardContent>
             <Stack>
               <Typography variant="h6">
@@ -54,7 +54,7 @@ export default function TripDetail() {
             </Stack>
           </CardContent>
         </Card>
-        <Card sx={{ width: "50vw" }}>
+        <Card sx={{ width: { md: "50vw", xs: "90vw" } }}>
           <CardContent>
             <Stack>
               <Typography variant="h6">

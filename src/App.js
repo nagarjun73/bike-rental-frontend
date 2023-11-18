@@ -13,6 +13,7 @@ import VerifyDocHost from './components/submitDoc/VerifyDocHost'
 import DisplayMessage from './components/DisplayMessage'
 import PaymentSuccess from './components/Payment/PaymentSuccess'
 import MyTripsContainer from './components/MyTrips/MyTripsContainer'
+import TripDetailsContainer from "./components/HostVehicles/TripDetails/TripDetailsContainer"
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
@@ -94,7 +95,7 @@ export default function App() {
           <Route path='/addvehicle' element={<AddVehicle />} />
           <Route path='/vehicles' element={<VehiclesContainer />} />
           <Route path='/vehicledetail/:id' element={<VehicleDetail />} />
-
+          <Route path="/hosttripdetails/:id" element={<TripDetailsContainer />} />
 
         </Routes>
       </BrowserRouter >

@@ -4,6 +4,7 @@ import App from './App'
 import configStore from './store/configStore'
 import { Provider } from 'react-redux'
 
+
 const store = configStore()
 
 console.log(store.getState())

@@ -83,10 +83,10 @@ export default function Navbar(props) {
             onClose={handleClose}
           >
             <MenuItem onClick={handleClose}>
-              <Link style={{ textDecoration: "none", color: '#363062' }} to='/addvehicle'>Add Vehicle</Link>
+              <Link style={{ textDecoration: "none", color: '#363062' }} to='/addvehicle'>Add vehicle</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <Link style={{ textDecoration: "none", color: '#363062' }} to='/vehicles'>Vehicles</Link>
+              <Link style={{ textDecoration: "none", color: '#363062' }} to='/vehicles'>All vehicles</Link>
             </MenuItem>
           </Menu>
 

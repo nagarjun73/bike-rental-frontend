@@ -114,7 +114,6 @@ export default function AddVehicle() {
           })
           dispatch(addVehicle(response.data.response));
           resetForm()
-          toast.success('Successfully Added!')
           navigate('/vehicles')
         } catch (e) {
           console.log(e);
@@ -137,6 +136,7 @@ export default function AddVehicle() {
         marginBottom: "5vh"
       }}
     >
+      <Toaster />
       <Typography variant="h1"
         gutterBottom paddingTop="4vh"
         display="flex"

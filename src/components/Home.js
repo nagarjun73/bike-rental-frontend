@@ -72,13 +72,13 @@ export default function Home(props) {
 
       <form onSubmit={handleSearch} >
         <Stack
-          direction="row"
+          direction={{ xs: "column", md: "row" }}
           spacing={2}
           alignItems='center'
           justifyContent='center'
           sx={{ height: '90vh' }}
         >
-          <FormControl sx={{ width: 300, paddingTop: "1vh", margin: "0px" }}>
+          <FormControl sx={{ width: { xs: 270, md: 300 }, paddingTop: "1vh", margin: "0px" }}>
             <InputLabel sx={{ paddingTop: "1vh" }}>City</InputLabel>
             <Select
               sx={{ backgroundColor: 'white' }}

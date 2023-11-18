@@ -22,9 +22,10 @@ export default function VehicleDetail() {
       {
         vehicle &&
         < Stack
-          flexDirection="row"
+          gap={2}
           justifyContent="space-evenly"
-          paddingTop="5vh"
+          padding="5vh"
+          sx={{ flexDirection: { sx: "column", md: "row", lg: "row" } }}
         >
           <DetailsContainer vehicle={vehicle} />
           <TripHistoryContainer vehicle={vehicle.trips} />

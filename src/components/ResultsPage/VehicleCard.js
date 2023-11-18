@@ -76,7 +76,7 @@ const VehicleCard = (props) => {
   }
 
   return (
-    <Grid key={vehicle._id} item xs={6} sm={3}>
+    <Grid key={vehicle._id} item xs={12} sm={3}>
       <Box p={2} >
         <Card>
           <Carousel>
