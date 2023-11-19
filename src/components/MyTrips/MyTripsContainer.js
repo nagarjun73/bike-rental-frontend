@@ -8,7 +8,7 @@ const MyTripsPage = () => {
   const { userState } = useContext(UserContext)
   const trips = userState.profile.tripHistory
 
-  return (< div style={{ backgroundColor: "#fafafa" }
+  return (< div style={{ backgroundColor: "#fafafa", height: "90vh" }
   } >
     <Typography variant="h3" gutterBottom textAlign="center" padding="20px">
       My Trips

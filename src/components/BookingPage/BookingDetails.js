@@ -14,7 +14,6 @@ function BookingDetails(props) {
     return state.booking.bookingDetails
   })
 
-  console.log(bookingDtls, "dtalmamfkan");
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
