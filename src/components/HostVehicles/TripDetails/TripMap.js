@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Stack, Card, CardContent, Typography, CardMedia } from '@mui/material'
 
+
 //Importing map components
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
@@ -9,20 +10,16 @@ import L from 'leaflet'
 export default function TripMap() {
 
   const [position, setPosition] = useState([])
+  console.log(position);
 
-  navigator.geolocation.getCurrentPosition((position) => {
-    const { latitude, longitude } = position.coords
-    setPosition([latitude, longitude])
-  })
-
-  console.log(navigator.geolocation.watchPosition((position) => {
+  navigator.geolocation.watchPosition((position) => {
     const { latitude, longitude } = position.coords
     setPosition([latitude, longitude])
   },
     (error) => {
       console.error(error);
     }
-  ));
+  );
 
 
   //creating custom icon
@@ -37,7 +34,7 @@ export default function TripMap() {
   return (
     <Card sx={{
       margin: "20px",
-      minWidth: "30vw",
+      width: "60vw",
       boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
       borderRadius: "15px"
     }} >

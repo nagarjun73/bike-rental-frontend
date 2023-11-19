@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import TripOverview from './TripOverview'
 import TripMap from './TripMap'
-import { Typography } from '@mui/material'
+import { Typography, Stack } from '@mui/material'
 
 export default function TripDetailsContainer(props) {
   const { id } = useParams()
@@ -23,12 +23,12 @@ export default function TripDetailsContainer(props) {
 
   return (
     <div>
+      <Typography variant='h2' textAlign="center" padding="10px">Trip Details</Typography>
       {!_.isEmpty(foundTrip) && (
-        <div>
-          <Typography variant='h2' textAlign="center" padding="10px">Trip Details</Typography>
+        <Stack direction="row">
           <TripOverview trip={foundTrip} />
           <TripMap />
-        </div>
+        </Stack>
       )
       }
 

@@ -165,7 +165,7 @@ export default function AddVehicle() {
               value={formik.values.type}
               onChange={formik.handleChange}
               error={formik.errors.type && true}
-              helperText={formik.errors.type}
+              helpertext={formik.errors.type}
               sx={{ backgroundColor: "white" }} />
 
             {/* Model input */}
@@ -177,7 +177,7 @@ export default function AddVehicle() {
               value={formik.values.model}
               onChange={formik.handleChange}
               error={formik.errors.model && true}
-              helperText={formik.errors.model}
+              helpertext={formik.errors.model}
               sx={{ backgroundColor: "white" }} />
 
             {/* Distance travelled */}
@@ -189,7 +189,7 @@ export default function AddVehicle() {
               value={formik.values.distanceTravelled}
               onChange={formik.handleChange}
               error={formik.errors.distanceTravelled && true}
-              helperText={formik.errors.distanceTravelled}
+              helpertext={formik.errors.distanceTravelled}
               sx={{ backgroundColor: "white" }} />
 
             {/* Registration number */}
@@ -201,7 +201,7 @@ export default function AddVehicle() {
               value={formik.values.registrationNumber}
               onChange={formik.handleChange}
               error={formik.errors.registrationNumber && true}
-              helperText={formik.errors.registrationNumber}
+              helpertext={formik.errors.registrationNumber}
               sx={{ backgroundColor: "white" }} />
           </Stack>
           <Stack spacing={4} width="30vw">
@@ -215,7 +215,7 @@ export default function AddVehicle() {
                 value={formik.values.vehicleCategory}
                 error={formik.errors.vehicleCategory && true}
                 onChange={formik.handleChange}
-                helperText={formik.errors.vehicleCategory}
+                helpertext={formik.errors.vehicleCategory}
                 input={<OutlinedInput label="Name" />}
               >
                 {vehicleTypes.map((ele) => (

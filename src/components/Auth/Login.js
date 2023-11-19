@@ -6,6 +6,8 @@ import validator from 'validator'
 import { BgImg, Linked, BoxSX } from './CSS-Styled'
 import { UserContext } from '../../App'
 
+import toast, { Toaster } from 'react-hot-toast'
+
 
 export default function Login(props) {
   const [emailNum, setEmailNum] = useState('')
@@ -22,18 +24,23 @@ export default function Login(props) {
   //url history
   const lastUrl = location ? location.state : ''
 
+  //Form Validation Function
   const runValidations = () => {
+    //Email/mobileNum validation
     if (emailNum.trim().length === 0) {
       errors.emailNum = "Field should not be empty"
     } else if (emailNum.includes('@')) {
+      //Checking valid Email
       if (!validator.isEmail(emailNum)) {
         errors.emailNum = "Invalid Email"
       }
     } else {
+      //checking mobile number count
       if (!validator.isLength(emailNum, { min: 10, max: 10 })) {
         errors.emailNum = "Invalid Email or phone number"
       }
     }
+    //Password Validation
     if (password.trim().length === 0) {
       errors.password = "Field should not be empty"
     } else if (!validator.isStrongPassword(password)) {
@@ -41,6 +48,7 @@ export default function Login(props) {
     }
   }
 
+  //Login Handle Function
   const loginHandle = async (e) => {
     try {
       e.preventDefault()
@@ -60,8 +68,8 @@ export default function Login(props) {
         }
 
         //api call for login
+        toast('Logging in..')
         const result = await axios.post('/api/users/login', formData)
-
         //clear form
         setEmailNum('')
         setPassword('')
@@ -77,6 +85,7 @@ export default function Login(props) {
         })
         //User
         const user = response.data
+        toast.success(`Welocome ${user.name}`)
 
         //Checking if profile present
         const profile = await axios.get("/api/users/profile", {
@@ -85,6 +94,7 @@ export default function Login(props) {
           }
         })
         const resProfile = profile.data
+        //Checking if prifile verified
         if (resProfile?.isVerified) {
           //if profile verified letting user to login
           const header = {
@@ -122,6 +132,7 @@ export default function Login(props) {
             }
           } else {
             //alrady submitted docs not verified
+            toast('Logged in..')
             navigate('/displaymessage', { state: "Thank you for submitting your documents! We have received them successfully. Please be patient as we verify your documents." })
             userDispatch({ type: "LOGIN_USER", payload: user })
           }
@@ -130,14 +141,14 @@ export default function Login(props) {
         setClientError(errors)
       }
     } catch (err) {
-      console.log(err);
-      // setServerError(err.response.data)
+      setServerError(err.response.data)
     }
   }
 
 
   return (
     <BgImg >
+      <Toaster />
       <Box
         sx={BoxSX}>
         <Typography variant='h4' paddingBottom="30px">

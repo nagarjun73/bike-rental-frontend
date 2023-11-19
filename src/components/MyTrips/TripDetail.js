@@ -1,7 +1,9 @@
 import { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom"
 import { UserContext } from "../../App"
-import { Stack, Card, Typography, CardContent, CardMedia } from "@mui/material";
+import { Stack, Card, Typography, CardContent, CardMedia, } from "@mui/material";
+import Countdown from 'react-countdown'
+import StartTrip from "./StartTrip";
 
 export default function TripDetail() {
   const { id } = useParams()
@@ -49,6 +51,14 @@ export default function TripDetail() {
               <Typography variant="h6">
                 Payment Id : {tripDetails.paymentId}
               </Typography>
+              <Typography variant="h6">Time Left :
+                <Countdown date={tripDetails.tripStartDate}>
+                  <span>
+                    Trip time is up
+                  </span>
+                </Countdown>
+              </Typography>
+              <StartTrip trip={tripDetails} />
             </Stack>
           </CardContent>
         </Card>
