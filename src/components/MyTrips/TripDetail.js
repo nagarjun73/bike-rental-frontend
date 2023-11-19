@@ -1,9 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom"
 import { UserContext } from "../../App"
-import { Stack, Card, Typography, CardContent, CircularProgress, Box, CardMedia } from "@mui/material";
-import { setLoadingFalse } from "../../actions/bookingsAction";
-import { useDispatch, useSelector } from "react-redux";
+import { Stack, Card, Typography, CardContent, CardMedia } from "@mui/material";
 
 export default function TripDetail() {
   const { id } = useParams()
