@@ -1,5 +1,4 @@
 import axios from "../config/axios"
-import { addBkgDetails } from '../actions/bookingsAction'
 
 export const startPayment = (payData, navigate) => {
   return async (dispatch) => {
