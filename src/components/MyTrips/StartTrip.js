@@ -1,30 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import addMinutes from "date-fns/addMinutes";
 import { Button } from "@mui/material"
+//react hot toast
 import toast, { Toaster } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom';
 
 export default function StartTrip(props) {
-  const { tripDetails } = props
+  const { trip } = props
+  console.log(trip, "sovkk");
   const [position, setPosition] = useState([])
-
-  console.log(new Date(1700401834359));
+  const navigate = useNavigate()
 
   const startTripHandle = () => {
     toast.success('Starting trip...');
-
-    navigator.geolocation.watchPosition((position) => {
-      console.log(position, "pos");
-      const { latitude, longitude } = position.coords
-      setPosition([latitude, longitude])
-    },
-      (error) => {
-        console.error(error);
-      }
-      , {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0,
-      });
+    navigate(`/hosttripdetails/${trip._id}`)
   }
   return (
     <div>
