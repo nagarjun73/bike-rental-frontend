@@ -12,15 +12,15 @@ import { io } from 'socket.io-client'
 export default function TripMap(props) {
   const { trip } = props
   const [position, setPosition] = useState([])
-  console.log(trip.trip._id, "socket group it");
+  console.log(position);
 
   useEffect(() => {
     const socket = io('https://bike-rental-backend.onrender.com')
     const role = jwtDecode(localStorage.getItem('token')).role
     if (role == 'user') {
-      if (Object.keys(trip).length !== 0) {
+      if (Object.keys(trip)) {
         if (socket.connect) {
-          socket.emit("join_room", { userId: trip.trip.userId, tripId: trip.trip._id })
+          socket.emit("join_room", { userId: trip.userId, tripId: trip._id })
           // socket.emit("tripStartMsg". { msg:})
         }
       }
@@ -42,7 +42,7 @@ export default function TripMap(props) {
           maximumAge: 0,
         });
     } else {
-      socket.emit('join_room', { userId: trip.trip.hostId, tripId: trip.trip._id })
+      socket.emit('join_room', { userId: trip.hostId, tripId: trip._id })
       socket.on("user_position", (data) => {
         setPosition([data.data.latitude, data.data.longitude]);
       })
