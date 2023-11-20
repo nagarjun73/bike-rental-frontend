@@ -18,9 +18,9 @@ export default function TripMap(props) {
     const socket = io('https://bike-rental-backend.onrender.com')
     const role = jwtDecode(localStorage.getItem('token')).role
     if (role == 'user') {
-      if (Object.keys(trip)) {
+      if (Object.keys(trip).length !== 0) {
         if (socket.connect) {
-          socket.emit("join_room", { userId: trip.userId, tripId: trip._id })
+          socket.emit("join_room", { userId: trip.trip.userId, tripId: trip.trip._id })
           // socket.emit("tripStartMsg". { msg:})
         }
       }
@@ -28,7 +28,7 @@ export default function TripMap(props) {
       navigator.geolocation.watchPosition((position) => {
         console.log(position, "pos");
         socket.volatile.emit("position", {
-          tripId: trip.Id,
+          tripId: trip.trip.Id,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         })
@@ -42,7 +42,7 @@ export default function TripMap(props) {
           maximumAge: 0,
         });
     } else {
-      socket.emit('join_room', { userId: trip.hostId, tripId: trip._id })
+      socket.emit('join_room', { userId: trip.trip.hostId, tripId: trip.trip._id })
       socket.on("user_position", (data) => {
         setPosition([data.data.latitude, data.data.longitude]);
       })
