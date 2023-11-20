@@ -12,15 +12,15 @@ import { io } from 'socket.io-client'
 export default function TripMap(props) {
   const { trip } = props
   const [position, setPosition] = useState([])
-  console.log(position);
+  console.log(trip.trip._id, "socket group it");
 
   useEffect(() => {
     const socket = io('http://localhost:3044')
     const role = jwtDecode(localStorage.getItem('token')).role
     if (role == 'user') {
-      if (Object.keys(trip)) {
+      if (Object.keys(trip).length !== 0) {
         if (socket.connect) {
-          socket.emit("join_room", { userId: trip.userId, tripId: trip._id })
+          socket.emit("join_room", { userId: trip.trip.userId, tripId: trip.trip._id })
           // socket.emit("tripStartMsg". { msg:})
         }
       }
@@ -42,7 +42,7 @@ export default function TripMap(props) {
           maximumAge: 0,
         });
     } else {
-      socket.emit('join_room', { userId: trip.hostId, tripId: trip._id })
+      socket.emit('join_room', { userId: trip.trip.hostId, tripId: trip.trip._id })
       socket.on("user_position", (data) => {
         setPosition([data.data.latitude, data.data.longitude]);
       })
@@ -70,8 +70,8 @@ export default function TripMap(props) {
       <CardContent >
         {position.length !== 0 ? <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "400px", width: '100%' }}>
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+            attribution='&copy; <a href="https://www.google.com/maps">Google Maps</a> contributors'
           />
           <Marker position={position} icon={icon(50)}>
             <Popup>
