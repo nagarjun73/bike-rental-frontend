@@ -15,7 +15,7 @@ export default function TripMap(props) {
   console.log(trip.trip._id, "socket group it");
 
   useEffect(() => {
-    const socket = io('http://localhost:3044')
+    const socket = io('https://bike-rental-backend.onrender.com')
     const role = jwtDecode(localStorage.getItem('token')).role
     if (role == 'user') {
       if (Object.keys(trip).length !== 0) {
