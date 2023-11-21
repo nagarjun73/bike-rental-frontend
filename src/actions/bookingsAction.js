@@ -1,5 +1,5 @@
 import axios from '../config/axios'
-
+import toast from 'react-hot-toast'
 
 export const startBookTrip = (data, navigate) => {
   return async (dispatch) => {
@@ -15,7 +15,7 @@ export const startBookTrip = (data, navigate) => {
       // dispatch(addBooking(bookingRes.data._id))
       navigate(`/bookingdetails/${bookingRes.data._id}`)
     } catch (e) {
-      console.log(e);
+      toast.error(e.response.data.errors)
     }
   }
 }

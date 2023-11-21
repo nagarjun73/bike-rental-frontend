@@ -10,7 +10,15 @@ export default function userReducer(state, action) {
     case "UPDATE_TRIP": {
       if (state && state.profile && state.profile.tripHistory) {
         return {
-          ...state, profile: { ...state.profile, tripHistory: [...state.profile.tripHistory, action.payload] }
+          ...state, profile: {
+            ...state.profile, tripHistory: state.profile.tripHistory.map((ele) => {
+              if (ele._id === action.payload._id) {
+                return action.payload
+              } else {
+                return ele
+              }
+            })
+          }
         };
       } else {
         return state;

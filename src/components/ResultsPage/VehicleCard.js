@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box, Grid, Stack } from '@mui/material'
 import Carousel from 'react-material-ui-carousel'
+import toast, { Toaster } from 'react-hot-toast'
 
 import { useNavigate, useLocation } from 'react-router-dom'
 import { UserContext } from '../../App'
@@ -19,7 +20,6 @@ const VehicleCard = (props) => {
 
   //fuction handles profile verification return true if verified
   const checkUserProfileVerified = async () => {
-    //TODO should save profile to state to check verification or api call and check
     try {
       //api reqest to check profile details
       const profile = await axios.get("/api/users/profile", {
@@ -76,6 +76,7 @@ const VehicleCard = (props) => {
 
   return (
     <Grid key={vehicle._id} item xs={12} sm={3}>
+      <Toaster />
       <Box p={2} >
         <Card sx={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" }} >
           <Carousel >

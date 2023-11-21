@@ -39,6 +39,8 @@ export default function PaymentCancel() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+            borderRadius: '10px',
           }}>
             <Typography gutterBottom variant="h4" component="div" >
               Payment Failed
