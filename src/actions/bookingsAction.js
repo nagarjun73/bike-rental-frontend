@@ -1,11 +1,5 @@
 import axios from '../config/axios'
 
-const addBooking = (data) => {
-  return {
-    type: "UPDATE_BOOKING_ID",
-    payload: data
-  }
-}
 
 export const startBookTrip = (data, navigate) => {
   return async (dispatch) => {

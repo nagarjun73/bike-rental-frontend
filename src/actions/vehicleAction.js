@@ -7,10 +7,19 @@ const updateSearchedVehicles = (data) => {
   }
 }
 
+const updateIsLoading = (boolean) => {
+  return {
+    type: "UPDATE_IS_LOADING",
+    payload: boolean
+  }
+}
+
 export const startSubmitQuery = (formdata) => {
   return async (dispatch) => {
+    dispatch(updateIsLoading('true'))
     const result = await axios.post('/api/vehicles/query', formdata)
     dispatch(updateSearchedVehicles(result.data))
+    dispatch(updateIsLoading('false'))
   }
 }
 

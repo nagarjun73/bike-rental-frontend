@@ -13,7 +13,6 @@ import { UserContext } from '../../App'
 
 export default function StartTrip(props) {
   const { trip } = props
-  console.log(trip, "sovkk");
   const [position, setPosition] = useState([])
   const { userState, userDispatch } = useContext(UserContext)
 
@@ -34,10 +33,15 @@ export default function StartTrip(props) {
       console.log(e);
     }
   }
+
+  const dashboardHandle = () => {
+    navigate(`/hosttripdetails/${trip._id}`)
+  }
   return (
     <div>
       <Toaster />
-      <Button variant="contained" onClick={startTripHandle}>Start Trip</Button>
+      {trip.tripStatus == "booked" && <Button variant="contained" onClick={startTripHandle}>Start Trip</Button>}
+      {trip.tripStatus == "inprogress" && <Button variant="contained" onClick={dashboardHandle}>dashboard</Button>}
       <p>{position.latitude}</p>
     </div>
   )

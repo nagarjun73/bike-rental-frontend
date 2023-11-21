@@ -1,6 +1,7 @@
 const initialVehicleState = {
   searchedVehicles: [],
-  hostVehicles: []
+  hostVehicles: [],
+  isLoading: false
 }
 
 
@@ -16,6 +17,14 @@ const vehicleReducer = (state = initialVehicleState, action) => {
 
     case "ADD_VEHICLE": {
       return { ...state, hostVehicles: [action.payload, ...state.hostVehicles] }
+    }
+
+    case "UPDATE_IS_LOADING": {
+      if (action.payload == 'true') {
+        return { ...state, isLoading: true }
+      } else {
+        return { ...state, isLoading: false }
+      }
     }
 
     default: {
