@@ -1,9 +1,21 @@
-import React from 'react'
-import { Box, Stack, Card, CardContent, Typography, CardMedia } from '@mui/material'
+import React, { useContext } from 'react'
+import { Box, Stack, Card, CardContent, Typography, Button } from '@mui/material'
 import Countdown from 'react-countdown';
+import { UserContext } from '../../../App'
+import { useNavigate } from 'react-router-dom';
 
 export default function TripOverview(props) {
   const { trip } = props
+  const { userState, userDispatch } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  const role = userState?.user.role
+
+  const endTripHandle = () => {
+
+    navigate('/mytrips')
+  }
+
   console.log(trip);
   return (
     <Card sx={{
@@ -28,8 +40,7 @@ export default function TripOverview(props) {
               </span>
             </Countdown>
           </Typography>
-
-
+          {role === "user" && <Button variant='contained' onClick={endTripHandle}>End Trip</Button>}
         </Stack>
       </CardContent>
     </Card >
