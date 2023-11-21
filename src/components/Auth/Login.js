@@ -155,7 +155,7 @@ export default function Login(props) {
           Login to your Account
         </Typography>
         {/*server error handler*/}
-        <form style={{ width: "30vw" }} onSubmit={loginHandle}>
+        <form onSubmit={loginHandle}>
           <Stack spacing={2} >
             {serverError.errors &&
               <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px' }}>

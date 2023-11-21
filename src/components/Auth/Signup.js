@@ -94,14 +94,14 @@ export default function Signup(props) {
     <BgImgSignup >
       <Box
         sx={BoxSXSignup}>
-        <Typography variant='h4' paddingBottom="8vh">
+        <Typography variant='h4' paddingBottom="2vh" paddingTop="2vh">
           Signup to your Account
         </Typography>
         {/*server error handler*/}
         {serverError.errors &&
           serverError.errors.map((ele, i) => {
             return (
-              <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px', width: "40vw" }}>
+              <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px', width: { md: "40vw", xs: "60svw" } }}>
                 <AlertTitle>Server Error</AlertTitle>
                 {ele.msg}
               </Alert>
@@ -109,8 +109,8 @@ export default function Signup(props) {
           })
         }
         <Box style={{ width: "80vw" }} component="form" onSubmit={formik.handleSubmit} noValidate >
-          <Stack sx={{ flexDirection: "row" }} gap='5vw' sm={{ flexDirection: "column" }} >
-            <Stack spacing={2} width="20vw" >
+          <Stack sx={{ flexDirection: { md: "row", xs: "column" } }} gap='5vw'  >
+            <Stack spacing={2} sx={{ width: { md: '20vw', xs: "80vw" } }}>
               <TextField
                 label="Full Name"
                 variant="outlined"
@@ -145,7 +145,7 @@ export default function Signup(props) {
 
             </Stack>
 
-            <Stack spacing={2} width="20vw">
+            <Stack spacing={2} sx={{ width: { md: '20vw', xs: "80vw" } }}>
               <FormControl>
                 <FormLabel id="demo-row-radio-buttons-group-label">Choose who you are</FormLabel>
                 <RadioGroup
@@ -183,7 +183,7 @@ export default function Signup(props) {
             </Stack>
           </Stack>
           <Linked to="/login">
-            <Typography variant='h6' color="blue">
+            <Typography variant='h6' color="blue" padding="10px">
               Already have an account? Click here
             </Typography>
           </Linked>

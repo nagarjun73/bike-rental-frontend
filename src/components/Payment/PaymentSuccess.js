@@ -40,7 +40,11 @@ export default function PaymentSuccess() {
         backgroundColor: "#fafafa"
       }}>
         {Object.keys(bkgDetails).length !== 0 ?
-          <Card sx={{ width: '50vw' }} >
+          <Card sx={{
+            width: '50vw',
+            boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+            borderRadius: '10px',
+          }} >
             <CardContent sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -50,19 +54,19 @@ export default function PaymentSuccess() {
                 Payment Successful
               </Typography>
               <Box>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography variant="h6" component="div">
                   Trip Starts At : {new Date(bkgDetails.tripStartDate).toLocaleString()}
                 </Typography>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography variant="h6" component="div">
                   Trip Ends At : {new Date(bkgDetails.tripEndDate).toLocaleString()}
                 </Typography>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography variant="h6" component="div">
                   PaymentId : {bkgDetails.paymentId}
                 </Typography>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography variant="h6" component="div">
                   Amount Paid : {bkgDetails.amount}
                 </Typography>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography variant="h6" component="div">
                   Status : {bkgDetails.tripStatus}
                 </Typography>
               </Box>

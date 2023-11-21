@@ -48,7 +48,12 @@ function BookingDetails(props) {
       backgroundColor: "#fafafa"
     }}>
       {Object.keys(bookingDtls).length !== 0 ?
-        <Card sx={{ width: '50vw' }} >
+        <Card sx={{
+          width: '50vw',
+          boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+          borderRadius: '10px',
+
+        }}  >
           <CardContent sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -57,26 +62,26 @@ function BookingDetails(props) {
             <Typography gutterBottom variant="h4" component="div" >
               Booking Details
             </Typography>
-            <Box>
-              <Typography gutterBottom variant="h6" component="div">
+            <Box sx={{ paddingLeft: '5vw' }}>
+              <Typography variant="h6" component="div">
                 Trip Starts At : {new Date(bookingDtls.trip.tripStartDate).toLocaleString()}
               </Typography>
-              <Typography gutterBottom variant="h6" component="div">
+              <Typography variant="h6" component="div">
                 Trip Ends At : {new Date(bookingDtls.trip.tripEndDate).toLocaleString()}
               </Typography>
-              <Typography gutterBottom variant="h6" component="div">
+              <Typography variant="h6" component="div">
                 Vehicle : {bookingDtls.trip.vehicleId.model}
               </Typography>
-              <Typography gutterBottom variant="h6" component="div">
+              <Typography variant="h6" component="div">
                 Vehicle Number : {bookingDtls.trip.vehicleId.registrationNumber}
               </Typography>
-              <Typography gutterBottom variant="h6" component="div">
+              <Typography variant="h6" component="div">
                 Pickup Location : {Object.entries(bookingDtls.details.address).map((ele) => ele[1]).join(" ")}
               </Typography>
-              <Typography gutterBottom variant="h6" component="div">
+              <Typography variant="h6" component="div">
                 Host : {bookingDtls.details.userId.name}
               </Typography>
-              <Typography gutterBottom variant="h6" component="div">
+              <Typography variant="h6" component="div">
                 Amount to be Paid : Rs {bookingDtls.trip.amount}
               </Typography>
             </Box>

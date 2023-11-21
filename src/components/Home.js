@@ -103,7 +103,10 @@ export default function Home(props) {
           sx={{ height: '90vh' }}
         >
           <Stack direction="column">
-            <FormControl sx={{ width: { xs: 270, md: 300 }, paddingTop: "1vh", margin: "0px" }}>
+            <FormControl sx={{
+              width: { xs: 270, md: 300 },
+              paddingTop: "1vh",
+            }}>
               <InputLabel sx={{ paddingTop: "1vh" }}>City</InputLabel>
               <Select
                 sx={{ backgroundColor: 'white' }}
@@ -130,7 +133,9 @@ export default function Home(props) {
                   value={startDate}
                   onChange={(value) => setStartDate(value)}
                   label="Pick trip start date"
+                  closeOnSelect={false}
                   sx={{ backgroundColor: 'white' }}
+                  reduceAnimations
                   disablePast />
               </DemoContainer>
             </LocalizationProvider>
@@ -145,13 +150,19 @@ export default function Home(props) {
                   onChange={(value) => setEndDate(value)}
                   label="Pick trip end date"
                   sx={{ backgroundColor: 'white' }}
+                  closeOnSelect={false}
+                  reduceAnimations
                   disablePast
                 />
               </DemoContainer>
             </LocalizationProvider>
             {clientError.endDate && <FormHelperText error>{clientError.endDate}</FormHelperText>}
           </Stack>
-          <Button type="submit" variant="contained" >Search</Button>
+          <Button type="submit" variant="contained"
+            sx={{
+              height: "7vh",
+              width: { md: '10vw', xs: "270px" },
+            }}>Search</Button>
         </Stack>
       </form>
     </div >

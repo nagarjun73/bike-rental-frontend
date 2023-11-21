@@ -77,8 +77,8 @@ const VehicleCard = (props) => {
   return (
     <Grid key={vehicle._id} item xs={12} sm={3}>
       <Box p={2} >
-        <Card>
-          <Carousel>
+        <Card sx={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" }} >
+          <Carousel >
             {vehicle.vehicleImage.map((ele) => {
               return (<CardMedia
                 component="img"
@@ -89,7 +89,7 @@ const VehicleCard = (props) => {
                 sx={{
                   objectFit: "contain",
                   backgroundColor: "#000000",
-                  borderRadius: "10px"
+                  borderRadius: "5px",
                 }}
               />)
             }

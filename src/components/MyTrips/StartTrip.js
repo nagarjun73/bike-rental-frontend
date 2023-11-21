@@ -25,10 +25,15 @@ export default function StartTrip(props) {
           Authorization: localStorage.getItem('token')
         }
       })
-      toast.success('Trip Started Successfully..');
-      console.log(tripResponse, 'tripResponse');
-      userDispatch({ type: "UPDATE_TRIP_STATUS", payload: tripResponse.data })
-      navigate(`/hosttripdetails/${trip._id}`)
+
+      if (tripResponse.data !== null) {
+        toast.success('Trip Started Successfully..');
+        console.log(tripResponse, 'tripResponse');
+        userDispatch({ type: "UPDATE_TRIP_STATUS", payload: tripResponse.data })
+        navigate(`/hosttripdetails/${trip._id}`)
+      } else {
+        toast.error("You cannot start your trip 15 minutes prior to the scheduled start time.");
+      }
     } catch (e) {
       console.log(e);
     }
