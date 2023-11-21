@@ -17,7 +17,7 @@ export default function VehiclesContainer() {
           })}
         </Grid> : <h1>No vehicle found</h1>
         :
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: "90vh" }}>
           <CircularProgress />
         </Box>
       }

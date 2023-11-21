@@ -21,7 +21,6 @@ export default function TripOverview(props) {
           Authorization: localStorage.getItem('token')
         }
       })
-      toast.success('Trip Ended Successfully..');
       userDispatch({ type: "UPDATE_TRIP_STATUS", payload: response.data })
       navigate('/mytrips')
     } catch (e) {

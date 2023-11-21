@@ -9,31 +9,33 @@ import { jwtDecode } from 'jwt-decode'
 //socket.io
 import { io } from 'socket.io-client'
 
+import { useContext } from 'react'
+import { UserContext } from '../../../App'
+
 export default function TripMap(props) {
   const { trip } = props
+  const { userState, userDispatch } = useContext(UserContext)
   const [position, setPosition] = useState([])
-  console.log(position);
+  const user = userState.user
 
   useEffect(() => {
     const socket = io(process.env.REACT_APP_BASE_URL)
-    const role = jwtDecode(localStorage.getItem('token')).role
-    if (role == 'user') {
+    if (user.role === 'user') {
       if (Object.keys(trip).length !== 0) {
         if (socket.connect) {
           socket.emit("join_room", { userId: trip.userId, tripId: trip.trip._id })
           console.log(trip.trip._id, "USER")
-          // socket.emit("tripStartMsg". { msg:})
         }
       }
 
       //Accessing live location 
       navigator.geolocation.watchPosition((position) => {
-        console.log(position, "pos");
         socket.emit("position", {
           tripId: trip.trip.Id,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         })
+        setPosition([position.coords.latitude, position.coords.longitude])
       },
         (error) => {
           console.error(error);
@@ -79,7 +81,7 @@ export default function TripMap(props) {
           />
           <Marker position={position} icon={icon(50)}>
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              {user.name}
             </Popup>
           </Marker>
         </MapContainer> : <h3>Location not Available</h3>}
