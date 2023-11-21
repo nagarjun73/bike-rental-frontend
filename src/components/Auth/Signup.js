@@ -31,7 +31,8 @@ export default function Signup(props) {
     mobileNumber: Yup
       .number()
       .required('Mobile Number is required')
-      .min(10, "Mobile number should be 10 characters"),
+      .min(10, "Mobile number should be 10 characters")
+      .max(10, "Mobile number should be 10 characters"),
     role: Yup
       .string()
       .required('Role is required')
@@ -40,7 +41,12 @@ export default function Signup(props) {
     password: Yup
       .string()
       .required('Password is required')
-      .min(8, "Password must be at least 8 characters"),
+      //taking refernce and value inside array is valid in that field
+      .oneOf([Yup.ref('password'), null], 'Password must match')
+      .minLowercase(1, 'password must contain at least 1 lower case letter')
+      .minUppercase(1, 'password must contain at least 1 upper case letter')
+      .minNumbers(1, 'password must contain at least 1 number')
+      .minSymbols(1, 'password must contain at least 1 special character'),
     confirmPassword: Yup
       .string()
       .required('Confirm password is required')

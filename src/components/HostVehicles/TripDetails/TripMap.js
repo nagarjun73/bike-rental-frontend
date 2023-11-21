@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardContent } from '@mui/material'
-
+import { Card, CardContent, Button } from '@mui/material'
+import axios from '../../../config/axios';
+import { useNavigate } from 'react-router-dom'
 //Importing map components
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
 import L from 'leaflet'
-import { jwtDecode } from 'jwt-decode'
 //socket.io
 import { io } from 'socket.io-client'
 
@@ -17,9 +17,13 @@ export default function TripMap(props) {
   const { userState, userDispatch } = useContext(UserContext)
   const [position, setPosition] = useState([])
   const user = userState.user
+  const socket = io(process.env.REACT_APP_BASE_URL)
+
+  const role = userState?.user.role
+  const navigate = useNavigate()
+
 
   useEffect(() => {
-    const socket = io(process.env.REACT_APP_BASE_URL)
     if (user.role === 'user') {
       if (Object.keys(trip).length !== 0) {
         if (socket.connect) {
@@ -52,8 +56,10 @@ export default function TripMap(props) {
         console.log(data);
         setPosition([data.data.latitude, data.data.longitude]);
       })
+
     }
   }, [])
+
 
 
 
@@ -66,6 +72,23 @@ export default function TripMap(props) {
   }
 
 
+  const endTripHandle = async () => {
+    try {
+      socket.disconnect()
+      console.log('disconnected');
+      const response = await axios.get(`/api/trips/${trip.trip._id}/end`, {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      })
+      userDispatch({ type: "UPDATE_TRIP_STATUS", payload: response.data })
+      navigate('/mytrips')
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+
   return (
     <Card sx={{
       margin: "20px",
@@ -73,6 +96,7 @@ export default function TripMap(props) {
       boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
       borderRadius: "15px"
     }} >
+      {role === "user" && <Button variant='contained' onClick={endTripHandle}>End Trip</Button>}
       <CardContent >
         {position.length !== 0 ? <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "400px", width: '100%' }}>
           <TileLayer

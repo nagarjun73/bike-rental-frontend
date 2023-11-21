@@ -55,7 +55,6 @@ const VehicleCard = (props) => {
         if (verifiedProfile) {
           //get vehicle by Id
           const query = JSON.parse(localStorage.getItem('query'))
-          console.log(typeof query)
 
           const bookData = {
             vehicleId: vehicle._id,

@@ -39,7 +39,6 @@ function BookingDetails(props) {
     dispatch(startPayment(payData))
   }
 
-
   return (
     <Box sx={{
       display: 'flex',
