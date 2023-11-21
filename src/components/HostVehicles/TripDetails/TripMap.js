@@ -15,10 +15,7 @@ export default function TripMap(props) {
   console.log(position);
 
   useEffect(() => {
-
-    const socket = io('http://localhost:3044')
-
-    // const socket = io('https://bike-rental-backend.onrender.com')
+    const socket = io(process.env.REACT_APP_BASE_URL)
     const role = jwtDecode(localStorage.getItem('token')).role
     if (role == 'user') {
       if (Object.keys(trip).length !== 0) {
@@ -29,9 +26,10 @@ export default function TripMap(props) {
         }
       }
 
+      //Accessing live location 
       navigator.geolocation.watchPosition((position) => {
         console.log(position, "pos");
-        socket.volatile.emit("position", {
+        socket.emit("position", {
           tripId: trip.trip.Id,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
