@@ -15,12 +15,16 @@ export default function TripMap(props) {
   console.log(position);
 
   useEffect(() => {
-    const socket = io('https://bike-rental-backend.onrender.com')
+
+    const socket = io('http://localhost:3044')
+
+    // const socket = io('https://bike-rental-backend.onrender.com')
     const role = jwtDecode(localStorage.getItem('token')).role
     if (role == 'user') {
       if (Object.keys(trip).length !== 0) {
         if (socket.connect) {
-          socket.emit("join_room", { userId: trip.trip.userId, tripId: trip.trip._id })
+          socket.emit("join_room", { userId: trip.userId, tripId: trip.trip._id })
+          console.log(trip.trip._id, "USER")
           // socket.emit("tripStartMsg". { msg:})
         }
       }
@@ -42,8 +46,10 @@ export default function TripMap(props) {
           maximumAge: 0,
         });
     } else {
-      socket.emit('join_room', { userId: trip.trip.hostId, tripId: trip.trip._id })
+      socket.emit('join_room', { hostId: trip.trip.hostId, tripId: trip.trip._id })
+      console.log(trip.trip._id, "HOST")
       socket.on("user_position", (data) => {
+        console.log(data);
         setPosition([data.data.latitude, data.data.longitude]);
       })
     }
