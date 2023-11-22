@@ -1,15 +1,15 @@
-import { TableContainer, Table, TableRow, TableHead, TableCell, Paper, TableBody, } from '@mui/material'
+import { TableContainer, Table, TableRow, TableHead, TableCell, Paper, TableBody, Typography, } from '@mui/material'
 import { useSelector } from 'react-redux'
 import ProfileItem from './ProfileItem'
 
 export default function ProfileApproval(props) {
   const unApprProfiles = useSelector((state) => {
-    return state.profile.unApprProfiles
+    return state.adminData.unApprProfiles
   })
 
   return (
     <div>
-      <h1>ProfileApproval</h1>
+      <Typography variant='h3' padding="20px">ProfileApproval</Typography>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>

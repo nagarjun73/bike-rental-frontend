@@ -30,7 +30,7 @@ import { jwtDecode } from 'jwt-decode'
 import { startGetLocation } from "./actions/locationAction"
 import { startGetHostVehicles } from "./actions/vehicleAction"
 import { startGetVehicleType } from "./actions/vehicleTypeAction"
-import { startGetAdminData } from './actions/profilesAction'
+import { startGetAdminData } from './actions/adminAction'
 
 import userReducer from './Context&Reducer/userReducer'
 export const UserContext = createContext()

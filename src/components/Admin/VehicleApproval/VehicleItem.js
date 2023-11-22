@@ -1,11 +1,11 @@
 import { Button, Modal, Box, Stack, TableRow, TableCell } from '@mui/material'
 import ImageComp from './ImageComp'
-import { startApproveProfile, startDeleteRejected } from '../../../actions/adminAction'
+import { startApproveVehicle, startRejecteVehicle } from '../../../actions/adminAction'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 
 export default function ProfileItem(props) {
-  const { profile } = props
+  const { vehicle } = props
   const [open, setOpen] = useState(false)
   const dispatch = useDispatch()
 
@@ -24,39 +24,34 @@ export default function ProfileItem(props) {
     pb: 3,
   };
 
-  //View & approve Open
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
 
   //View & approve Approve Handle
   const approvebuttonHandle = (id) => {
     console.log("approved");
-    dispatch(startApproveProfile(id))
+    dispatch(startApproveVehicle(id))
     setOpen(false);
   }
 
   //View & approve Reject Handle
   const rejectbuttonHandle = (id) => {
-    dispatch(startDeleteRejected(id))
+    dispatch(startRejecteVehicle(id))
     setOpen(false);
   }
 
   return (
     <TableRow
-      key={profile._id}
+      key={vehicle._id}
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
     >
       <TableCell component="th" scope="row">
-        {profile.userId._id}
+        {vehicle._id}
       </TableCell>
-      <TableCell >{profile.userId.name}</TableCell>
-      <TableCell >{profile.userId.email}</TableCell>
-      <TableCell >{profile.userId.mobileNumber}</TableCell>
-      <TableCell >{profile.userId.role}</TableCell>
+      <TableCell >{vehicle.model}</TableCell>
+      <TableCell >{vehicle.hostId.name}</TableCell>
+      <TableCell >{vehicle.registrationNumber}</TableCell>
+      <TableCell >{vehicle.type}</TableCell>
       <TableCell align='center' >
-        <Button variant='contained' onClick={handleOpen} >
+        <Button variant='contained' onClick={() => setOpen(true)} >
           open & approve
         </Button>
         <Modal
@@ -65,14 +60,17 @@ export default function ProfileItem(props) {
           aria-describedby="parent-modal-description"
         >
           <Box sx={{ ...style, width: '80vw' }}>
-            <h2 id="parent-modal-title">{profile.userId.name}</h2>
+            <h2 id="parent-modal-title">{vehicle.name}</h2>
             <Box sx={{ margin: 'auto' }}>
-              <ImageComp documentId={profile.documentId} drivingLicence={profile.drivingLicence} />
+              <ImageComp
+                rc={vehicle.registartionCertificate}
+                insuranceCerificate={vehicle.insuranceCerificate}
+                emissionCertificate={vehicle.emissionCertificate} />
             </Box>
             <Stack spacing={2} direction="row" justifyContent='center'>
-              <Button variant='contained' onClick={() => setOpen(false)}>close</Button>
-              <Button variant='contained' onClick={() => rejectbuttonHandle(profile._id)}>Reject</Button>
-              <Button variant='contained' onClick={() => approvebuttonHandle(profile._id)}>Approve</Button>
+              <Button variant='contained' onClick={() => setOpen(false)}>Close</Button>
+              <Button variant='contained' onClick={() => rejectbuttonHandle(vehicle._id)}>Reject</Button>
+              <Button variant='contained' onClick={() => approvebuttonHandle(vehicle._id)}>Approve</Button>
             </Stack>
           </Box>
         </Modal>
