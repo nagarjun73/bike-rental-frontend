@@ -1,5 +1,6 @@
 import axios from '../config/axios'
 
+
 const updateSearchedVehicles = (data) => {
   return {
     type: "SEARCHED_VEHICLES",
@@ -7,12 +8,14 @@ const updateSearchedVehicles = (data) => {
   }
 }
 
+//update is loading state
 const updateIsLoading = (boolean) => {
   return {
     type: "UPDATE_IS_LOADING",
     payload: boolean
   }
 }
+
 
 export const startSubmitQuery = (formdata) => {
   return async (dispatch) => {
@@ -47,3 +50,5 @@ export const addVehicle = (data) => {
     payload: data
   }
 }
+
+

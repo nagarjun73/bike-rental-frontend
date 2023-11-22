@@ -71,7 +71,13 @@ function VerifyDocHost() {
   }
 
   return (
-    <Box>
+    <Box sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      height: "90vh"
+    }}>
       <Typography variant='h4' padding="30px" textAlign='center'>
         Document Verification
       </Typography>

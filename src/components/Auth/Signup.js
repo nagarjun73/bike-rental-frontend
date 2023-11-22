@@ -31,8 +31,7 @@ export default function Signup(props) {
     mobileNumber: Yup
       .number()
       .required('Mobile Number is required')
-      .min(10, "Mobile number should be 10 characters")
-      .max(10, "Mobile number should be 10 characters"),
+      .min(10, "Mobile number should be 10 characters"),
     role: Yup
       .string()
       .required('Role is required')

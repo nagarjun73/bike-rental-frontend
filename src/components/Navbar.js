@@ -108,6 +108,34 @@ export default function Navbar(props) {
         <Button sx={{ color: '#fff' }}>
           <Link style={{ textDecoration: "none", color: '#363062' }} to='/profile'>profile</Link>
         </Button>
+
+
+        <Button
+          onClick={handleClick}
+          sx={{ color: '#363062' }}
+        >
+          Dashboard
+        </Button>
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/profileapproval'>Profile Approval</Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/vehicleapproval'>Vehicle Approval</Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/vehicles'>Category</Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/vehicles'>City</Link>
+          </MenuItem>
+        </Menu>
+
+
         <Button sx={{ color: '#fff' }} onClick={handlelogout}>
           <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>Logout</Link>
         </Button>

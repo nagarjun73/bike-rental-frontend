@@ -56,7 +56,13 @@ function VerifyDocUser() {
   }
 
   return (
-    <Box>
+    <Box sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      height: "90vh"
+    }} >
       <Typography variant='h4' paddingBottom="30px">
         Document Verification
       </Typography>
@@ -64,7 +70,7 @@ function VerifyDocUser() {
       <form style={{ width: "30vw" }}
         onSubmit={uploadDocumentsHandle}
       >
-        <Stack spacing={2} >
+        <Stack spacing={2}>
           {_.size(serverError) ? (<Alert severity="error" style={{ position: 'sticky', marginBottom: '20px' }}>
             <AlertTitle>Error</AlertTitle>
             {serverError.response.data.msg}

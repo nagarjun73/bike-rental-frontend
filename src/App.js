@@ -14,6 +14,13 @@ import DisplayMessage from './components/DisplayMessage'
 import PaymentSuccess from './components/Payment/PaymentSuccess'
 import MyTripsContainer from './components/MyTrips/MyTripsContainer'
 import TripDetailsContainer from "./components/HostVehicles/TripDetails/TripDetailsContainer"
+import PaymentCancel from './components/Payment/PaymentCancel'
+import TripDetail from './components/MyTrips/TripDetail'
+import VehiclesContainer from './components/HostVehicles/VehiclesContainer'
+import AddVehicle from './components/HostVehicles/AddVehicle'
+import VehicleDetail from './components/HostVehicles/VehicleDetails/VehicleDetail'
+import ProfileApproval from './components/Admin/ProfileApproval/ProfileApproval'
+import VehicleApproval from './components/Admin/VehicleApproval/VehicleApproval'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
@@ -23,13 +30,9 @@ import { jwtDecode } from 'jwt-decode'
 import { startGetLocation } from "./actions/locationAction"
 import { startGetHostVehicles } from "./actions/vehicleAction"
 import { startGetVehicleType } from "./actions/vehicleTypeAction"
+import { startGetAdminData } from './actions/profilesAction'
 
 import userReducer from './Context&Reducer/userReducer'
-import PaymentCancel from './components/Payment/PaymentCancel'
-import TripDetail from './components/MyTrips/TripDetail'
-import VehiclesContainer from './components/HostVehicles/VehiclesContainer'
-import AddVehicle from './components/HostVehicles/AddVehicle'
-import VehicleDetail from './components/HostVehicles/VehicleDetails/VehicleDetail'
 export const UserContext = createContext()
 
 
@@ -63,6 +66,8 @@ export default function App() {
           if (jwtDecode(token).role == "host") {
             dispatch(startGetHostVehicles())
             dispatch(startGetVehicleType())
+          } else if (jwtDecode(token).role == "admin") {
+            dispatch(startGetAdminData())
           }
         } catch (e) {
           setServerError(e.response.data)
@@ -92,10 +97,14 @@ export default function App() {
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/cancel" element={<PaymentCancel />} />
           <Route path="/tripdetail/:id" element={<TripDetail />} />
+          {/* host routes */}
           <Route path='/addvehicle' element={<AddVehicle />} />
           <Route path='/vehicles' element={<VehiclesContainer />} />
           <Route path='/vehicledetail/:id' element={<VehicleDetail />} />
           <Route path="/hosttripdetails/:id" element={<TripDetailsContainer />} />
+          {/* admin routes */}
+          <Route path="/profileapproval" element={<ProfileApproval />} />
+          <Route path="/vehicleapproval" element={<VehicleApproval />} />
 
         </Routes>
       </BrowserRouter >
