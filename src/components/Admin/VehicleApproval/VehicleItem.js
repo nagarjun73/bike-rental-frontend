@@ -4,7 +4,7 @@ import { startApproveVehicle, startRejecteVehicle } from '../../../actions/admin
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 
-export default function ProfileItem(props) {
+export default function VehicleItem(props) {
   const { vehicle } = props
   const [open, setOpen] = useState(false)
   const dispatch = useDispatch()

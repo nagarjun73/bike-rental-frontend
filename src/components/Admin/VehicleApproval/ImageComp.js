@@ -12,7 +12,6 @@ export default function ImageComp(props) {
           component="img"
           alt={images.model}
           height="400"
-          backgroundColor="white"
           key={ele._id}
           image={ele.url}
           sx={{

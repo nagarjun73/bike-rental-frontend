@@ -128,10 +128,10 @@ export default function Navbar(props) {
             <Link style={{ textDecoration: "none", color: '#363062' }} to='/vehicleapproval'>Vehicle Approval</Link>
           </MenuItem>
           <MenuItem onClick={handleClose}>
-            <Link style={{ textDecoration: "none", color: '#363062' }} to='/vehicles'>Category</Link>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/category'>Category</Link>
           </MenuItem>
           <MenuItem onClick={handleClose}>
-            <Link style={{ textDecoration: "none", color: '#363062' }} to='/vehicles'>City</Link>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/city'>City</Link>
           </MenuItem>
         </Menu>
 

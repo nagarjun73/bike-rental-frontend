@@ -33,6 +33,8 @@ import { startGetVehicleType } from "./actions/vehicleTypeAction"
 import { startGetAdminData } from './actions/adminAction'
 
 import userReducer from './Context&Reducer/userReducer'
+import VehicleCategory from './components/Admin/VehicleCategory/VehicleCategory'
+import Cities from './components/Admin/Cities/Cities'
 export const UserContext = createContext()
 
 
@@ -105,6 +107,9 @@ export default function App() {
           {/* admin routes */}
           <Route path="/profileapproval" element={<ProfileApproval />} />
           <Route path="/vehicleapproval" element={<VehicleApproval />} />
+          <Route path="/category" element={<VehicleCategory />} />
+          <Route path="/city" element={<Cities />} />
+
 
         </Routes>
       </BrowserRouter >
