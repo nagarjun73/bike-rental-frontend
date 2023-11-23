@@ -26,7 +26,7 @@ export default function CategoryItem(props) {
       <TableCell >Rs {category.perDayCharge}</TableCell>
       <TableCell >Rs {category.perHourCharge}</TableCell>
       <TableCell align='center' >
-        <CategoryForm category={category} />
+        <CategoryForm category={category} button="edit" />
       </TableCell>
       <TableCell ><Button variant='contained' onClick={handleDelete}>Delete</Button></TableCell>
     </TableRow>

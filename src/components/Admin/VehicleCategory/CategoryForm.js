@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { startEditCategory } from '../../../actions/vehicleTypeAction'
 import toast, { Toaster } from 'react-hot-toast'
+import { startAddCategory } from '../../../actions/adminAction'
 
 export default function CategoryForm(props) {
-  const { category } = props
+  const { category, button } = props
   const [open, setOpen] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
@@ -16,8 +17,6 @@ export default function CategoryForm(props) {
     perHourCharge: ''
   })
   const dispatch = useDispatch()
-
-  console.log(formData);
 
   //modal style
   const style = {
@@ -61,7 +60,7 @@ export default function CategoryForm(props) {
 
   const editHandleFunction = () => {
     setOpen(true)
-    if (Object.keys(category).length !== 0) {
+    if (Object.keys(category)?.length !== 0) {
       setDefaultFormData()
     }
   }
@@ -71,10 +70,16 @@ export default function CategoryForm(props) {
     clearFormData()
   }
 
+  //form submit Handle
   const submitButtonHandle = (e) => {
     e.preventDefault()
-    dispatch(startEditCategory(category._id, formData))
-    toast.success("Category Successfully updated")
+    if (button === 'edit') {
+      dispatch(startEditCategory(category._id, formData))
+      toast.success("Category Successfully updated")
+    } else {
+      dispatch(startAddCategory(formData))
+      toast.success("Category Successfully added")
+    }
     clearFormData()
     setOpen(false)
   }
@@ -84,7 +89,7 @@ export default function CategoryForm(props) {
     <div>
       <Toaster />
       <Button variant='contained' onClick={editHandleFunction} >
-        edit
+        {button}
       </Button>
 
       <Modal
@@ -93,7 +98,7 @@ export default function CategoryForm(props) {
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: '80vw' }}>
-          <h2 id="parent-modal-title">Edit Category</h2>
+          <h2 id="parent-modal-title">{button} Category</h2>
           <form onSubmit={submitButtonHandle}>
             <Stack spacing={2} >
               {/* {serverError.errors &&

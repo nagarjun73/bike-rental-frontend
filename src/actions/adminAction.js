@@ -90,3 +90,21 @@ export const startRejecteVehicle = (id) => {
     dispatch(updateVehicleList(rejectResponse.data))
   }
 }
+
+const addCategory = (data) => {
+  return {
+    type: "ADD_CATEGORY",
+    payload: data
+  }
+}
+
+export const startAddCategory = (data) => {
+  return async (dispatch) => {
+    const response = await axios.post('/api/vehicletype/add', data, {
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    })
+    dispatch(addCategory(response.data))
+  }
+}

@@ -21,6 +21,8 @@ import AddVehicle from './components/HostVehicles/AddVehicle'
 import VehicleDetail from './components/HostVehicles/VehicleDetails/VehicleDetail'
 import ProfileApproval from './components/Admin/ProfileApproval/ProfileApproval'
 import VehicleApproval from './components/Admin/VehicleApproval/VehicleApproval'
+import VehicleCategory from './components/Admin/VehicleCategory/VehicleCategory'
+import Cities from './components/Admin/City/Cities'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
@@ -33,8 +35,6 @@ import { startGetVehicleType } from "./actions/vehicleTypeAction"
 import { startGetAdminData } from './actions/adminAction'
 
 import userReducer from './Context&Reducer/userReducer'
-import VehicleCategory from './components/Admin/VehicleCategory/VehicleCategory'
-import Cities from './components/Admin/Cities/Cities'
 export const UserContext = createContext()
 
 

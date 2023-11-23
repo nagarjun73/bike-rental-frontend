@@ -1,6 +1,7 @@
-import { TableContainer, Table, TableRow, TableHead, TableCell, Paper, TableBody, Typography, } from '@mui/material'
+import { TableContainer, Table, TableRow, TableHead, TableCell, Paper, TableBody, Typography, Button, Stack } from '@mui/material'
 import { useSelector } from 'react-redux'
 import CategoryItem from './CategoryItem'
+import CategoryForm from './CategoryForm'
 
 
 export default function VehicleCategory(props) {
@@ -9,7 +10,10 @@ export default function VehicleCategory(props) {
   })
   return (
     <div>
-      <Typography variant='h3' padding="20px">Vehicle Category</Typography>
+      <Stack direction="row" padding="20px" justifyContent="space-between ">
+        <Typography variant='h3' >Vehicle Category</Typography>
+        <CategoryForm category="" button="add" />
+      </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>

@@ -31,7 +31,11 @@ const adminReducer = (state = initialProfile, action) => {
     }
 
     case "DELETE_VEHICLE_TYPE": {
-      return { ...state, vehicleCategories: state.filter((ele) => ele._id === action.payload) }
+      return { ...state, vehicleCategories: state.vehicleCategories.filter((ele) => ele._id !== action.payload) }
+    }
+
+    case "ADD_CATEGORY": {
+      return { ...state, vehicleCategories: [...state.vehicleCategories, action.payload] }
     }
 
     default: {

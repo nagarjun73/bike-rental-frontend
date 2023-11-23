@@ -6,7 +6,13 @@ import validator from 'validator'
 import { BgImg, Linked, BoxSX } from './CSS-Styled'
 import { UserContext } from '../../App'
 
+import { jwtDecode } from 'jwt-decode'
 import toast, { Toaster } from 'react-hot-toast'
+
+import { useDispatch } from 'react-redux'
+import { startGetHostVehicles } from "../../actions/vehicleAction"
+import { startGetVehicleType } from "../../actions/vehicleTypeAction"
+import { startGetAdminData } from '../../actions/adminAction'
 
 
 export default function Login(props) {
@@ -16,6 +22,7 @@ export default function Login(props) {
   const [serverError, setServerError] = useState({})
 
   const { userState, userDispatch } = useContext(UserContext)
+  const dispatch = useDispatch()
 
   const errors = {}
 
@@ -106,6 +113,15 @@ export default function Login(props) {
           const profile = axios.get('/api/users/profile', header)
           const response = await Promise.all([user, profile])
           userDispatch({ type: "LOGIN_USER", payload: response })
+
+          const token = localStorage.getItem('token')
+          if (jwtDecode(token).role == "host") {
+            dispatch(startGetHostVehicles())
+            dispatch(startGetVehicleType())
+          } else if (jwtDecode(token).role == "admin") {
+            dispatch(startGetAdminData())
+          }
+
           //After dispatching
           //if user came from booking page redirect to booking
           if (lastUrl) {
