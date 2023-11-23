@@ -6,70 +6,98 @@ import toast, { Toaster } from 'react-hot-toast'
 import { startAddCategory } from '../../../actions/adminAction'
 import { modalStyle } from '../modalStyle'
 
+//Formik and Yup
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+
 export default function CategoryForm(props) {
   const { category, button } = props
   const [open, setOpen] = useState(false)
-  const [formData, setFormData] = useState({
-    name: '',
-    maxCc: '',
-    minCc: '',
-    perDayKmLimit: '',
-    perDayCharge: '',
-    perHourCharge: ''
-  })
   const dispatch = useDispatch()
 
+  //vehicleTypeValidationSchema
+  const vehicleTypeValidationSchema = Yup.object().shape({
+    name: Yup.string().required('name is required').max(50, 'name should not exceed 50characters'),
+    maxCc: Yup.number().required('maxCc is required'),
+    minCc: Yup.number().required('minCc is required'),
+    perDayKmLimit: Yup.number().required('per day km limit is required')
+      .min(100, "distance should be min 100km")
+      .max(300, "distance should not exceed 300km"),
+    perDayCharge: Yup.number().required('per day charge is required'),
+    perHourCharge: Yup.number().required('per hour charge is required')
+  })
 
-  //SET default data from category
-  const setDefaultFormData = () => {
-    setFormData({
-      name: category.name,
-      maxCc: category.maxCc,
-      minCc: category.minCc,
-      perDayKmLimit: category.perDayKmLimit,
-      perDayCharge: category.perDayCharge,
-      perHourCharge: category.perHourCharge
-    })
-  }
+  const formik = useFormik({
+    initialValues: {
+      name: category.name ? category.name : '',
+      maxCc: category.maxCc ? category.maxCc : '',
+      minCc: category.minCc ? category.minCc : '',
+      perDayKmLimit: category.perDayKmLimit ? category.perDayKmLimit : '',
+      perDayCharge: category.perDayCharge ? category.perDayCharge : '',
+      perHourCharge: category.perHourCharge ? category.perHourCharge : ''
+    },
+    validationSchema: vehicleTypeValidationSchema,
+    validateOnChange: false,
+    onSubmit: async (formData, { setFieldError, resetForm }) => {
+      const data = {
+        name: formData.name,
+        maxCc: formData.maxCc,
+        minCc: formData.minCc,
+        perDayKmLimit: formData.perDayKmLimit,
+        perDayCharge: formData.perDayCharge,
+        perHourCharge: formData.perHourCharge
+      }
 
-  //clear form  data
-  const clearFormData = () => {
-    setFormData({
-      name: "",
-      maxCc: "",
-      minCc: "",
-      perDayKmLimit: "",
-      perDayCharge: "",
-      perHourCharge: ""
-    })
+      if (button === 'edit') {
+        dispatch(startEditCategory(category._id, data))
+        toast.success("Category Successfully updated")
+        resetForm()
+      } else {
+        dispatch(startAddCategory(data))
+        toast.success("Category Successfully added")
+        resetForm()
+      }
+
+      setOpen(false)
+    }
+  })
+
+  const emptyFormData = () => {
+    formik.values.name = ''
+    formik.values.maxCc = ''
+    formik.values.minCc = ''
+    formik.values.perDayKmLimit = ''
+    formik.values.perDayCharge = ''
+    formik.values.perHourCharge = ''
   }
 
 
   const editHandleFunction = () => {
     setOpen(true)
     if (Object.keys(category)?.length !== 0) {
-      setDefaultFormData()
     }
   }
 
   const handleClose = () => {
     setOpen(false)
-    clearFormData()
+    if (button == "add") {
+      emptyFormData()
+    }
   }
 
-  //form submit Handle
-  const submitButtonHandle = (e) => {
-    e.preventDefault()
-    if (button === 'edit') {
-      dispatch(startEditCategory(category._id, formData))
-      toast.success("Category Successfully updated")
-    } else {
-      dispatch(startAddCategory(formData))
-      toast.success("Category Successfully added")
-    }
-    clearFormData()
-    setOpen(false)
-  }
+  // //form submit Handle
+  // const submitButtonHandle = (e) => {
+  //   e.preventDefault()
+  //   if (button === 'edit') {
+  //     dispatch(startEditCategory(category._id, formData))
+  //     toast.success("Category Successfully updated")
+  //   } else {
+  //     dispatch(startAddCategory(formData))
+  //     toast.success("Category Successfully added")
+  //   }
+  //   // clearFormData()
+  //   setOpen(false)
+  // }
 
 
   return (
@@ -86,7 +114,7 @@ export default function CategoryForm(props) {
       >
         <Box sx={{ ...modalStyle, width: '50vw' }}>
           <h2 id="parent-modal-title">{button} Category</h2>
-          <form onSubmit={submitButtonHandle} >
+          <form onSubmit={formik.handleSubmit} >
             <Stack spacing={2} >
               {/* {serverError.errors &&
                 <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px' }}>
@@ -95,61 +123,73 @@ export default function CategoryForm(props) {
                 </Alert>} */}
               <TextField
                 label="Name"
+                name="name"
                 variant="outlined"
-                value={formData.name}
+                value={formik.values.name}
                 type='text'
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={formik.handleChange}
+                error={formik.errors.name && true}
+                helperText={formik.errors.name}
                 sx={{ backgroundColor: "white" }} />
-              {/* {clientError.emailNum && <FormHelperText error>{clientError.emailNum}</FormHelperText>} */}
 
               <TextField
                 label="Min CC"
                 variant="outlined"
-                value={formData.minCc}
+                name="minCc"
+                value={formik.values.minCc}
                 type='text'
-                onChange={(e) => setFormData({ ...formData, minCc: e.target.value })}
+                onChange={formik.handleChange}
+                error={formik.errors.minCc && true}
+                helperText={formik.errors.minCc}
                 sx={{ backgroundColor: "white" }} />
-              {/* {clientError.emailNum && <FormHelperText error>{clientError.emailNum}</FormHelperText>} */}
 
 
               <TextField
                 label="Max CC"
+                name="maxCc"
                 variant="outlined"
-                value={formData.maxCc}
+                value={formik.values.maxCc}
                 type='text'
-                onChange={(e) => setFormData({ ...formData, maxCc: e.target.value })}
+                onChange={formik.handleChange}
+                error={formik.errors.maxCc && true}
+                helperText={formik.errors.maxCc}
                 sx={{ backgroundColor: "white" }} />
-              {/* {clientError.emailNum && <FormHelperText error>{clientError.emailNum}</FormHelperText>} */}
 
 
               <TextField
                 label="Per Day Km Limit"
                 variant="outlined"
-                value={formData.perDayKmLimit}
+                name="perDayKmLimit"
+                value={formik.values.perDayKmLimit}
                 type='text'
-                onChange={(e) => setFormData({ ...formData, perDayKmLimit: e.target.value })}
+                onChange={formik.handleChange}
+                error={formik.errors.perDayKmLimit && true}
+                helperText={formik.errors.perDayKmLimit}
                 sx={{ backgroundColor: "white" }} />
-              {/* {clientError.emailNum && <FormHelperText error>{clientError.emailNum}</FormHelperText>} */}
 
 
               <TextField
                 label="Per Day Charge"
                 variant="outlined"
-                value={formData.perDayCharge}
+                name="perDayCharge"
+                value={formik.values.perDayCharge}
                 type='text'
-                onChange={(e) => setFormData({ ...formData, perDayCharge: e.target.value })}
+                onChange={formik.handleChange}
+                error={formik.errors.perDayCharge && true}
+                helperText={formik.errors.perDayCharge}
                 sx={{ backgroundColor: "white" }} />
-              {/* {clientError.emailNum && <FormHelperText error>{clientError.emailNum}</FormHelperText>} */}
 
 
               <TextField
                 label="Per Hour Charge"
                 variant="outlined"
-                value={formData.perHourCharge}
+                name="perHourCharge"
+                value={formik.values.perHourCharge}
                 type='text'
-                onChange={(e) => setFormData({ ...formData, perHourCharge: e.target.value })}
+                onChange={formik.handleChange}
+                error={formik.errors.perHourCharge && true}
+                helperText={formik.errors.perHourCharge}
                 sx={{ backgroundColor: "white" }} />
-              {/* {clientError.emailNum && <FormHelperText error>{clientError.emailNum}</FormHelperText>} */}
               <Button type="submit" variant="contained">submit</Button>
             </Stack>
           </form>
