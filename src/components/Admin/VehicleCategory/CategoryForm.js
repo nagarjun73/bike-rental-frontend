@@ -27,6 +27,7 @@ export default function CategoryForm(props) {
     perHourCharge: Yup.number().required('per hour charge is required')
   })
 
+  //Formik 
   const formik = useFormik({
     initialValues: {
       name: category.name ? category.name : '',
@@ -47,7 +48,7 @@ export default function CategoryForm(props) {
         perDayCharge: formData.perDayCharge,
         perHourCharge: formData.perHourCharge
       }
-
+      //checks wheather button clicked edit or add
       if (button === 'edit') {
         dispatch(startEditCategory(category._id, data))
         toast.success("Category Successfully updated")
@@ -57,11 +58,11 @@ export default function CategoryForm(props) {
         toast.success("Category Successfully added")
         resetForm()
       }
-
       setOpen(false)
     }
   })
 
+  //empty form data
   const emptyFormData = () => {
     formik.values.name = ''
     formik.values.maxCc = ''
@@ -71,33 +72,20 @@ export default function CategoryForm(props) {
     formik.values.perHourCharge = ''
   }
 
-
+  //Edit handle function
   const editHandleFunction = () => {
     setOpen(true)
     if (Object.keys(category)?.length !== 0) {
     }
   }
 
+  //handle close
   const handleClose = () => {
     setOpen(false)
     if (button == "add") {
       emptyFormData()
     }
   }
-
-  // //form submit Handle
-  // const submitButtonHandle = (e) => {
-  //   e.preventDefault()
-  //   if (button === 'edit') {
-  //     dispatch(startEditCategory(category._id, formData))
-  //     toast.success("Category Successfully updated")
-  //   } else {
-  //     dispatch(startAddCategory(formData))
-  //     toast.success("Category Successfully added")
-  //   }
-  //   // clearFormData()
-  //   setOpen(false)
-  // }
 
 
   return (
@@ -116,11 +104,6 @@ export default function CategoryForm(props) {
           <h2 id="parent-modal-title">{button} Category</h2>
           <form onSubmit={formik.handleSubmit} >
             <Stack spacing={2} >
-              {/* {serverError.errors &&
-                <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px' }}>
-                  <AlertTitle>Error</AlertTitle>
-                  {serverError.errors}
-                </Alert>} */}
               <TextField
                 label="Name"
                 name="name"
@@ -143,7 +126,6 @@ export default function CategoryForm(props) {
                 helperText={formik.errors.minCc}
                 sx={{ backgroundColor: "white" }} />
 
-
               <TextField
                 label="Max CC"
                 name="maxCc"
@@ -154,7 +136,6 @@ export default function CategoryForm(props) {
                 error={formik.errors.maxCc && true}
                 helperText={formik.errors.maxCc}
                 sx={{ backgroundColor: "white" }} />
-
 
               <TextField
                 label="Per Day Km Limit"
@@ -167,7 +148,6 @@ export default function CategoryForm(props) {
                 helperText={formik.errors.perDayKmLimit}
                 sx={{ backgroundColor: "white" }} />
 
-
               <TextField
                 label="Per Day Charge"
                 variant="outlined"
@@ -178,7 +158,6 @@ export default function CategoryForm(props) {
                 error={formik.errors.perDayCharge && true}
                 helperText={formik.errors.perDayCharge}
                 sx={{ backgroundColor: "white" }} />
-
 
               <TextField
                 label="Per Hour Charge"
