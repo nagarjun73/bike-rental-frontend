@@ -11,7 +11,7 @@ export default function QueryResult() {
   }, [])
 
   return (
-    <div style={{ backgroundColor: "#fafafa", height: "90vh" }}>
+    <div style={{ backgroundColor: "#fafafa", height: "90vh", margin: "0px", }}>
       <VehiclesContainer />
     </div>
   )

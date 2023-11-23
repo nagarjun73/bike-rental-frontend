@@ -105,9 +105,6 @@ export default function Navbar(props) {
         <Button sx={{ color: '#fff' }}>
           <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>Home</Link>
         </Button>
-        <Button sx={{ color: '#fff' }}>
-          <Link style={{ textDecoration: "none", color: '#363062' }} to='/profile'>profile</Link>
-        </Button>
 
 
         <Button
@@ -135,6 +132,9 @@ export default function Navbar(props) {
           </MenuItem>
         </Menu>
 
+        <Button sx={{ color: '#fff' }}>
+          <Link style={{ textDecoration: "none", color: '#363062' }} to='/profile'>profile</Link>
+        </Button>
 
         <Button sx={{ color: '#fff' }} onClick={handlelogout}>
           <Link style={{ textDecoration: "none", color: '#363062' }} to='/'>Logout</Link>

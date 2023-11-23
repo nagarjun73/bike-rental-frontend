@@ -1,28 +1,14 @@
 import { Button, Modal, Box, Stack, TableRow, TableCell } from '@mui/material'
-import ImageComp from './ImageComp'
+import ImageComp from '../ImageComp'
 import { startApproveVehicle, startRejecteVehicle } from '../../../actions/adminAction'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
+import { modalStyle } from '../modalStyle'
 
 export default function VehicleItem(props) {
   const { vehicle } = props
   const [open, setOpen] = useState(false)
   const dispatch = useDispatch()
-
-  //modal style
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-  };
 
 
   //View & approve Approve Handle
@@ -59,13 +45,15 @@ export default function VehicleItem(props) {
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
         >
-          <Box sx={{ ...style, width: '80vw' }}>
+          <Box sx={{ ...modalStyle, width: '80vw' }}>
             <h2 id="parent-modal-title">{vehicle.name}</h2>
             <Box sx={{ margin: 'auto' }}>
               <ImageComp
-                rc={vehicle.registartionCertificate}
-                insuranceCerificate={vehicle.insuranceCerificate}
-                emissionCertificate={vehicle.emissionCertificate} />
+                docs={{
+                  registartionCertificate: vehicle.registartionCertificate,
+                  insuranceCerificate: vehicle.insuranceCerificate,
+                  emissionCertificate: vehicle.emissionCertificate
+                }} />
             </Box>
             <Stack spacing={2} direction="row" justifyContent='center'>
               <Button variant='contained' onClick={() => setOpen(false)}>Close</Button>

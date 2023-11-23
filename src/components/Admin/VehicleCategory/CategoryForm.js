@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { startEditCategory } from '../../../actions/vehicleTypeAction'
 import toast, { Toaster } from 'react-hot-toast'
 import { startAddCategory } from '../../../actions/adminAction'
+import { modalStyle } from '../modalStyle'
 
 export default function CategoryForm(props) {
   const { category, button } = props
@@ -18,20 +19,6 @@ export default function CategoryForm(props) {
   })
   const dispatch = useDispatch()
 
-  //modal style
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-  };
 
   //SET default data from category
   const setDefaultFormData = () => {
@@ -86,7 +73,7 @@ export default function CategoryForm(props) {
 
 
   return (
-    <div>
+    <Box>
       <Toaster />
       <Button variant='contained' onClick={editHandleFunction} >
         {button}
@@ -97,9 +84,9 @@ export default function CategoryForm(props) {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: '80vw' }}>
+        <Box sx={{ ...modalStyle, width: '50vw' }}>
           <h2 id="parent-modal-title">{button} Category</h2>
-          <form onSubmit={submitButtonHandle}>
+          <form onSubmit={submitButtonHandle} >
             <Stack spacing={2} >
               {/* {serverError.errors &&
                 <Alert severity="error" style={{ position: 'sticky', marginBottom: '20px' }}>
@@ -167,9 +154,12 @@ export default function CategoryForm(props) {
             </Stack>
           </form>
 
-          <Button variant='contained' onClick={handleClose}>Close</Button>
+          <Button variant='contained' onClick={handleClose} sx={{
+            marginTop: "10px",
+            width: "100%"
+          }}>Close</Button>
         </Box>
       </Modal>
-    </div>
+    </Box>
   )
 }
