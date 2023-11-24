@@ -1,7 +1,8 @@
 const intialBookingState = {
   bookingId: '',
   bookingDetails: {},
-  isLoading: false
+  isLoading: false,
+  userTrips: []
 }
 
 const bookingReducer = (state = intialBookingState, action) => {
@@ -12,6 +13,10 @@ const bookingReducer = (state = intialBookingState, action) => {
 
     case "UPDATE_TRIP_DETAILS": {
       return { ...state, bookingDetails: action.payload.data }
+    }
+
+    case "UPDATE_USER_TRIPS": {
+      return { ...state, userTrips: action.payload }
     }
 
     default: {

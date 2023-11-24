@@ -11,18 +11,18 @@ export default function MyTripsListItem(props) {
   }
 
   return (
-    <Grid item xs={12} sm={12} md={12} key={trip._id}>
-      <Card>
+    <Grid item xs={12} sm={12} md={12} key={trip._id} sx={{ display: "flex", justifyContent: 'center' }}>
+      <Card sx={{ width: "90vw" }}>
         <CardContent>
           <Stack
             flexDirection={{ xs: 'column', sm: 'row' }}
             justifyContent="space-evenly"
             padding="auto" >
             <Typography color="textSecondary">
-              Start Date: {new Date(trip.tripStartDate).toLocaleString()}
+              booked on: {new Date(trip.createdAt).toLocaleString()}
             </Typography>
-            <Typography color="textSecondary">
-              End Date: {new Date(trip.tripEndDate).toLocaleString()}
+            <Typography sx={{ paddingLeft: { md: "10vw", xs: "0px" } }} color="textSecondary">
+              {trip.vehicleId.model}
             </Typography>
             <Typography color="textSecondary">
               Amount: {trip.amount}
@@ -36,6 +36,6 @@ export default function MyTripsListItem(props) {
           </Stack>
         </CardContent>
       </Card>
-    </Grid>
+    </Grid >
   )
 }

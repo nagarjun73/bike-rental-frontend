@@ -56,3 +56,25 @@ export const setLoadingFalse = () => {
   }
 }
 
+const updateMyTrips = (data) => {
+  return {
+    type: "UPDATE_USER_TRIPS",
+    payload: data
+  }
+}
+
+export const startGetMyTrips = (page, sort) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`/api/trips/list?page=${page}&sort=${sort}`, {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      })
+      dispatch(updateMyTrips(res.data))
+    } catch (e) {
+
+    }
+  }
+}
+

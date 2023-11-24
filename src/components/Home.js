@@ -91,23 +91,24 @@ export default function Home(props) {
       backgroundImage: `url("https://bikerentals6.s3.ap-south-1.amazonaws.com/frontend/undraw_traveling_yhxq.svg")`,
       backgroundPosition: ' 50% 80%',
       backgroundRepeat: 'no-repeat',
-      backgroundColor: "#fafafa"
+      backgroundColor: "#fafafa",
+      height: '85vh'
     }}>
 
       <form onSubmit={handleSearch} >
         <Stack
           direction={{ xs: "column", md: "row" }}
           spacing={2}
-          alignItems='center'
           justifyContent='center'
-          sx={{ height: '90vh' }}
+          alignItems="center"
+          paddingTop="8vh"
         >
-          <Stack direction="column">
+          <Stack direction="column" >
             <FormControl sx={{
-              width: { xs: 270, md: 300 },
-              paddingTop: "1vh",
+              width: { xs: "80vw", md: "20vw" },
+              marginTop: "10px"
             }}>
-              <InputLabel sx={{ paddingTop: "1vh" }}>City</InputLabel>
+              <InputLabel >City</InputLabel>
               <Select
                 sx={{ backgroundColor: 'white' }}
                 value={location}
@@ -134,7 +135,7 @@ export default function Home(props) {
                   onChange={(value) => setStartDate(value)}
                   label="Pick trip start date"
                   closeOnSelect={false}
-                  sx={{ backgroundColor: 'white' }}
+                  sx={{ backgroundColor: 'white', width: { xs: "80vw", md: "20vw" } }}
                   reduceAnimations
                   disablePast />
               </DemoContainer>
@@ -149,7 +150,7 @@ export default function Home(props) {
                   value={endDate}
                   onChange={(value) => setEndDate(value)}
                   label="Pick trip end date"
-                  sx={{ backgroundColor: 'white' }}
+                  sx={{ backgroundColor: 'white', width: { xs: "80vw", md: "20vw" } }}
                   closeOnSelect={false}
                   reduceAnimations
                   disablePast
@@ -160,8 +161,9 @@ export default function Home(props) {
           </Stack>
           <Button type="submit" variant="contained"
             sx={{
-              height: "7vh",
-              width: { md: '10vw', xs: "270px" },
+              width: { md: '10vw', xs: "80vw" },
+              marginTop: "2vh",
+              height: "7vh"
             }}>Search</Button>
         </Stack>
       </form>
