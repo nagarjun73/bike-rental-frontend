@@ -27,6 +27,18 @@ const vehicleReducer = (state = initialVehicleState, action) => {
       }
     }
 
+    case "CHANGE_VEHICLE_STATUS": {
+      return {
+        ...state, hostVehicles: state.hostVehicles.map((ele) => {
+          if (ele._id === action.payload._id) {
+            return action.payload
+          } else {
+            return ele
+          }
+        })
+      }
+    }
+
     default: {
       return { ...state }
     }

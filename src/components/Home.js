@@ -21,6 +21,8 @@ export default function Home(props) {
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
 
+  console.log(startDate);
+
   const [clientError, setClientError] = useState({})
 
   const errors = {}

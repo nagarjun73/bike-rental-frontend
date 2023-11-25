@@ -29,7 +29,7 @@ export default function TripHistoryContainer(props) {
             <TableRow>
               <TableCell >start date</TableCell>
               <TableCell >end date</TableCell>
-              <TableCell >amount</TableCell>
+              <TableCell >status</TableCell>
               <TableCell >user</TableCell>
               <TableCell ></TableCell>
             </TableRow>
@@ -44,8 +44,8 @@ export default function TripHistoryContainer(props) {
                   {new Date(vcl.tripStartDate).toLocaleString()}
                 </TableCell>
                 <TableCell >{new Date(vcl.tripEndDate).toLocaleString()}</TableCell>
-                <TableCell >Rs {vcl.amount}</TableCell>
                 <TableCell >{vcl.userId.name}</TableCell>
+                <TableCell >{vcl.tripStatus}</TableCell>
                 <TableCell>
                   <Button variant="contained" onClick={() => handleTripDetails(vcl._id)}>Detail</Button>
                 </TableCell>

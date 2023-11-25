@@ -51,4 +51,22 @@ export const addVehicle = (data) => {
   }
 }
 
+const changeVehicleStatus = (data) => {
+  return {
+    type: "CHANGE_VEHICLE_STATUS",
+    payload: data
+  }
+}
+
+export const startEnableVehicle = (id, bool) => {
+  return async (dispatch) => {
+    const changeStatus = await axios.put(`/api/host/${id}/change-status`, { availability: bool }, {
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    })
+    dispatch(changeVehicleStatus(changeStatus.data))
+  }
+}
+
 
