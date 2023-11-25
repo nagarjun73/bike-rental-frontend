@@ -33,9 +33,9 @@ const updateVehicleList = (data) => {
   }
 }
 
-export const startGetHostVehicles = () => {
+export const startGetHostVehicles = (pageNo, sort) => {
   return async (dispatch) => {
-    const result = await axios.get('/api/host/all-vehicles', {
+    const result = await axios.get(`/api/host/pagination?page=${pageNo}&sort=${sort}`, {
       headers: {
         Authorization: localStorage.getItem('token')
       }

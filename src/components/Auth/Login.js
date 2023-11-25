@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux'
 import { startGetHostVehicles } from "../../actions/vehicleAction"
 import { startGetVehicleType } from "../../actions/vehicleTypeAction"
 import { startGetAdminData } from '../../actions/adminAction'
+import { startGetMyTrips } from '../../actions/bookingsAction'
 
 
 export default function Login(props) {
@@ -116,10 +117,12 @@ export default function Login(props) {
 
           const token = localStorage.getItem('token')
           if (jwtDecode(token).role == "host") {
-            dispatch(startGetHostVehicles())
+            dispatch(startGetHostVehicles(1, -1))
             dispatch(startGetVehicleType())
           } else if (jwtDecode(token).role == "admin") {
             dispatch(startGetAdminData())
+          } else if (jwtDecode(token).role === "user") {
+            dispatch(startGetMyTrips(1, -1))
           }
 
           //After dispatching
