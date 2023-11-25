@@ -96,8 +96,7 @@ export default function TripMap(props) {
       boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
       borderRadius: "15px"
     }} >
-      {role === "user" && <Button variant='contained' onClick={endTripHandle}>End Trip</Button>}
-      <CardContent >
+      <CardContent sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', gap: "5px" }} >
         {position.length !== 0 ? <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "400px", width: '100%' }}>
           <TileLayer
             url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
@@ -109,6 +108,7 @@ export default function TripMap(props) {
             </Popup>
           </Marker>
         </MapContainer> : <h3>Location not Available</h3>}
+        {role === "user" && <Button variant='contained' onClick={endTripHandle} >End Trip</Button>}
       </CardContent>
     </Card >
   )

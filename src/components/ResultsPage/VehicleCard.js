@@ -75,16 +75,16 @@ const VehicleCard = (props) => {
   }
 
   return (
-    <Grid key={vehicle._id} item xs={12} sm={3}>
+    <Grid key={vehicle._id} item xs={12} sm={3} xl={2}>
       <Toaster />
       <Box p={2} >
-        <Card sx={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" }} >
-          <Carousel >
+        <Card sx={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;", height: "40vh" }} >
+          <Carousel sx={{ height: "20vh" }} >
             {vehicle.vehicleImage.map((ele) => {
               return (<CardMedia
                 component="img"
                 alt={vehicle.model}
-                height="200"
+                height="150"
                 key={ele._id}
                 image={ele.url}
                 sx={{
@@ -97,16 +97,18 @@ const VehicleCard = (props) => {
             )}
           </Carousel>
           <CardContent>
-            <Stack>
-              <Typography gutterBottom variant="p" component="div">
-                {vehicle.model}
-              </Typography>
-              <Typography gutterBottom variant="p" component="div">
-                {vehicle.engineCapacity}
-              </Typography>
-              <Typography gutterBottom variant="p" component="div">
-                Rs {vehicle.vehicleType.perDayCharge}/day
-              </Typography>
+            <Stack direction="row" justifyContent="space-between">
+              <Stack>
+                <Typography gutterBottom variant="p" component="div">
+                  {vehicle.model}
+                </Typography>
+                <Typography gutterBottom variant="p" component="div">
+                  {vehicle.engineCapacity}
+                </Typography>
+                <Typography gutterBottom variant="p" component="div">
+                  Rs {vehicle.vehicleType.perDayCharge}/day
+                </Typography>
+              </Stack>
               <CardActions>
                 <Button
                   size="small"

@@ -1,4 +1,4 @@
-import { Typography, Card, CardContent, Grid, Stack, Button } from '@mui/material';
+import { Typography, TableRow, TableCell, Grid, Stack, Button, } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
 
 export default function MyTripsListItem(props) {
@@ -11,31 +11,19 @@ export default function MyTripsListItem(props) {
   }
 
   return (
-    <Grid item xs={12} sm={12} md={12} key={trip._id} sx={{ display: "flex", justifyContent: 'center' }}>
-      <Card sx={{ width: "90vw" }}>
-        <CardContent>
-          <Stack
-            flexDirection={{ xs: 'column', sm: 'row' }}
-            justifyContent="space-evenly"
-            padding="auto" >
-            <Typography color="textSecondary">
-              booked on: {new Date(trip.createdAt).toLocaleString()}
-            </Typography>
-            <Typography sx={{ paddingLeft: { md: "10vw", xs: "0px" } }} color="textSecondary">
-              {trip.vehicleId.model}
-            </Typography>
-            <Typography color="textSecondary">
-              Amount: {trip.amount}
-            </Typography>
-            <Typography color="textSecondary">
-              Status: {trip.tripStatus}
-            </Typography>
-            <Button variant='contained' onClick={() => detailsHandleFunction(trip._id)}>
-              Details
-            </Button>
-          </Stack>
-        </CardContent>
-      </Card>
-    </Grid >
+    <TableRow>
+      <TableCell align="center">{trip._id}</TableCell>
+      <TableCell align="center">{new Date(trip.createdAt).toLocaleString()}</TableCell>
+      <TableCell align="center">{trip.vehicleId.model}({trip.vehicleId.registrationNumber})</TableCell>
+      <TableCell align="center">{trip.amount}</TableCell>
+      <TableCell align="center" sx={{ color: trip.tripStatus === "inprogress" && 'success.main' }} >{trip.tripStatus}</TableCell>
+      <TableCell align="center">
+        <Button variant='contained' onClick={() => detailsHandleFunction(trip._id)}>
+          Details
+        </Button>
+      </TableCell>
+    </TableRow>
   )
 }
+
+

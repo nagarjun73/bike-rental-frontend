@@ -37,7 +37,7 @@ export const startGetBkgInfo = (id) => {
       })
       dispatch(addBkgDetails(tripDetail))
     } catch (e) {
-      console.log(e);
+      toast.error(e.response.data.errors)
     }
   }
 }
@@ -73,7 +73,7 @@ export const startGetMyTrips = (page, sort) => {
       })
       dispatch(updateMyTrips(res.data))
     } catch (e) {
-
+      console.log(e);
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Typography, Chip, Grid, Stack, Button, Card } from '@mui/material';
+import { Typography, Chip, Stack, Button, TableContainer, Table, TableHead, TableRow, TableCell, Paper, TableBody } from '@mui/material';
 import MyTripsListItem from './MyTripsListItem';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
@@ -33,11 +33,29 @@ const MyTripsPage = () => {
     <Typography variant="h3" gutterBottom textAlign="center" padding="20px">
       My Trips
     </Typography>
-    <Grid container >
-      {trips?.map((trip) => (
-        <MyTripsListItem key={trip._id} trip={trip} />
-      ))}
-    </Grid>
+
+    {/* table */}
+    <TableContainer component={Paper} sx={{ overflow: 'auto', width: "90vw", margin: 'auto' }}>
+      <Table sx={{ minWidth: 65 }} size="medium" aria-label="a dense table">
+        <TableHead >
+          <TableRow >
+            <TableCell align="center">Trip Id</TableCell>
+            <TableCell align="center">Booking Date</TableCell>
+            <TableCell align="center">Bike Name</TableCell>
+            <TableCell align="center">Amount</TableCell>
+            <TableCell align="center">Status</TableCell>
+            <TableCell align="center">Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {trips?.map((trip) => (
+            <MyTripsListItem key={trip._id} trip={trip} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+
+
     <Stack direction="row" justifyContent="center" gap="3vw" marginTop="2vh" >
       <Button variant='contained' disabled={pageNo === 0 && true} onClick={handlePrevPage}>Prev</Button>
       <Chip label={pageNo + 1} />

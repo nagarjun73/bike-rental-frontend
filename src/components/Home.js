@@ -50,19 +50,6 @@ export default function Home(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  //Extra api calls after login
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      if (jwtDecode(token).role == "host") {
-        dispatch(startGetHostVehicles())
-        dispatch(startGetVehicleType())
-      }
-      dispatch(startGetLocation())
-    }
-  }, [])
-
-
   const handleSearch = (e) => {
     e.preventDefault()
 

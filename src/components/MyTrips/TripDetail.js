@@ -10,6 +10,7 @@ export default function TripDetail() {
   const [tripDetails, setTripDetails] = useState({})
   const { userState } = useContext(UserContext)
 
+
   useEffect(() => {
     if (id) {
       //getiing trip history from user profile
