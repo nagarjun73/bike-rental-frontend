@@ -1,7 +1,8 @@
 import { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom"
+import { useSelector } from "react-redux";
 import { UserContext } from "../../App"
-import { Stack, Card, Typography, CardContent, CardMedia, } from "@mui/material";
+import { Stack, Card, Typography, CardContent, } from "@mui/material";
 import Countdown from 'react-countdown'
 import StartTrip from "./StartTrip";
 
@@ -9,7 +10,6 @@ export default function TripDetail() {
   const { id } = useParams()
   const [tripDetails, setTripDetails] = useState({})
   const { userState } = useContext(UserContext)
-
 
   useEffect(() => {
     if (id) {

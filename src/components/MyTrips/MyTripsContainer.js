@@ -1,4 +1,4 @@
-import { Typography, Chip, Stack, Button, TableContainer, Table, TableHead, TableRow, TableCell, Paper, TableBody } from '@mui/material';
+import { FormControl, Typography, Chip, Stack, Button, TableContainer, Table, TableHead, TableRow, TableCell, Paper, TableBody, Box, Select, MenuItem, InputLabel } from '@mui/material';
 import MyTripsListItem from './MyTripsListItem';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
@@ -15,7 +15,7 @@ const MyTripsPage = () => {
 
   useEffect(() => {
     dispatch(startGetMyTrips(pageNo, sort))
-  }, [pageNo])
+  }, [pageNo, sort])
 
   const handlePrevPage = () => {
     if (pageNo !== 0) {
@@ -33,6 +33,20 @@ const MyTripsPage = () => {
     <Typography variant="h3" gutterBottom textAlign="center" padding="20px">
       My Trips
     </Typography>
+
+    <Box marginLeft="12vw" >
+      <FormControl variant="standard" >
+        <Select
+          id="demo-simple-select"
+          value={sort}
+          label="Age"
+          onChange={(e) => setSort(e.target.value)}
+        >
+          <MenuItem value={-1}>Recent First</MenuItem>
+          <MenuItem value={1}>Oldest First</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
 
     {/* table */}
     <TableContainer component={Paper} sx={{ overflow: 'auto', width: "90vw", margin: 'auto' }}>

@@ -37,8 +37,6 @@ export default function Navbar(props) {
     localStorage.removeItem('token')
     //for clear user and profile(useReducer & ContextAPI)
     userDispatch({ type: "LOGOUT_USER" })
-    //for clearing Redux states
-    // TODO dispatch(logoutUser())
   }
 
   const roleBasedNav = () => {

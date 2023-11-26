@@ -1,5 +1,4 @@
 const intialBookingState = {
-  bookingDetails: {},
   isLoading: false,
   userTrips: []
 }
