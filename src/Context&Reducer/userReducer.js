@@ -39,10 +39,6 @@ export default function userReducer(state, action) {
       }
     }
 
-    case "GET_ADMIN_DATA": {
-      return
-    }
-
     default: {
       return { ...state }
     }

@@ -8,7 +8,10 @@ export default function CategoryItem(props) {
 
 
   const handleDelete = () => {
-    dispatch(startDeleteCategory(category._id))
+    const check = window.confirm('do you really want to delete?')
+    if (check) {
+      dispatch(startDeleteCategory(category._id))
+    }
   }
 
   return (

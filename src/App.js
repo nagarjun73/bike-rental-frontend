@@ -22,7 +22,7 @@ import VehicleDetail from './components/HostVehicles/VehicleDetails/VehicleDetai
 import ProfileApproval from './components/Admin/ProfileApproval/ProfileApproval'
 import VehicleApproval from './components/Admin/VehicleApproval/VehicleApproval'
 import VehicleCategory from './components/Admin/VehicleCategory/VehicleCategory'
-import Cities from './components/Admin/City/Cities'
+import Locations from './components/Admin/Locations/Locations'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
@@ -33,6 +33,7 @@ import { startGetLocation } from "./actions/locationAction"
 import { startGetHostVehicles } from "./actions/vehicleAction"
 import { startGetVehicleType } from "./actions/vehicleTypeAction"
 import { startGetAdminData } from './actions/adminAction'
+import { startGetMyTrips } from "./actions/bookingsAction"
 
 import userReducer from './Context&Reducer/userReducer'
 export const UserContext = createContext()
@@ -62,7 +63,6 @@ export default function App() {
           const user = axios.get('/api/users/account', header)
           const profile = axios.get('/api/users/profile', header)
           const response = await Promise.all([user, profile])
-          console.log(response);
           userDispatch({ type: "LOGIN_USER", payload: response })
 
           if (jwtDecode(token).role == "host") {
@@ -70,7 +70,10 @@ export default function App() {
             dispatch(startGetVehicleType())
           } else if (jwtDecode(token).role == "admin") {
             dispatch(startGetAdminData())
+          } else if (jwtDecode(token).role == "user") {
+            dispatch(startGetMyTrips(1, -1))
           }
+
         } catch (e) {
           setServerError(e.response.data)
         }
@@ -108,7 +111,7 @@ export default function App() {
           <Route path="/profileapproval" element={<ProfileApproval />} />
           <Route path="/vehicleapproval" element={<VehicleApproval />} />
           <Route path="/category" element={<VehicleCategory />} />
-          <Route path="/city" element={<Cities />} />
+          <Route path="/city" element={<Locations />} />
 
 
         </Routes>

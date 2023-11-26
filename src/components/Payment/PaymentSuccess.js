@@ -27,7 +27,7 @@ export default function PaymentSuccess() {
 
   //Homepage button handle
   const homepageButtonHandle = () => {
-    navigate('/mytrips')
+    navigate(`/mytrips`)
   }
 
   return (
@@ -80,7 +80,7 @@ export default function PaymentSuccess() {
                 size="small"
                 variant='contained'
                 onClick={homepageButtonHandle}
-              > go to home page</Button>
+              > go to trips</Button>
             </CardActions>
           </Card>
           : (

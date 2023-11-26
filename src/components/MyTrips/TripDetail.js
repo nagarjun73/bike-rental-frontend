@@ -10,6 +10,7 @@ export default function TripDetail() {
   const [tripDetails, setTripDetails] = useState({})
   const { userState } = useContext(UserContext)
 
+
   useEffect(() => {
     if (id) {
       //getiing trip history from user profile
@@ -37,6 +38,9 @@ export default function TripDetail() {
           <CardContent>
             <Stack>
               <Typography variant="h6">
+                booked on: {new Date(tripDetails.createdAt).toLocaleString()}
+              </Typography>
+              <Typography variant="h6">
                 Trip Start Date : {new Date(tripDetails.tripStartDate).toLocaleString()}
               </Typography>
               <Typography variant="h6">
@@ -51,6 +55,12 @@ export default function TripDetail() {
               <Typography variant="h6">
                 Payment Id : {tripDetails.paymentId}
               </Typography>
+              <Typography variant="h6">
+                Vehicle Model : {tripDetails.vehicleId.model}
+              </Typography>
+              <Typography variant="h6">
+                Vehicel Number : {tripDetails.vehicleId.registrationNumber}
+              </Typography>
               <Typography variant="h6">Time Left :
                 <Countdown date={tripDetails.tripStartDate}>
                   <span>
@@ -60,24 +70,6 @@ export default function TripDetail() {
               </Typography>
               <StartTrip trip={tripDetails} />
             </Stack>
-          </CardContent>
-        </Card>
-        <Card sx={{ width: { md: "50vw", xs: "90vw" } }}>
-          <CardContent>
-            <Stack>
-              <Typography variant="h6">
-                Vehicle Model : {tripDetails.vehicleId.model}
-              </Typography>
-              <Typography variant="h6">
-                Vehicel Number : {tripDetails.vehicleId.registrationNumber}
-              </Typography>
-            </Stack>
-            <CardMedia
-              component="img"
-              height="194"
-              image={tripDetails.vehicleId.vehicleImage[0].url}
-              alt={tripDetails.vehicleId.model}
-            />
           </CardContent>
         </Card>
       </Stack>}

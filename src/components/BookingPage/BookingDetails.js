@@ -3,7 +3,7 @@ import { Card, CardActions, CardContent, Button, Typography, Box, CircularProgre
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { startGetBkgInfo } from '../../actions/bookingsAction'
-import { useParams, useNavigate } from 'react-router'
+import { useParams } from 'react-router'
 import { startPayment } from '../../actions/paymentAction'
 
 function BookingDetails(props) {
@@ -16,7 +16,6 @@ function BookingDetails(props) {
 
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   useEffect(() => {
     //check if booking details empty
@@ -37,6 +36,7 @@ function BookingDetails(props) {
       amount: bookingDtls.trip.amount,
     }
     dispatch(startPayment(payData))
+    localStorage.removeItem('query')
   }
 
   return (

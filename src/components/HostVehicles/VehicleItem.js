@@ -7,7 +7,6 @@ import Carousel from 'react-material-ui-carousel'
 export default function VehicleItem(props) {
   const { vehicle } = props
   const navigate = useNavigate()
-  console.log(vehicle);
 
   const handleViewButton = (id) => {
     navigate(`/vehicledetail/${id}`)

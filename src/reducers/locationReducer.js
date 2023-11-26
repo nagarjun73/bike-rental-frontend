@@ -13,6 +13,30 @@ const locationReducer = (state = initialLocation, action) => {
       return { ...state, locationErrors: { ...state.locationErrors, fetchError: action.payload } }
     }
 
+    case "EDIT_LOCATION": {
+      return {
+        ...state, locationList: state.locationList.map((ele) => {
+          if (ele._id === action.payload._id) {
+            return action.payload
+          } else {
+            return ele
+          }
+        })
+      }
+    }
+
+    case "DELETE_LOCATION": {
+      return {
+        ...state, locationList: state.locationList.filter((ele) => ele._id !== action.payload._id)
+      }
+    }
+
+    case "ADD_LOCATION": {
+      return {
+        ...state, locationList: [...state.locationList, action.payload]
+      }
+    }
+
     default: {
       return { ...state }
     }
