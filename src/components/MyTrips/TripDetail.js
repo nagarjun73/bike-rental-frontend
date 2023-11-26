@@ -1,15 +1,17 @@
 import { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom"
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { UserContext } from "../../App"
-import { Stack, Card, Typography, CardContent, } from "@mui/material";
+import { Stack, Card, Typography, CardContent, Button } from "@mui/material";
 import Countdown from 'react-countdown'
 import StartTrip from "./StartTrip";
+import { startPayment } from '../../actions/paymentAction'
 
 export default function TripDetail() {
   const { id } = useParams()
   const [tripDetails, setTripDetails] = useState({})
   const { userState } = useContext(UserContext)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (id) {
@@ -21,6 +23,15 @@ export default function TripDetail() {
       }
     }
   }, [])
+
+  const makePaymentHandle = () => {
+    const payData = {
+      tripId: tripDetails._id,
+      amount: tripDetails.amount,
+    }
+    dispatch(startPayment(payData))
+    localStorage.removeItem('query')
+  }
 
   return (
     <div style={{
@@ -68,6 +79,12 @@ export default function TripDetail() {
                   </span>
                 </Countdown>
               </Typography>
+              {tripDetails.tripStatus === "pending" && <Button
+                size="small"
+                sx={{ width: '20vw' }}
+                variant='contained'
+                onClick={makePaymentHandle}
+              >Make Payment</Button>}
               <StartTrip trip={tripDetails} />
             </Stack>
           </CardContent>
