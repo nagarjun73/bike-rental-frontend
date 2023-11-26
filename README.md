@@ -1,6 +1,6 @@
 **Project Summary: Bike Rental Frontend**
 
-The "bike-rental-frontend" repository is a robust and user-centric web application designed to facilitate bike rentals. Leveraging modern frontend technologies and best practices, this project aims to provide an intuitive and seamless rental experience for users.
+The Bike-Rentals is a robust and user-centric web application designed to facilitate bike rentals. Leveraging modern frontend technologies and best practices, this project aims to provide an intuitive and seamless rental experience for users.
 
 **Key Features:**
 
