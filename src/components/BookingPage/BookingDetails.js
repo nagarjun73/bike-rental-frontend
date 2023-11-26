@@ -19,21 +19,15 @@ function BookingDetails(props) {
 
   useEffect(() => {
     //check if booking details empty
-    if (!bookingId) {
-      //get booking id from local storage
-      const bkgId = localStorage.getItem('bookingId')
-      dispatch(startGetBkgInfo(bkgId))
-    } else {
-      //getting booking details by sending id 
+    if (bookingId) {
       dispatch(startGetBkgInfo(bookingId))
     }
-
   }, [])
 
   const makePaymentHandle = () => {
     const payData = {
       tripId: bookingId,
-      amount: bookingDtls.trip.amount,
+      amount: bookingDtls.trips.amount,
     }
     dispatch(startPayment(payData))
     localStorage.removeItem('query')
@@ -64,16 +58,16 @@ function BookingDetails(props) {
             </Typography>
             <Box sx={{ paddingLeft: '5vw' }}>
               <Typography variant="h6" component="div">
-                Trip Starts At : {new Date(bookingDtls.trip.tripStartDate).toLocaleString()}
+                Trip Starts At : {new Date(bookingDtls.trips.tripStartDate).toLocaleString()}
               </Typography>
               <Typography variant="h6" component="div">
-                Trip Ends At : {new Date(bookingDtls.trip.tripEndDate).toLocaleString()}
+                Trip Ends At : {new Date(bookingDtls.trips.tripEndDate).toLocaleString()}
               </Typography>
               <Typography variant="h6" component="div">
-                Vehicle : {bookingDtls.trip.vehicleId.model}
+                Vehicle : {bookingDtls.trips.vehicleId.model}
               </Typography>
               <Typography variant="h6" component="div">
-                Vehicle Number : {bookingDtls.trip.vehicleId.registrationNumber}
+                Vehicle Number : {bookingDtls.trips.vehicleId.registrationNumber}
               </Typography>
               <Typography variant="h6" component="div">
                 Pickup Location : {Object.entries(bookingDtls.details.address).map((ele) => ele[1]).join(" ")}
@@ -82,7 +76,7 @@ function BookingDetails(props) {
                 Host : {bookingDtls.details.userId.name}
               </Typography>
               <Typography variant="h6" component="div">
-                Amount to be Paid : Rs {bookingDtls.trip.amount}
+                Amount to be Paid : Rs {bookingDtls.trips.amount}
               </Typography>
             </Box>
           </CardContent>

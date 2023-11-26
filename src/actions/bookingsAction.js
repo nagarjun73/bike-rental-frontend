@@ -1,6 +1,13 @@
 import axios from '../config/axios'
 import toast from 'react-hot-toast'
 
+const addBooking = (data) => {
+  return {
+    type: "ADD_BOOKING",
+    payload: data
+  }
+}
+
 export const startBookTrip = (data, navigate) => {
   return async (dispatch) => {
     try {
@@ -9,11 +16,8 @@ export const startBookTrip = (data, navigate) => {
           Authorization: localStorage.getItem('token')
         }
       })
-
-      //saving to local storage
-      localStorage.setItem('bookingId', bookingRes.data._id)
-      // dispatch(addBooking(bookingRes.data._id))
-      navigate(`/bookingdetails/${bookingRes.data._id}`)
+      dispatch(addBooking(bookingRes.data))
+      navigate(`/bookingdetails/${bookingRes.data.trips._id}`)
     } catch (e) {
       toast.error(e.response.data.errors)
     }
@@ -35,7 +39,7 @@ export const startGetBkgInfo = (id) => {
           Authorization: localStorage.getItem('token')
         }
       })
-      dispatch(addBkgDetails(tripDetail))
+      dispatch(addBkgDetails(tripDetail.data))
     } catch (e) {
       toast.error(e.response.data.errors)
     }
