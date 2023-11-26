@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function TripHistoryContainer(props) {
   const { vehicle } = props
+
+  console.log(vehicle, "trip history");
   const navigate = useNavigate()
 
   const handleTripDetails = (id) => {

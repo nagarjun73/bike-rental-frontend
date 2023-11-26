@@ -14,6 +14,8 @@ export default function VehicleDetail() {
     return state.vehicle.hostVehicles
   })
 
+  console.log(allVehicles, "host vehicles");
+
   const vehicle = allVehicles.find((ele) => ele._id === id)
 
   return (
