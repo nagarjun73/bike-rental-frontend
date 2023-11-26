@@ -39,6 +39,12 @@ const vehicleReducer = (state = initialVehicleState, action) => {
       }
     }
 
+    case "UPDATE_SERCHED": {
+      return {
+        ...state, hostVehicles: action.payload
+      }
+    }
+
     default: {
       return { ...state }
     }

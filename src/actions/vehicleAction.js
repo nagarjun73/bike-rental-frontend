@@ -35,12 +35,12 @@ const updateVehicleList = (data) => {
 
 export const startGetHostVehicles = (pageNo, sort) => {
   return async (dispatch) => {
-    const result = await axios.get(`/api/host/pagination?page=${pageNo}&sort=${sort}`, {
+    const response = await axios.get(`/api/host/pagination?page=${pageNo}&sort=${sort}`, {
       headers: {
         Authorization: localStorage.getItem('token')
       }
     })
-    dispatch(updateVehicleList(result.data));
+    dispatch(updateVehicleList(response.data));
   }
 }
 
@@ -66,6 +66,24 @@ export const startEnableVehicle = (id, bool) => {
       }
     })
     dispatch(changeVehicleStatus(changeStatus.data))
+  }
+}
+
+const updateSearched = (data) => {
+  return {
+    type: "UPDATE_SERCHED",
+    payload: data
+  }
+}
+
+export const startSearchVehicles = (search) => {
+  return async (dispacth) => {
+    const resSearch = await axios.get(`api/vehicles/search?name=${search}`, {
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    })
+    dispacth(updateSearched(resSearch.data))
   }
 }
 
