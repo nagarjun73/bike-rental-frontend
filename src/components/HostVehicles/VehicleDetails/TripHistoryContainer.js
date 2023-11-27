@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Card, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination, TableFooter, Box, FormControl, Select, MenuItem, FormLabel } from '@mui/material'
+import { Card, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination, TableFooter, Box, FormControl, Select, MenuItem } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 
@@ -12,20 +12,16 @@ export default function TripHistoryContainer(props) {
   const [filtered, setFilterd] = useState([])
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
-  console.log(filtered, "state updateing");
-
   useEffect(() => {
     if (sort === -1) {
       const vehicleFilterd = vehicle.sort((a, b) => {
         return new Date(b.tripStartDate) - new Date(a.tripStartDate)
       })
-      console.log(vehicleFilterd, "recent");
       setFilterd(vehicleFilterd)
     } else if (sort === 1) {
       const vehicleFilterd = vehicle.sort((a, b) => {
         return new Date(a.tripStartDate) - new Date(b.tripStartDate)
       })
-      console.log(vehicleFilterd, "oldest");
       setFilterd(vehicleFilterd)
     }
   }, [sort])
