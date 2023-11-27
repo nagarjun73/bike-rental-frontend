@@ -11,7 +11,7 @@ const updateAdminData = (data) => {
 //get all admin data profiles and vehicle which is not approved
 export const startGetAdminData = () => {
   return async (dispatch) => {
-    const unApprProfiles = axios.get('/api/profiles/list', {
+    const unApprProfiles = axios.get(`/api/profiles/list?page=${0}&sort=${-1}`, {
       headers: {
         Authorization: localStorage.getItem('token')
       }
@@ -106,5 +106,51 @@ export const startAddCategory = (data) => {
       }
     })
     dispatch(addCategory(response.data))
+  }
+}
+
+
+const updatePage = (data) => {
+  return {
+    type: "UPDATE_PAGE",
+    payload: data
+  }
+}
+
+
+export const startGetPage = (pageNo, sort) => {
+  return async (dispatch) => {
+    try {
+      const unApprProfiles = await axios.get(`/api/profiles/list?page=${pageNo}&sort=${sort}`, {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      })
+      dispatch(updatePage(unApprProfiles.data))
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+const searchProfile = (data) => {
+  return {
+    type: "UPDATE_SEARCHED_PROFILE",
+    payload: data
+  }
+}
+
+export const startSearchProfile = (search) => {
+  return async (dispatch) => {
+    try {
+      const searchRes = await axios.get(`/api/profiles?name=${search}`, {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      })
+      dispatch(searchProfile(searchRes.data))
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
