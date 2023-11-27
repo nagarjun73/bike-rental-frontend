@@ -19,6 +19,7 @@ export default function DetailsContainer(props) {
     }
   }
 
+
   return (
     <Card sx={{
       minWidth: "30vw",
@@ -50,8 +51,13 @@ export default function DetailsContainer(props) {
             <Typography variant='p'>{vehicle.distanceTravelled} Kms</Typography>
             <Typography variant='p'>Approve status : {vehicle.vehicleApproveStatus ? "Approved" : "waiting for approval"}</Typography>
             <Typography variant='p'> {vehicle.availability ? "Available" : "locked"}</Typography>
-            <Button variant='contained' sx={{ marginTop: "15px" }} onClick={() => switchVehicleHandle(vehicle._id)} >{vehicle.availability ? "Disable vehicle" : "Enable Vehicle"}</Button>
-            <Button variant='contained' sx={{ marginTop: "15px" }} onClick={() => switchVehicleHandle(vehicle._id)} >{"Edit Vehicle"}</Button>
+            <Button variant='contained' sx={{
+              marginTop: "15px", backgroundColor: "red",
+              "&:hover": {
+                backgroundColor: "red"
+              }
+            }}
+              onClick={() => switchVehicleHandle(vehicle._id)} >{vehicle.availability ? "Disable vehicle" : "Enable Vehicle"}</Button>
           </Stack>
         </Stack>
       </CardContent>
