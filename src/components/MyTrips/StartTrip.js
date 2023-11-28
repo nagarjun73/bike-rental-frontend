@@ -91,7 +91,6 @@ export default function StartTrip(props) {
               onChange={(event, newValue) => {
                 setRating(newValue);
               }}
-              precision={0.5}
             />
             <Textarea
               color="primary"
