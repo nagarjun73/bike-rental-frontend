@@ -69,7 +69,7 @@ const MyTripsPage = () => {
       </Table>
     </TableContainer>
 
-
+    {/* Pagination buttons */}
     <Stack direction="row" justifyContent="center" gap="3vw" marginTop="2vh" >
       <Button variant='contained' disabled={pageNo === 0 && true} onClick={handlePrevPage}>Prev</Button>
       <Chip label={pageNo + 1} />
