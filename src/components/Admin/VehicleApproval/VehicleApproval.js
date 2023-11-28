@@ -1,4 +1,4 @@
-import { TableContainer, Table, TableRow, TableHead, TableCell, Paper, TableBody, Typography, } from '@mui/material'
+import { TableContainer, Table, TableRow, TableHead, TableCell, Paper, TableBody, Typography, Stack } from '@mui/material'
 import { useSelector } from 'react-redux'
 import VehicleItem from './VehicleItem'
 
@@ -8,10 +8,10 @@ export default function VehicleApproval(props) {
   })
 
   return (
-    <div>
-      <Typography variant='h3' padding="20px">Vehicle Approval</Typography>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+    <Stack direction="column">
+      <Typography variant='h3' margin="auto" padding="20px">Vehicle Approval</Typography>
+      <TableContainer component={Paper} sx={{ width: "90vw", margin: 'auto' }}>
+        <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
               <TableCell>vehicle id</TableCell>
@@ -29,6 +29,6 @@ export default function VehicleApproval(props) {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Stack>
   )
 }
