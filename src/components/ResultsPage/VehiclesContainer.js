@@ -8,6 +8,8 @@ export default function VehiclesContainer() {
     return state.vehicle
   })
 
+  console.log(vehicle);
+
   return (
     <Box >
       {vehicle.isLoading == false ?
