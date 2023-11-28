@@ -2,20 +2,23 @@ import React from 'react'
 import { Button, Stack, Card, CardContent, Typography, CardMedia } from '@mui/material'
 import Carousel from 'react-material-ui-carousel'
 import { useDispatch } from 'react-redux'
-import { startEnableVehicle } from '../../../actions/vehicleAction'
+import { startSwitchVehicle } from '../../../actions/vehicleAction'
 
 export default function DetailsContainer(props) {
   const { vehicle } = props
 
   const dispatch = useDispatch()
 
-  const enableVehicleHandle = (id) => {
+  const switchVehicleHandle = (id) => {
     if (vehicle.availability === true) {
-      dispatch(startEnableVehicle(id, false))
+      console.log("switching to false");
+      dispatch(startSwitchVehicle(id, false))
     } else {
-      dispatch(startEnableVehicle(id, true))
+      console.log("switching to true");
+      dispatch(startSwitchVehicle(id, true))
     }
   }
+
 
   return (
     <Card sx={{
@@ -48,8 +51,13 @@ export default function DetailsContainer(props) {
             <Typography variant='p'>{vehicle.distanceTravelled} Kms</Typography>
             <Typography variant='p'>Approve status : {vehicle.vehicleApproveStatus ? "Approved" : "waiting for approval"}</Typography>
             <Typography variant='p'> {vehicle.availability ? "Available" : "locked"}</Typography>
-            <Button variant='contained' sx={{ marginTop: "15px" }} onClick={() => enableVehicleHandle(vehicle._id)} >{vehicle.availability ? "Disable vehicle" : "Enable Vehicle"}</Button>
-            <Button variant='contained' sx={{ marginTop: "15px" }} onClick={() => enableVehicleHandle(vehicle._id)} >{"Edit Vehicle"}</Button>
+            <Button variant='contained' sx={{
+              marginTop: "15px", backgroundColor: "red",
+              "&:hover": {
+                backgroundColor: "red"
+              }
+            }}
+              onClick={() => switchVehicleHandle(vehicle._id)} >{vehicle.availability ? "Disable vehicle" : "Enable Vehicle"}</Button>
           </Stack>
         </Stack>
       </CardContent>

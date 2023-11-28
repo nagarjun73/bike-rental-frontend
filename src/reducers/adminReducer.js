@@ -38,6 +38,14 @@ const adminReducer = (state = initialProfile, action) => {
       return { ...state, vehicleCategories: [...state.vehicleCategories, action.payload] }
     }
 
+    case "UPDATE_PAGE": {
+      return { ...state, unApprProfiles: action.payload }
+    }
+
+    case "UPDATE_SEARCHED_PROFILE": {
+      return { ...state, unApprProfiles: action.payload }
+    }
+
     default: {
       return { ...state }
     }

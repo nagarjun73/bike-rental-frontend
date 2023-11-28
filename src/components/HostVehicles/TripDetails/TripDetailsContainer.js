@@ -11,8 +11,6 @@ export default function TripDetailsContainer(props) {
   const { id } = useParams()
   const [foundTrip, setFoundTrip] = useState({})
 
-
-
   useEffect(() => {
     (async () => {
       try {

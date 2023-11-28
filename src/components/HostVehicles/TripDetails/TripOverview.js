@@ -7,7 +7,8 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export default function TripOverview(props) {
   const { trip } = props
-  const tripDt = trip.trip
+  const tripDt = trip.trips
+
   const { userState, userDispatch } = useContext(UserContext)
 
 

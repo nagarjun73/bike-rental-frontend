@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 //importing @mui
-import { Box, Stack, Typography, Button } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,6 +13,8 @@ export default function VehicleDetail() {
   const allVehicles = useSelector((state) => {
     return state.vehicle.hostVehicles
   })
+
+  console.log(allVehicles, "host vehicles");
 
   const vehicle = allVehicles.find((ele) => ele._id === id)
 

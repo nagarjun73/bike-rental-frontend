@@ -14,6 +14,7 @@ import { UserContext } from '../../../App'
 
 export default function TripMap(props) {
   const { trip } = props
+  console.log("tripMap", trip);
   const { userState, userDispatch } = useContext(UserContext)
   const [position, setPosition] = useState([])
   const user = userState.user
@@ -27,15 +28,15 @@ export default function TripMap(props) {
     if (user.role === 'user') {
       if (Object.keys(trip).length !== 0) {
         if (socket.connect) {
-          socket.emit("join_room", { userId: trip.userId, tripId: trip.trip._id })
-          console.log(trip.trip._id, "USER")
+          socket.emit("join_room", { userId: trip.trips.userId, tripId: trip.trips._id })
+          console.log(trip.trips._id, "USER")
         }
       }
 
       //Accessing live location 
       navigator.geolocation.watchPosition((position) => {
         socket.emit("position", {
-          tripId: trip.trip.Id,
+          tripId: trip.trips.Id,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         })
@@ -50,8 +51,8 @@ export default function TripMap(props) {
           maximumAge: 0,
         });
     } else {
-      socket.emit('join_room', { hostId: trip.trip.hostId, tripId: trip.trip._id })
-      console.log(trip.trip._id, "HOST")
+      socket.emit('join_room', { hostId: trip.trips.hostId, tripId: trip.trips._id })
+      console.log(trip.trips._id, "HOST")
       socket.on("user_position", (data) => {
         console.log(data);
         setPosition([data.data.latitude, data.data.longitude]);
@@ -76,7 +77,7 @@ export default function TripMap(props) {
     try {
       socket.disconnect()
       console.log('disconnected');
-      const response = await axios.get(`/api/trips/${trip.trip._id}/end`, {
+      const response = await axios.get(`/api/trips/${trip.trips._id}/end`, {
         headers: {
           Authorization: localStorage.getItem('token')
         }

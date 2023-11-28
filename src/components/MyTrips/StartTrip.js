@@ -45,8 +45,8 @@ export default function StartTrip(props) {
   return (
     <div>
       <Toaster />
-      {trip.tripStatus == "booked" && <Button variant="contained" onClick={startTripHandle}>Start Trip</Button>}
-      {trip.tripStatus == "inprogress" && <Button variant="contained" onClick={dashboardHandle}>dashboard</Button>}
+      {trip.tripStatus === "booked" && <Button variant="contained" onClick={startTripHandle}>Start Trip</Button>}
+      {trip.tripStatus === "inprogress" && <Button variant="contained" onClick={dashboardHandle}>dashboard</Button>}
       <p>{position.latitude}</p>
     </div>
   )

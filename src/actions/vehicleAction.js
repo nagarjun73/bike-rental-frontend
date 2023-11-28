@@ -58,14 +58,18 @@ const changeVehicleStatus = (data) => {
   }
 }
 
-export const startEnableVehicle = (id, bool) => {
+export const startSwitchVehicle = (id, bool) => {
   return async (dispatch) => {
-    const changeStatus = await axios.put(`/api/host/${id}/change-status`, { availability: bool }, {
-      headers: {
-        Authorization: localStorage.getItem('token')
-      }
-    })
-    dispatch(changeVehicleStatus(changeStatus.data))
+    try {
+      const changeStatus = await axios.put(`/api/host/${id}/change-status`, { availability: bool }, {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      })
+      dispatch(changeVehicleStatus(changeStatus.data))
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
