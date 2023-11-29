@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { startGetBkgInfo } from '../../actions/bookingsAction'
 import { useParams } from 'react-router'
 import { startPayment } from '../../actions/paymentAction'
+import ReviewsCard from "./ReviewsCard"
 
 function BookingDetails(props) {
   const params = useParams()

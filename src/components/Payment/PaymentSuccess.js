@@ -14,7 +14,6 @@ export default function PaymentSuccess() {
   const navigate = useNavigate()
 
   const updatesResponse = (data) => {
-    userDispatch({ type: "UPDATE_TRIP", payload: data })
     setBkgDetails(data)
   }
 

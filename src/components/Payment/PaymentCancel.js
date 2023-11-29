@@ -16,7 +16,6 @@ export default function PaymentCancel() {
     if (stripId) {
       dispatch(startDistroyPayment(stripId))
     }
-
   }, [])
 
   //Homepage button handle
@@ -34,15 +33,16 @@ export default function PaymentCancel() {
         backgroundColor: "#fafafa"
       }}>
 
-        <Card sx={{ width: '50vw' }} >
-          <CardContent sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-            borderRadius: '10px',
-          }}>
-            <Typography gutterBottom variant="h4" component="div" >
+        <Card sx={{
+          width: '50vw',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+          borderRadius: '10px',
+        }} >
+          <CardContent>
+            <Typography gutterBottom variant="h4" >
               Payment Failed
             </Typography>
           </CardContent>

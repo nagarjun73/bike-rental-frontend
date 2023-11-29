@@ -19,6 +19,12 @@ export const startPayment = (payData, navigate) => {
   }
 }
 
+const updateTripDetails = (data) => {
+  return {
+    type: "UPDATE_TRIP_PAYMENT",
+    payload: data
+  }
+}
 
 export const startUpdatePayment = (stripId, updatesResponse) => {
   return async (dispatch) => {
@@ -30,6 +36,7 @@ export const startUpdatePayment = (stripId, updatesResponse) => {
       })
       localStorage.removeItem('stripId')
       updatesResponse(response.data);
+      dispatch(updateTripDetails(response.data))
     } catch (e) {
       console.log(e);
     }

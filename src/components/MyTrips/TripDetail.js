@@ -1,28 +1,34 @@
-import { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom"
-import { useDispatch } from "react-redux";
-import { UserContext } from "../../App"
+import { useDispatch, useSelector } from "react-redux";
 import { Stack, Card, Typography, CardContent, Button } from "@mui/material";
 import Countdown from 'react-countdown'
 import StartTrip from "./StartTrip";
 import { startPayment } from '../../actions/paymentAction'
+import { useState, useEffect } from "react";
+import { startTripAfterReload } from '../../actions/bookingsAction'
 
 export default function TripDetail() {
   const { id } = useParams()
-  const [tripDetails, setTripDetails] = useState({})
-  const { userState } = useContext(UserContext)
   const dispatch = useDispatch()
+  const [tripDetails, setTripDetails] = useState({})
+  const tripDetail = useSelector((state) => {
+    return state.booking.userTrips.find((ele) => {
+      return ele._id === id
+    })
+  })
+
+  const upDateTripState = (data) => {
+    setTripDetails(data)
+  }
 
   useEffect(() => {
-    if (id) {
-      //getiing trip history from user profile
-      const tripDetail = userState.profile.tripHistory?.find((ele) => ele._id == id)
-      console.log(tripDetail, "details");
-      if (tripDetail) {
-        setTripDetails(tripDetail)
-      }
+    if (tripDetail == null) {
+      dispatch(startTripAfterReload(id, upDateTripState))
+    } else {
+      setTripDetails(tripDetail)
     }
   }, [])
+
 
   const makePaymentHandle = () => {
     const payData = {
@@ -64,7 +70,7 @@ export default function TripDetail() {
                 Amount Paid : {tripDetails.amount}
               </Typography>
               <Typography variant="h6">
-                Payment Id : {tripDetails.paymentId}
+                Payment Id : {tripDetails.paymentId == null ? "Not found" : tripDetails.paymentId}
               </Typography>
               <Typography variant="h6">
                 Vehicle Model : {tripDetails.vehicleId.model}

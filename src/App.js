@@ -66,12 +66,12 @@ export default function App() {
           userDispatch({ type: "LOGIN_USER", payload: response })
 
           if (jwtDecode(token).role === "host") {
-            dispatch(startGetHostVehicles(1, -1))
+            dispatch(startGetHostVehicles(0, -1))
             dispatch(startGetVehicleType())
           } else if (jwtDecode(token).role === "admin") {
             dispatch(startGetAdminData())
           } else if (jwtDecode(token).role === "user") {
-            dispatch(startGetMyTrips(1, -1))
+            dispatch(startGetMyTrips(0, -1))
           }
 
         } catch (e) {

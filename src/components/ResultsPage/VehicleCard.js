@@ -90,7 +90,7 @@ const VehicleCard = (props) => {
     <Grid key={vehicle._id} item xs={12} sm={4} md={3} xl={2}>
       <Toaster />
       <Box p={2} >
-        <Card sx={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;", height: "40vh" }} >
+        <Card sx={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;", height: "40vh", borderRadius: "10px" }} >
           <Carousel sx={{ height: "20vh" }} >
             {vehicle.vehicleImage.map((ele) => {
               return (<CardMedia

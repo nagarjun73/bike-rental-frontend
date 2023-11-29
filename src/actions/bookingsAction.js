@@ -46,20 +46,6 @@ export const startGetBkgInfo = (id) => {
   }
 }
 
-export const setLoadingTrue = () => {
-  return {
-    type: "SET_LOADING_TRUE",
-    payload: true
-  }
-}
-
-export const setLoadingFalse = () => {
-  return {
-    type: "SET_LOADING_FALSE",
-    payload: false
-  }
-}
-
 const updateMyTrips = (data) => {
   return {
     type: "UPDATE_USER_TRIPS",
@@ -76,6 +62,29 @@ export const startGetMyTrips = (page, sort) => {
         }
       })
       dispatch(updateMyTrips(res.data))
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+const updateReloadTripDetail = (data) => {
+  console.log(data);
+  return {
+    type: "UPDATE_RELOAD_TRIP_DETAIL",
+    payload: data
+  }
+}
+
+export const startTripAfterReload = (id, upDateTripState) => {
+  return async (dispatch) => {
+    try {
+      const getTrip = await axios.get(`/api/trips/detail/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      })
+      upDateTripState(getTrip.data)
     } catch (e) {
       console.log(e);
     }
