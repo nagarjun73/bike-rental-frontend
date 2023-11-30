@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Modal, Box, Typography, Rating, } from "@mui/material"
-import Textarea from '@mui/joy/Textarea';
+import { Button, Modal, Box, Typography, Rating, TextField, Stack } from "@mui/material"
 //react hot toast
 import toast, { Toaster } from 'react-hot-toast'
 import { useContext } from 'react';
@@ -17,7 +16,6 @@ import { startAddRating } from '../../actions/ratingAction'
 export default function StartTrip(props) {
   const { trip } = props
   console.log(trip, 'trip');
-  const [position, setPosition] = useState([])
   const [open, setOpen] = useState(false);
   //rating form
   const [rating, setRating] = useState(0)
@@ -71,9 +69,9 @@ export default function StartTrip(props) {
   return (
     <div>
       <Toaster />
-      {trip?.tripStatus == "booked" && <Button variant="contained" onClick={startTripHandle}>Start Trip</Button>}
-      {trip?.tripStatus == "inprogress" && <Button variant="contained" onClick={dashboardHandle}>dashboard</Button>}
-      {trip?.tripStatus == "completed" && <Button variant="contained" onClick={handleOpen}>Give rating</Button>}
+      {trip?.tripStatus === "booked" && <Button variant="contained" onClick={startTripHandle}>Start Trip</Button>}
+      {trip?.tripStatus === "inprogress" && <Button variant="contained" onClick={dashboardHandle}>dashboard</Button>}
+      {trip?.tripStatus === "completed" && <Button variant="contained" onClick={handleOpen}>Give rating</Button>}
       <Modal
         open={open}
         onClose={handleClose}
@@ -85,26 +83,27 @@ export default function StartTrip(props) {
             Rate bike
           </Typography>
           <Box component="form" onSubmit={ratingSubmitHandle}>
-            <Rating
-              name="simple-controlled"
-              value={rating}
-              onChange={(event, newValue) => {
-                setRating(newValue);
-              }}
-            />
-            <Textarea
-              color="primary"
-              minRows={2}
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              size="md"
-              placeholder="tell us your experience"
-            />
-            <Button type='submit' variant='contained' sx={{ marginTop: "20px" }}>Submit</Button>
+            <Stack>
+              <Rating
+                name="simple-controlled"
+                value={rating}
+                sx={{ width: "12vw" }}
+                onChange={(event, newValue) => {
+                  setRating(newValue);
+                }}
+              />
+              <TextField
+                label="tell us your experience"
+                variant="outlined"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                type='text'
+                sx={{ backgroundColor: "white", marginTop: "5vh" }} />
+              <Button type='submit' variant='contained' sx={{ marginTop: "20px" }}>Submit</Button>
+            </Stack>
           </Box>
         </Box>
       </Modal>
-      <p>{position.latitude}</p>
     </div>
   )
 }

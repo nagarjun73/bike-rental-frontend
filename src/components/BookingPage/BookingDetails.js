@@ -5,12 +5,14 @@ import { useEffect } from 'react'
 import { startGetBkgInfo } from '../../actions/bookingsAction'
 import { useParams } from 'react-router'
 import { startPayment } from '../../actions/paymentAction'
-import ReviewsCard from "./ReviewsCard"
+import toast, { Toaster } from 'react-hot-toast'
+import { startDistroyTrip } from '../../actions/bookingsAction'
+import { useNavigate } from 'react-router-dom'
 
 function BookingDetails(props) {
   const params = useParams()
   const bookingId = params.id
-
+  const navigate = useNavigate()
   const bookingDtls = useSelector((state) => {
     return state.booking.bookingDetails
   })
@@ -34,6 +36,7 @@ function BookingDetails(props) {
     localStorage.removeItem('query')
   }
 
+
   return (
     <Box sx={{
       display: 'flex',
@@ -42,6 +45,7 @@ function BookingDetails(props) {
       height: "90vh",
       backgroundColor: "#fafafa"
     }}>
+      <Toaster />
       {Object.keys(bookingDtls).length !== 0 ?
         <Card sx={{
           width: { md: '50vw', xs: "80vw" },

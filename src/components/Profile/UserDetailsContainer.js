@@ -1,6 +1,6 @@
 import React from 'react'
 import { Stack, Box, CardContent, Typography, CardMedia } from '@mui/material'
-
+import VerifiedIcon from '@mui/icons-material/Verified';
 
 export default function UserDetailsContainer(props) {
   const { user } = props
@@ -28,7 +28,7 @@ export default function UserDetailsContainer(props) {
         <Typography variant="h6">Mob :  {user.mobileNumber}</Typography>
         <Typography variant="h6">Email :  {user.email}</Typography>
         <Typography variant="h6">Role : {user.role}</Typography>
-        <Typography variant="h6"> {user.verified ? "Verified" : "Not Verified"}</Typography>
+        <Typography variant="h6"> {user.verified ? <p style={{ margin: "0px" }}>Verified<VerifiedIcon sx={{ color: "green", paddingLeft: "5px" }} /></p> : "Not Verified"}</Typography>
       </Stack >
     </Box>
   )

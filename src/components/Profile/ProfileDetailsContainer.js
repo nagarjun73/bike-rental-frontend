@@ -12,7 +12,7 @@ export default function ProfileDetailsContainer(props) {
             display: 'flex', flexDirection: "column", justifyContent: 'center'
           }
           }>
-            <CardContent sx={{ paddingTop: "4vw" }}>
+            <CardContent sx={{ paddingTop: "4vw", margin: "auto" }}>
               <Stack sx={{ display: 'flex', flexDirection: "column" }}>
                 <Typography variant='h5'>UID: {profile._id}</Typography>
                 <Typography variant='p'>date created : {new Date(profile.createdAt).toLocaleString()}</Typography>

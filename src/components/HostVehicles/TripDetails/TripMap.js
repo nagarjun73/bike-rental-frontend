@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardContent, Button } from '@mui/material'
+import { Card, CardContent, Button, Typography } from '@mui/material'
 import axios from '../../../config/axios';
 import { useNavigate } from 'react-router-dom'
 //Importing map components
@@ -108,7 +108,7 @@ export default function TripMap(props) {
               {user.name}
             </Popup>
           </Marker>
-        </MapContainer> : <h3>Location not Available</h3>}
+        </MapContainer> : <Typography margin="auto" sx={{ marginTop: { md: "20vh", xs: "5vh" } }}>Location not Available</Typography>}
         {role === "user" && <Button variant='contained' onClick={endTripHandle} >End Trip</Button>}
       </CardContent>
     </Card >

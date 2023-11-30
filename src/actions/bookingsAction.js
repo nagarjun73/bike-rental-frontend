@@ -90,4 +90,3 @@ export const startTripAfterReload = (id, upDateTripState) => {
     }
   }
 }
-

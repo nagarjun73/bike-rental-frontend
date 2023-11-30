@@ -19,7 +19,7 @@ export default function VehicleDetail() {
   const vehicle = allVehicles.find((ele) => ele._id === id)
 
   return (
-    <Box>
+    <Box sx={{ backgroundColor: "#fafafa" }}>
       <Typography variant='h2' paddingLeft="4vw" paddingTop="2vh">Vehicle Details</Typography>
       {
         vehicle &&

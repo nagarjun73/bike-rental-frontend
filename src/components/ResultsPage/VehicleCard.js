@@ -1,33 +1,22 @@
 import React from 'react'
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box, Grid, Stack, Rating } from '@mui/material'
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box, Grid, Stack } from '@mui/material'
 import Carousel from 'react-material-ui-carousel'
-import toast, { Toaster } from 'react-hot-toast'
 
 import { useNavigate, useLocation } from 'react-router-dom'
 import { UserContext } from '../../App'
-import { useContext, useState, useEffect } from 'react'
+import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import _ from 'lodash'
 import axios from '../../config/axios'
 import { startBookTrip } from '../../actions/bookingsAction'
+import RatingContainer from './RatingContainer'
 
 const VehicleCard = (props) => {
   const { vehicle } = props
-  const [rating, setRating] = useState(0)
   const { userState } = useContext(UserContext)
   const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useDispatch()
-
-
-  useEffect(() => {
-    const reviewAdd = vehicle.ratings.reduce((ini, ele) => {
-      return ini + ele.rating
-    }, 0)
-    console.log(reviewAdd);
-    const finalRating = reviewAdd / vehicle.ratings.length
-    setRating(finalRating);
-  }, [])
 
 
   //fuction handles profile verification return true if verified
@@ -88,7 +77,6 @@ const VehicleCard = (props) => {
 
   return (
     <Grid key={vehicle._id} item xs={12} sm={4} md={3} xl={2}>
-      <Toaster />
       <Box p={2} >
         <Card sx={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;", height: "40vh", borderRadius: "10px" }} >
           <Carousel sx={{ height: "20vh" }} >
@@ -129,15 +117,7 @@ const VehicleCard = (props) => {
                 >Book</Button>
               </CardActions>
             </Stack>
-            <Stack direction="row" paddingTop="2vh" justifyContent="center" gap={2}>
-              <Rating
-                name="simple-controlled"
-                value={rating}
-                precision={0.5}
-                readOnly
-              />
-              <Typography>({vehicle.ratings.length})</Typography>
-            </Stack>
+            <RatingContainer vehicle={vehicle} />
           </CardContent>
         </Card>
       </Box>

@@ -27,7 +27,7 @@ export default function TripDetailsContainer(props) {
   }, [])
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#fafafa" }}>
       <Typography variant='h2' textAlign="center" padding="10px">Trip Details</Typography>
       {!_.isEmpty(foundTrip) && (
         <Stack direction={{ md: "row", xs: "column" }}>

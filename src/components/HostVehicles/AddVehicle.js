@@ -146,16 +146,16 @@ export default function AddVehicle() {
       </Typography>
       <Box style={{ width: "90vw" }}
         component="form"
-        width="60vw"
+        sx={{ width: { md: "60vw", xs: "90vw" } }}
         display="flex"
         flexDirection="column"
         onSubmit={formik.handleSubmit}
         noValidate
       >
         <Stack
-          justifyContent="space-evenly"
-          flexDirection="row" gap={5}>
-          <Stack spacing={2} width="30vw">
+          sx={{ flexDirection: { md: "row", xs: "column" }, justifyContent: { md: "space-evenly", xs: "center" }, marginX: "auto" }}
+          gap={5}>
+          <Stack spacing={2} sx={{ width: { md: "30vw", xs: "90vw" } }}>
             {/* type input */}
             <TextField
               label="type"
@@ -204,10 +204,10 @@ export default function AddVehicle() {
               helpertext={formik.errors.registrationNumber}
               sx={{ backgroundColor: "white" }} />
           </Stack>
-          <Stack spacing={4} width="30vw">
+          <Stack spacing={4} sx={{ width: { md: "30vw", xs: "90vw" } }}>
 
             {/* Category Input */}
-            <FormControl sx={{ width: 300, paddingTop: "1vh", margin: "0px" }}>
+            <FormControl sx={{ paddingTop: "1vh", margin: "0px" }}>
               <InputLabel sx={{ paddingTop: "1vh" }}>range</InputLabel>
               <Select
                 sx={{ backgroundColor: 'white' }}

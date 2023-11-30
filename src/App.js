@@ -26,7 +26,8 @@ import Locations from './components/Admin/Locations/Locations'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
-
+import { ThemeProvider } from "@mui/material/styles";
+import theme from './config/@muiTheme'
 import { useDispatch } from "react-redux"
 import { jwtDecode } from 'jwt-decode'
 import { startGetLocation } from "./actions/locationAction"
@@ -34,6 +35,13 @@ import { startGetHostVehicles } from "./actions/vehicleAction"
 import { startGetVehicleType } from "./actions/vehicleTypeAction"
 import { startGetAdminData } from './actions/adminAction'
 import { startGetMyTrips } from "./actions/bookingsAction"
+
+//ROBOTO FONT IMPORT
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 import userReducer from './Context&Reducer/userReducer'
 export const UserContext = createContext()
@@ -85,37 +93,39 @@ export default function App() {
 
   return (
     <UserContext.Provider value={{ userState, userDispatch }}>
-      <BrowserRouter>
-        <Navbar />
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Navbar />
 
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/mytrips' element={<MyTripsContainer />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path="/queryresult" element={<QueryResult />} />
-          <Route path="/bookingdetails/:id" element={<BookingDetails />} />
-          <Route path="/verifyDocUser" element={<VerifyDocUser />} />
-          <Route path="/verifyDocHost" element={<VerifyDocHost />} />
-          <Route path="/displaymessage" element={<DisplayMessage />} />
-          <Route path="/success" element={<PaymentSuccess />} />
-          <Route path="/cancel" element={<PaymentCancel />} />
-          <Route path="/tripdetail/:id" element={<TripDetail />} />
-          {/* host routes */}
-          <Route path='/addvehicle' element={<AddVehicle />} />
-          <Route path='/vehicles' element={<VehiclesContainer />} />
-          <Route path='/vehicledetail/:id' element={<VehicleDetail />} />
-          <Route path="/hosttripdetails/:id" element={<TripDetailsContainer />} />
-          {/* admin routes */}
-          <Route path="/profileapproval" element={<ProfileApproval />} />
-          <Route path="/vehicleapproval" element={<VehicleApproval />} />
-          <Route path="/category" element={<VehicleCategory />} />
-          <Route path="/city" element={<Locations />} />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/mytrips' element={<MyTripsContainer />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path="/queryresult" element={<QueryResult />} />
+            <Route path="/bookingdetails/:id" element={<BookingDetails />} />
+            <Route path="/verifyDocUser" element={<VerifyDocUser />} />
+            <Route path="/verifyDocHost" element={<VerifyDocHost />} />
+            <Route path="/displaymessage" element={<DisplayMessage />} />
+            <Route path="/success" element={<PaymentSuccess />} />
+            <Route path="/cancel" element={<PaymentCancel />} />
+            <Route path="/tripdetail/:id" element={<TripDetail />} />
+            {/* host routes */}
+            <Route path='/addvehicle' element={<AddVehicle />} />
+            <Route path='/vehicles' element={<VehiclesContainer />} />
+            <Route path='/vehicledetail/:id' element={<VehicleDetail />} />
+            <Route path="/hosttripdetails/:id" element={<TripDetailsContainer />} />
+            {/* admin routes */}
+            <Route path="/profileapproval" element={<ProfileApproval />} />
+            <Route path="/vehicleapproval" element={<VehicleApproval />} />
+            <Route path="/category" element={<VehicleCategory />} />
+            <Route path="/city" element={<Locations />} />
 
 
-        </Routes>
-      </BrowserRouter >
+          </Routes>
+        </BrowserRouter >
+      </ThemeProvider>
     </UserContext.Provider>
   )
 }

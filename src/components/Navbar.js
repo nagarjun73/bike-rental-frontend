@@ -1,5 +1,5 @@
 //importing Material UI
-import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material'
+import { AppBar, Box, Toolbar, Typography, Button, Stack } from '@mui/material'
 import { useState } from 'react'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -144,9 +144,14 @@ export default function Navbar(props) {
   return (
     <AppBar position="static" sx={{ backgroundColor: '#ffffff', height: "10vh" }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-around' }}>
-        <Box>
-          <Typography variant='h4' sx={{ color: '#363062', justifyContent: 'start' }}>BikeRentals</Typography>
-        </Box>
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <img
+            src={`https://bikerentals6.s3.ap-south-1.amazonaws.com/frontend/logoMotomate.png`}
+            alt="logo"
+            width="75px"
+          />
+          <div style={{ color: '#363062', justifyContent: 'start', fontFamily: "roboto", fontWeight: "500", fontSize: "30px" }}>MotoMate</div>
+        </Stack>
 
         <Box sx={{ justifyContent: 'center' }}>
           {_.isEmpty(userState.user) ?

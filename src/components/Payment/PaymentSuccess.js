@@ -40,7 +40,7 @@ export default function PaymentSuccess() {
       }}>
         {Object.keys(bkgDetails).length !== 0 ?
           <Card sx={{
-            width: '50vw',
+            width: { md: '50vw', xs: "90vw" },
             boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
             borderRadius: '10px',
           }} >

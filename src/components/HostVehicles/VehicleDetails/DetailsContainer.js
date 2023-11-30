@@ -24,7 +24,7 @@ export default function DetailsContainer(props) {
     <Card sx={{
       minWidth: "30vw",
       boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-      borderRadius: "15px"
+      borderRadius: "15px",
     }} >
       <CardContent >
         <Stack>
