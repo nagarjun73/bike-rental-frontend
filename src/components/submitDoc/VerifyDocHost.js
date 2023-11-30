@@ -17,7 +17,7 @@ function VerifyDocHost() {
   const [location, setLocation] = useState('')
   const [drivingLicence, setDrivingLicence] = useState([])
   const [documentId, setDocumentId] = useState([])
-  const [clientError, setClientError] = useState({})
+  const [clientError] = useState({})
   const [serverError, setServerError] = useState({})
   const errors = {}
 
