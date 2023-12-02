@@ -1,5 +1,5 @@
 //importing Material UI
-import { AppBar, Box, Toolbar, Typography, Button, Stack } from '@mui/material'
+import { AppBar, Box, Toolbar, Button, Stack } from '@mui/material'
 import { useState } from 'react'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,14 +12,10 @@ import { Link } from 'react-router-dom'
 import { UserContext } from '../App'
 import { useContext } from 'react'
 
-//Importting redux
-import { useDispatch } from 'react-redux'
 
 export default function Navbar(props) {
   const { userState, userDispatch } = useContext(UserContext)
   const [anchorEl, setAnchorEl] = useState(null);
-
-  const dispatch = useDispatch()
 
   //Helper fuctions for @mui dropdowns
   const open = Boolean(anchorEl);
@@ -116,6 +112,9 @@ export default function Navbar(props) {
           open={open}
           onClose={handleClose}
         >
+          <MenuItem onClick={handleClose}>
+            <Link style={{ textDecoration: "none", color: '#363062' }} to='/statistics'>Statistics</Link>
+          </MenuItem>
           <MenuItem onClick={handleClose}>
             <Link style={{ textDecoration: "none", color: '#363062' }} to='/profileapproval'>Profile Approval</Link>
           </MenuItem>

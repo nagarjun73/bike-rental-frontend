@@ -15,7 +15,6 @@ export default function QueryForm() {
   const [endDate, setEndDate] = useState(null)
   const [clientError, setClientError] = useState({})
   const url = useLocation()
-  console.log(url);
 
   useEffect(() => {
     if (url.pathname == "/queryresult") {
