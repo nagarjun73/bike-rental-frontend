@@ -23,6 +23,7 @@ import ProfileApproval from './components/Admin/ProfileApproval/ProfileApproval'
 import VehicleApproval from './components/Admin/VehicleApproval/VehicleApproval'
 import VehicleCategory from './components/Admin/VehicleCategory/VehicleCategory'
 import Locations from './components/Admin/Locations/Locations'
+import Statistics from './components/Admin/Statistics/StatisticsContainer'
 
 //importing router components
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
@@ -121,8 +122,7 @@ export default function App() {
             <Route path="/vehicleapproval" element={<VehicleApproval />} />
             <Route path="/category" element={<VehicleCategory />} />
             <Route path="/city" element={<Locations />} />
-
-
+            <Route path='statistics' element={<Statistics />} />
           </Routes>
         </BrowserRouter >
       </ThemeProvider>
