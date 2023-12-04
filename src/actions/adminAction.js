@@ -27,7 +27,13 @@ export const startGetAdminData = () => {
         Authorization: localStorage.getItem('token')
       }
     })
-    const response = await Promise.all([unApprProfiles, unApprovedVehicles, vehicleCategories])
+
+    const statistics = axios.get('/api/admin/statistics', {
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    })
+    const response = await Promise.all([unApprProfiles, unApprovedVehicles, vehicleCategories, statistics])
     dispatch(updateAdminData(response))
   }
 }
