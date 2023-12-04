@@ -1,4 +1,4 @@
-**Project Summary: Bike Rental Frontend**
+**Project Summary: MotoMate**
 
 Motomate app facilitates easy vehicle rentals for personal, official or trip purposes. Users can search, book, and pay for available vehicles based on location and dates with long-term rental options. Hosts manage their fleet, keep track vehicle locations ensuring a seamless experience for both users and hosts. 
 
