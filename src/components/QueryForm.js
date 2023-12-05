@@ -15,12 +15,13 @@ export default function QueryForm() {
   const [endDate, setEndDate] = useState(null)
   const [clientError, setClientError] = useState({})
   const url = useLocation()
-  console.log(url);
 
   useEffect(() => {
-    if (url.pathname == "/queryresult") {
+    //check if query because queryform for used in 2 pages to know the location
+    if (url.pathname === "/queryresult") {
       const query = JSON.parse(localStorage.getItem('query'))
-      console.log(query);
+
+      //if query present set state
       if (query) {
         setLocation(query.location)
         setStartDate(new Date(query.tripStartDate))
@@ -31,6 +32,7 @@ export default function QueryForm() {
 
   const errors = {}
 
+  //validation function
   const runValidators = () => {
     if (location === '') {
       errors.location = "Please select your city"
@@ -49,6 +51,7 @@ export default function QueryForm() {
     }
   }
 
+  //locaton for drop downs
   const locations = useSelector((state) => {
     return state.location.locationList
   })
@@ -56,11 +59,14 @@ export default function QueryForm() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  //handle search fuction
   const handleSearch = (e) => {
     e.preventDefault()
 
+    //run validation fuction
     runValidators()
 
+    //if error object is not empty setError state
     if (Object.keys(errors).length !== 0) {
       setClientError(errors)
     } else {
@@ -69,13 +75,14 @@ export default function QueryForm() {
         tripEndDate: formatISO(endDate),
         location: location
       }
+      //saving to loacal storage for reaccess data
       localStorage.setItem("query", JSON.stringify(formData))
       dispatch(startSubmitQuery(formData))
       navigate('/queryresult')
       setClientError({})
     }
-
   }
+
   return (
     <div>
       <form onSubmit={handleSearch} >

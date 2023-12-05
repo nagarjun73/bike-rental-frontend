@@ -1,6 +1,6 @@
-import { Button, Modal, Box, Stack, TextField, TableCell } from '@mui/material'
+import { Button, Modal, Box, Stack, TextField } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { startEditCategory } from '../../../actions/vehicleTypeAction'
 import toast, { Toaster } from 'react-hot-toast'
 import { startAddCategory } from '../../../actions/adminAction'

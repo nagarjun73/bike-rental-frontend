@@ -46,12 +46,17 @@ export default function TripDetail() {
       justifyContent: "center",
       alignItems: "center",
       height: "90vh",
+      backgroundColor: "#fafafa"
     }}>
-      <Typography variant="h3">
+      <Typography variant="h3" gutterBottom>
         Trip Details
       </Typography>
       {Object.keys(tripDetails).length !== 0 && <Stack spacing={2}>
-        <Card sx={{ width: { md: "50vw", xs: "90vw" } }}>
+        <Card sx={{
+          width: { md: "50vw", xs: "90vw" },
+          boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+          borderRadius: '10px',
+        }}>
           <CardContent>
             <Stack>
               <Typography variant="h6">

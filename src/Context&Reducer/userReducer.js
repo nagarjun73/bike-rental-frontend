@@ -7,6 +7,10 @@ export default function userReducer(state, action) {
       return { ...state, user: {}, profile: {} }
     }
 
+    case "EDIT_USER": {
+      return { ...state, user: action.payload }
+    }
+
     case "UPDATE_TRIP_STATUS": {
       return {
         ...state, profile: {

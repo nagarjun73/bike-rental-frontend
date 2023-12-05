@@ -6,7 +6,11 @@ export default function ProfileDetailsContainer(props) {
 
   return (
     <div>
-      <Card sx={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;", borderRadius: "35px 35px 0px 0px" }}>
+      <Card sx={{
+        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+        borderRadius: "35px 35px 0px 0px",
+        paddingBottom: "5vh"
+      }}>
         {Object.keys(profile).length !== 0 &&
           (<Box sx={{
             display: 'flex', flexDirection: "column", justifyContent: 'center'

@@ -87,7 +87,7 @@ export default function StartTrip(props) {
               <Rating
                 name="simple-controlled"
                 value={rating}
-                sx={{ width: "12vw" }}
+                sx={{ width: { xl: "8vw", md: "13vw", xs: "20vw" } }}
                 onChange={(event, newValue) => {
                   setRating(newValue);
                 }}

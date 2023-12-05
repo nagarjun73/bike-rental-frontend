@@ -1,13 +1,14 @@
 const initialProfile = {
   unApprProfiles: [],
   unApprVehicles: [],
-  vehicleCategories: []
+  vehicleCategories: [],
+  statistics: {}
 }
 
 const adminReducer = (state = initialProfile, action) => {
   switch (action.type) {
     case "UPDATE_ADMIN_DATA": {
-      return { ...state, unApprProfiles: action.payload[0].data, unApprVehicles: action.payload[1].data, vehicleCategories: action.payload[2].data }
+      return { ...state, unApprProfiles: action.payload[0].data, unApprVehicles: action.payload[1].data, vehicleCategories: action.payload[2].data, statistics: action.payload[3].data }
     }
 
     case "UPDATE_APPROVE_PROFILE": {

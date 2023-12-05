@@ -105,24 +105,25 @@ export default function Login(props) {
         //Checking if prifile verified
         if (resProfile?.isVerified) {
           //if profile verified letting user to login
-          const header = {
+          const tokenHeader = {
             headers: {
               Authorization: localStorage.getItem('token')
             }
           }
-          const user = axios.get('/api/users/account', header)
-          const profile = axios.get('/api/users/profile', header)
+          const user = axios.get('/api/users/account', tokenHeader)
+          const profile = axios.get('/api/users/profile', tokenHeader)
           const response = await Promise.all([user, profile])
           userDispatch({ type: "LOGIN_USER", payload: response })
 
+          //Based on role accessing data
           const token = localStorage.getItem('token')
-          if (jwtDecode(token).role == "host") {
-            dispatch(startGetHostVehicles(1, -1))
+          if (jwtDecode(token).role === "host") {
+            dispatch(startGetHostVehicles(0, -1))
             dispatch(startGetVehicleType())
-          } else if (jwtDecode(token).role == "admin") {
+          } else if (jwtDecode(token).role === "admin") {
             dispatch(startGetAdminData())
           } else if (jwtDecode(token).role === "user") {
-            dispatch(startGetMyTrips(1, -1))
+            dispatch(startGetMyTrips(0, -1))
           }
 
           //After dispatching

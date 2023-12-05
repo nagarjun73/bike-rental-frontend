@@ -14,6 +14,7 @@ export default function ImageComp(props) {
           height="400"
           key={ele._id}
           image={ele.url}
+          navButtonsAlwaysVisible={true}
           sx={{
             objectFit: "contain",
             backgroundColor: "#ffffff",
