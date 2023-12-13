@@ -11,6 +11,10 @@ pw: Secret@123
 email: host1@gmail.com
 pw: Secret@123
 
+3. **Admin**
+email: admin2@gmail.com
+pw: Secret@123
+
 **Key Features:**
 
 1. **User-Friendly Interface:** The frontend boasts an interactive and visually appealing interface, ensuring an effortless browsing and rental process for customers.
