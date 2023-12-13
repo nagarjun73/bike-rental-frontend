@@ -3,11 +3,11 @@
 Motomate app facilitates easy vehicle rentals for personal, official or trip purposes. Users can search, book, and pay for available vehicles based on location and dates with long-term rental options. Hosts manage their fleet, keep track vehicle locations ensuring a seamless experience for both users and hosts. 
 
 **Dummy profile to test** (Account creation process includes KYC so need admin approval for doc verification)
-**User**
+1. **User**
 email: user1@gmail.com
 pw: Secret@123
 
-**Host**
+2. **Host**
 email: host1@gmail.com
 pw: Secret@123
 
