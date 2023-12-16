@@ -2,7 +2,16 @@
 
 Motomate app facilitates easy vehicle rentals for personal, official or trip purposes. Users can search, book, and pay for available vehicles based on location and dates with long-term rental options. Hosts manage their fleet, keep track vehicle locations ensuring a seamless experience for both users and hosts. 
 
-**Dummy profile to test** (Account creation process includes KYC. it needs admin approval for doc verification)
+**Screenshots**
+![ScreenShot](https://bikerentals6.s3.ap-south-1.amazonaws.com/bikerentals/Screenshot+(32).png)
+![ScreenShot](https://bikerentals6.s3.ap-south-1.amazonaws.com/bikerentals/Screenshot+(27).png)
+![ScreenShot](https://bikerentals6.s3.ap-south-1.amazonaws.com/bikerentals/Screenshot+(28).png)
+![ScreenShot](https://bikerentals6.s3.ap-south-1.amazonaws.com/bikerentals/Screenshot+(29).png)
+![ScreenShot](https://bikerentals6.s3.ap-south-1.amazonaws.com/bikerentals/Screenshot+(26).png)
+![ScreenShot](https://bikerentals6.s3.ap-south-1.amazonaws.com/bikerentals/Screenshot+(23).png)
+
+
+**Dummy profile for testing** (Account creation process includes KYC. it needs admin approval for doc verification)
 1. **User**
 email: user1@gmail.com
 pw: Secret@123
@@ -37,7 +46,3 @@ Motomate Version 1 is a Fullstack web application. ReactJS and MaterialUI on fro
 JsonWebToken based Authentication, Role Managment fuctionality for user to have the right amount of access of data and permission. Bcrypt.js for Password Encryption, Express Validator for middleware level validation and sanitization with loadsh.AWS S3 along with Multer is used for capturing and storing multiple images and made use of Nodemailer for Email Verification.
 
 Formik and Yup for handling form validation and state management. made use of socket for tracking realtime location of vehicle and displayed on map using React leaflet library. Integrated Payment gateway using Stripe.
-
-**Contributions and Future Scope:**
-
-The repository reflects diligent development, incorporating iterative improvements and enhancements. Future plans may include expanding features, optimizing performance, and further refining the user experience based on feedback and evolving industry standards.
